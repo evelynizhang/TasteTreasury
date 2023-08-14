@@ -2,12 +2,7 @@
 volumes:
   recipe-data:
     external: true
-
-
 services:
-
-
-
   fastapi:
     environment:
       DATABASE_URL: postgresql://example_user:secret@db/example
@@ -21,9 +16,6 @@ services:
       - 8000:8000
     volumes:
       - ./api:/app
-
-
-
   ghi:
     image: node:lts-bullseye
     command: /bin/bash run.sh
@@ -39,7 +31,6 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_API_HOST: ${REACT_APP_API_HOST}
-
   db:
     image: postgres:14.5-bullseye
     environment:
@@ -50,3 +41,10 @@ services:
       - "15432:5432"
     volumes:
       - recipe-data:/var/lib/postgresql/data
+  pgadmin:
+   image: dpage/pgadmin4
+   environment:
+     - PGADMIN_DEFAULT_EMAIL=user@user.com
+     - PGADMIN_DEFAULT_PASSWORD=password
+   ports:
+     - "5050:80"
