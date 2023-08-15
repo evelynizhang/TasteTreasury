@@ -1,17 +1,21 @@
 from pydantic import BaseModel
+from typing import List
+from jwtdown_fastapi.authentication import Token
+
 
 class DuplicateAccountError(ValueError):
     pass
 
 class AccountIn(BaseModel):
-    email: str
+    username: str
     password: str
-    username: str
 
-class AccountOutHashedPassword(BaseModel):
-    id: int
-    username: str
-    hashed_password: str
 class AccountOut (BaseModel):
     id: int
     username: str
+
+class AccountOutHashedPassword(AccountOut):
+    hashed_password: str
+
+class AccountToken(Token):
+    account:AccountOut

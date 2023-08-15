@@ -1,9 +1,18 @@
+from psycopg_pool import ConnectionPool
+import os
 from pydantic import BaseModel
 from models import AccountIn, AccountOut
 
+# pool = ConnectionPool(conninfo=os.environ['DATABASE_URL'])
 
-class AccountQueries(Queries):
 
-    def get(self, email: str) -> AccountOut:
+class AccountsRepo:
+    pass
 
-    def create(self, info: AccountIn, hashed_password: str ) -> AccountOut:
+class AccountQueries:
+    def create(self, info: AccountIn):
+         pass
+    # def get(self, email: str) -> AccountOut:
+    #     pass
+    # def create(self, info: AccountIn, hashed_password: str ) -> AccountOut:
+    #     pass
