@@ -1,4 +1,3 @@
-from pydantic import BaseModel
 from models import AccountIn, AccountOut, DuplicateAccountError, AccountOutHashedPassword
 from queries.pool import pool
 
@@ -29,8 +28,8 @@ class AccountQueries:
                         record[column.name] = row[i]
                 print(record)
                 return AccountOutHashedPassword(**record)
-                #    id=result.fetchone()[0], username=username, hashed_password=result.fetchone()[2]
-                # )
+
+
 
     def create(self, info: AccountIn, hashed_password: str):
         # connect the db
@@ -38,6 +37,18 @@ class AccountQueries:
             # get a cursor to run SQL
             with conn.cursor() as cur:
                 # run our INSERT statement
+                check = cur.execute(
+                    """
+                    SELECT *
+                    FROM accounts
+                    WHERE email = %s
+                    OR username = %s
+                    """,
+                    [info.email, info.username]
+                )
+                if check.fetchone():
+                    raise DuplicateAccountError
+
                 result = cur.execute(
                     """
                     INSERT INTO accounts
@@ -48,6 +59,7 @@ class AccountQueries:
                     """,
                     [info.username, info.email, hashed_password],
                 )
+
                 id = result.fetchone()[0]
                 # return new data
                 return AccountOut(id=id, username=info.username)

@@ -1,4 +1,3 @@
-# volumes:
 volumes:
   recipe-data:
     external: true

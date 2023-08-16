@@ -1,5 +1,4 @@
 from pydantic import BaseModel
-from typing import List
 from jwtdown_fastapi.authentication import Token
 
 
@@ -29,3 +28,7 @@ class AccountOutHashedPassword(AccountOut):
 
 class AccountToken(Token):
     account: AccountOut
+
+
+class HttpError(BaseModel):
+    detail: str
