@@ -2,6 +2,8 @@
 volumes:
   recipe-data:
     external: true
+  pg-admin:
+    external: true
 services:
   fastapi:
     environment:
@@ -25,7 +27,6 @@ services:
     ports:
       - "3000:3000"
     environment:
-
       HOST_OS: ${OS}
       NODE_ENV: development
       HOST: "0.0.0.0"
@@ -42,9 +43,12 @@ services:
     volumes:
       - recipe-data:/var/lib/postgresql/data
   pgadmin:
-   image: dpage/pgadmin4
-   environment:
-     - PGADMIN_DEFAULT_EMAIL=user@user.com
-     - PGADMIN_DEFAULT_PASSWORD=password
-   ports:
-     - "5050:80"
+    image: dpage/pgadmin4
+    volumes:
+      - pg-admin:/var/lib/pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: user@user.com
+      PGADMIN_DEFAULT_PASSWORD: password
+      PGADMIN_DISABLE_POSTFIX: 1
+    ports:
+      - "5050:80"
