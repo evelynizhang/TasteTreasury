@@ -1,4 +1,9 @@
-from models import AccountIn, AccountOut, DuplicateAccountError, AccountOutHashedPassword
+from models import (
+    AccountIn,
+    AccountOut,
+    DuplicateAccountError,
+    AccountOutHashedPassword,
+)
 from queries.pool import pool
 
 
@@ -29,8 +34,6 @@ class AccountQueries:
                 print(record)
                 return AccountOutHashedPassword(**record)
 
-
-
     def create(self, info: AccountIn, hashed_password: str):
         # connect the db
         with pool.connection() as conn:
@@ -44,7 +47,7 @@ class AccountQueries:
                     WHERE email = %s
                     OR username = %s
                     """,
-                    [info.email, info.username]
+                    [info.email, info.username],
                 )
                 if check.fetchone():
                     raise DuplicateAccountError
