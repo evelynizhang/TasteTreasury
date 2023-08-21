@@ -28,10 +28,8 @@ class AccountQueries:
                 row = cur.fetchone()
                 if row is not None:
                     record = {}
-                    print(cur.description)
                     for i, column in enumerate(cur.description):
                         record[column.name] = row[i]
-                print(record)
                 return AccountOutHashedPassword(**record)
 
     def create(self, info: AccountIn, hashed_password: str):

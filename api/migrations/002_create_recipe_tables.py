@@ -16,8 +16,7 @@ steps = [
     [
         """
         CREATE TABLE tags (
-            id SERIAL PRIMARY KEY NOT NULL UNIQUE,
-            name VARCHAR(50) NOT NULL UNIQUE
+            name VARCHAR(50) PRIMARY KEY NOT NULL UNIQUE
         );
         """,
         """
@@ -43,9 +42,12 @@ steps = [
         CREATE TABLE directions (
             id SERIAL PRIMARY KEY NOT NULL UNIQUE,
             recipe_step VARCHAR(1000) NOT NULL,
+            step_number SMALLINT,
             recipe_id INT,
             CONSTRAINT FK_recipes
-            FOREIGN KEY (recipe_id) REFERENCES recipes (id)
+            FOREIGN KEY (recipe_id) REFERENCES recipes (id),
+            CONSTRAINT unique_steps
+            UNIQUE (recipe_id, step_number)
         );
         """,
         """
@@ -56,12 +58,12 @@ steps = [
         """
         CREATE TABLE recipe_tags (
             recipe_id INT,
-            tag_id INT,
-            CONSTRAINT recipe_tags_pk PRIMARY KEY (recipe_id, tag_id),
+            tag_name VARCHAR(50),
+            CONSTRAINT recipe_tags_pk PRIMARY KEY (recipe_id, tag_name),
             CONSTRAINT FK_recipes
             FOREIGN KEY (recipe_id) REFERENCES recipes (id),
             CONSTRAINT FK_tags
-            FOREIGN KEY (tag_id) REFERENCES tags (id)
+            FOREIGN KEY (tag_name) REFERENCES tags (name)
         );
         """,
         """
