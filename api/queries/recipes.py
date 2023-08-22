@@ -144,3 +144,50 @@ class RecipeQueries:
                     )
 
                 return RecipeOut(id=id, **info.dict())
+
+    def delete(self, recipe_id: int):
+        with pool.connection() as conn:
+            # get a cursor to run SQL
+            with conn.cursor() as cur:
+                # run our INSERT statement
+                exists = cur.execute(
+                    """
+                    SELECT id
+                    FROM recipes
+                    WHERE id = %s
+                    """,
+                    [recipe_id],
+                )
+                if exists.fetchone() == None:
+                    return {
+                        "is_deleted": "unable to locate the recipe by given id"
+                    }
+                cur.execute(
+                    """
+                    DELETE FROM ingredients
+                    WHERE recipe_id = %s
+                    """,
+                    [recipe_id],
+                )
+                cur.execute(
+                    """
+                    DELETE FROM directions
+                    WHERE recipe_id = %s
+                    """,
+                    [recipe_id],
+                )
+                cur.execute(
+                    """
+                    DELETE FROM recipe_tags
+                    WHERE recipe_id = %s
+                    """,
+                    [recipe_id],
+                )
+                cur.execute(
+                    """
+                    DELETE FROM recipes
+                    WHERE id = %s
+                    """,
+                    [recipe_id],
+                )
+                return {"is_deleted": "recipe has been deleted"}

@@ -1,5 +1,11 @@
 from fastapi import APIRouter, Depends, HTTPException
-from models import RecipeOut, RecipeIn, HttpError, RecipeCardOut
+from models import (
+    RecipeOut,
+    RecipeIn,
+    HttpError,
+    RecipeCardOut,
+    DeleteResponse,
+)
 from queries.recipes import RecipeQueries
 from typing import List
 
@@ -34,3 +40,17 @@ def get_all_recipes(queries: RecipeQueries = Depends()):
     except:
         raise HTTPException(status_code=400, detail="Unable to fetch recipe")
     return recipes
+
+
+@router.delete(
+    "/api/recipes/{recipe_id}", response_model=DeleteResponse | HttpError
+)
+def delete_one_recipe(recipe_id: int, queries: RecipeQueries = Depends()):
+    try:
+        is_deleted = queries.delete(recipe_id)
+    except:
+        raise HTTPException(
+            status_code=400,
+            detail="Unable to delete the recipe",
+        )
+    return is_deleted

@@ -50,12 +50,24 @@ class RecipeIn(BaseModel):
     tags: List[str]
 
 
-class RecipeOut(RecipeIn):
+class RecipeOut(BaseModel):
     id: int
-
-
-class RecipeCardOut(BaseModel):
     name: str
     prep_time: str
     servings: int
     picture_url: str
+    ingredients: List[str]
+    directions: List[Direction]
+    tags: List[str]
+
+
+class RecipeCardOut(BaseModel):
+    id: int
+    name: str
+    prep_time: str
+    servings: int
+    picture_url: str
+
+
+class DeleteResponse(BaseModel):
+    is_deleted: str
