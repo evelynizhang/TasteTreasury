@@ -2,10 +2,16 @@ from models import RecipeIn, RecipeOut
 from queries.pool import pool
 
 
-
 class RecipeQueries:
+    def get_one(self, recipe_id: int):
+        with pool.connection() as conn:
+            # get a cursor to run SQL
+            with conn.cursor() as cur:
+                # run our INSERT statement
+                cur.execute()
+
     def create(self, info: RecipeIn):
-         with pool.connection() as conn:
+        with pool.connection() as conn:
             # get a cursor to run SQL
             with conn.cursor() as cur:
                 # run our INSERT statement
@@ -16,10 +22,7 @@ class RecipeQueries:
                     VALUES (%s, %s, %s, %s)
                     RETURNING id;
                     """,
-                    [info.name,
-                     info.prep_time,
-                     info.servings,
-                     info.picture_url],
+                    [info.name, info.prep_time, info.servings, info.picture_url],
                 )
                 id = result.fetchone()[0]
 
@@ -30,7 +33,7 @@ class RecipeQueries:
                             (item, recipe_id)
                         VALUES (%s, %s)
                         """,
-                        [ingredient, id]
+                        [ingredient, id],
                     )
                 for direction in info.directions:
                     cur.execute(
@@ -39,7 +42,7 @@ class RecipeQueries:
                             (recipe_step, step_number, recipe_id)
                         VALUES (%s, %s, %s)
                         """,
-                        [direction.recipe_step, direction.step_number, id]
+                        [direction.recipe_step, direction.step_number, id],
                     )
                 for tag in info.tags:
                     cur.execute(
@@ -48,10 +51,7 @@ class RecipeQueries:
                             (recipe_id, tag_name)
                         VALUES (%s, %s)
                         """,
-                        [id, tag]
+                        [id, tag],
                     )
 
-                return RecipeOut(
-                    id=id,
-                    **info.dict()
-                )
+                return RecipeOut(id=id, **info.dict())
