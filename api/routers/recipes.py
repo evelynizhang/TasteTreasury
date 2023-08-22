@@ -29,5 +29,8 @@ def get_one_recipe(recipe_id: int, queries: RecipeQueries = Depends()):
 
 @router.get("/api/recipes", response_model=List[RecipeCardOut] | HttpError)
 def get_all_recipes(queries: RecipeQueries = Depends()):
-    recipes = queries.get_all()
+    try:
+        recipes = queries.get_all()
+    except:
+        raise HTTPException(status_code=400, detail="Unable to fetch recipe")
     return recipes
