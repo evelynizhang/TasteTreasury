@@ -16,9 +16,13 @@ class RecipeQueries:
                     """,
                     [recipe_id],
                 )
-                recipe = recipe_data.fetchone()  # tuple containing specified values from recipe table
+                recipe = (
+                    recipe_data.fetchone()
+                )  # tuple containing specified values from recipe table
                 if recipe == None:
-                    return HttpError(detail="Unable to match id to existing recipe")
+                    return HttpError(
+                        detail="Unable to match id to existing recipe"
+                    )
                 ingredients_data = cur.execute(
                     """
                     SELECT item
@@ -42,7 +46,11 @@ class RecipeQueries:
                 # convert from list of tuples to list of Direction objects
                 directions = []
                 for direction in directions_data.fetchall():
-                    directions.append(Direction(step_number=direction[1], recipe_step=direction[0]))
+                    directions.append(
+                        Direction(
+                            step_number=direction[1], recipe_step=direction[0]
+                        )
+                    )
                 tags_data = cur.execute(
                     """
                     SELECT tag_name
@@ -66,6 +74,26 @@ class RecipeQueries:
                     tags=tags,
                 )
 
+    def get_all(self):
+        with pool.connection() as conn:
+            # get a cursor to run SQL
+            with conn.cursor() as cur:
+                # run our INSERT statement
+                cur.execute(
+                    """
+                    SELECT *
+                    FROM recipes;
+                    """
+                )
+                result = []
+                for row in cur.fetchall():
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+                    result.append(record)
+                    print(result)
+                return result
+
     def create(self, info: RecipeIn):
         with pool.connection() as conn:
             # get a cursor to run SQL
@@ -78,7 +106,12 @@ class RecipeQueries:
                     VALUES (%s, %s, %s, %s)
                     RETURNING id;
                     """,
-                    [info.name, info.prep_time, info.servings, info.picture_url],
+                    [
+                        info.name,
+                        info.prep_time,
+                        info.servings,
+                        info.picture_url,
+                    ],
                 )
                 id = result.fetchone()[0]
 

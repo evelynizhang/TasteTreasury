@@ -49,5 +49,13 @@ class RecipeIn(BaseModel):
     directions: List[Direction]
     tags: List[str]
 
+
 class RecipeOut(RecipeIn):
     id: int
+
+
+class RecipeCardOut(BaseModel):
+    name: str
+    prep_time: str
+    servings: int
+    picture_url: str
