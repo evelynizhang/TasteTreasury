@@ -67,7 +67,7 @@ steps = [
         );
         """,
         """
-        DROP TABLE recipes_tags;
+        DROP TABLE recipe_tags;
         """,
     ],
 ]
