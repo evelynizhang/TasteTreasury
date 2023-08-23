@@ -191,3 +191,79 @@ class RecipeQueries:
                     [recipe_id],
                 )
                 return {"is_deleted": "recipe has been deleted"}
+
+    def update(self, recipe_id: int, info: RecipeIn):
+        with pool.connection() as conn:
+            # get a cursor to run SQL
+            with conn.cursor() as cur:
+                # run our INSERT statement
+                cur.execute(
+                    """
+                    UPDATE recipes
+                    SET name = %s,
+                    prep_time = %s,
+                    servings = %s,
+                    picture_url = %s
+                    WHERE id = %s
+                    """,
+                    [
+                        info.name,
+                        info.prep_time,
+                        info.servings,
+                        info.picture_url,
+                        recipe_id,
+                    ],
+                )
+                cur.execute(
+                    """
+                    DELETE FROM ingredients
+                    WHERE recipe_id = %s
+                    """,
+                    [recipe_id],
+                )
+                cur.execute(
+                    """
+                    DELETE FROM directions
+                    WHERE recipe_id = %s
+                    """,
+                    [recipe_id],
+                )
+                cur.execute(
+                    """
+                    DELETE FROM recipe_tags
+                    WHERE recipe_id = %s
+                    """,
+                    [recipe_id],
+                )
+                for ingredient in info.ingredients:
+                    cur.execute(
+                        """
+                        INSERT INTO ingredients
+                            (item, recipe_id)
+                        VALUES (%s, %s)
+                        """,
+                        [ingredient, recipe_id],
+                    )
+                for direction in info.directions:
+                    cur.execute(
+                        """
+                        INSERT INTO directions
+                            (recipe_step, step_number, recipe_id)
+                        VALUES (%s, %s, %s)
+                        """,
+                        [
+                            direction.recipe_step,
+                            direction.step_number,
+                            recipe_id,
+                        ],
+                    )
+                for tag in info.tags:
+                    cur.execute(
+                        """
+                        INSERT INTO recipe_tags
+                            (recipe_id, tag_name)
+                        VALUES (%s, %s)
+                        """,
+                        [recipe_id, tag],
+                    )
+                return RecipeOut(id=recipe_id, **info.dict())
