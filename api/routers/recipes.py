@@ -59,8 +59,8 @@ def delete_one_recipe(recipe_id: int, queries: RecipeQueries = Depends()):
 def update_recipe(
     recipe_id: int, info: RecipeIn, queries: RecipeQueries = Depends()
 ):
-    # try:
-    recipe = queries.update(recipe_id, info)
-    # except:
-    #     raise HTTPException(status_code=400, detail="Unable to update recipe")
+    try:
+        recipe = queries.update(recipe_id, info)
+    except:
+        raise HTTPException(status_code=400, detail="Unable to update recipe")
     return recipe
