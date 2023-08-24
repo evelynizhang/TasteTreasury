@@ -68,6 +68,7 @@ class RecipeCardOut(BaseModel):
     prep_time: str
     servings: int
     picture_url: str
+    account_id: int
 
 
 class DeleteResponse(BaseModel):

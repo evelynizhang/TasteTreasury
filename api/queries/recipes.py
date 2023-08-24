@@ -75,7 +75,7 @@ class RecipeQueries:
                 cur.execute(
                     """
                     SELECT *
-                    FROM recipes;
+                    FROM recipes
                     """
                 )
                 result = []
@@ -84,7 +84,27 @@ class RecipeQueries:
                     for i, column in enumerate(cur.description):
                         record[column.name] = row[i]
                     result.append(record)
-                    print(result)
+                return result
+
+    def get_mine(self, account_id: int):
+        # connect the db
+        with pool.connection() as conn:
+            # get a cursor to run SQL
+            with conn.cursor() as cur:
+                cur.execute(
+                    """
+                    SELECT *
+                    FROM recipes
+                    WHERE account_id = %s
+                    """,
+                    [account_id],
+                )
+                result = []
+                for row in cur.fetchall():
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+                    result.append(record)
                 return result
 
     def create(self, info: RecipeIn, account_id: int):
@@ -97,7 +117,7 @@ class RecipeQueries:
                     INSERT INTO recipes
                         (name, prep_time, servings, picture_url, account_id)
                     VALUES (%s, %s, %s, %s, %s)
-                    RETURNING id;
+                    RETURNING id
                     """,
                     [info.name, info.prep_time, info.servings, info.picture_url, account_id],
                 )

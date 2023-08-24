@@ -8,7 +8,7 @@ from authenticator import authenticator
 router = APIRouter()
 
 
-@router.post("/api/recipes/mine", response_model=RecipeOut | HttpError)
+@router.post("/api/recipes", response_model=RecipeOut | HttpError)
 def create_recipe(
     info: RecipeIn,
     queries: RecipeQueries = Depends(),
@@ -26,7 +26,18 @@ def get_all_recipes(queries: RecipeQueries = Depends()):
     try:
         recipes = queries.get_all()
     except:
-        raise HTTPException(status_code=400, detail="Unable to fetch recipe")
+        raise HTTPException(status_code=400, detail="Unable to fetch recipes")
+    return recipes
+
+
+@router.get("/api/recipes/mine", response_model=List[RecipeCardOut] | HttpError)
+def get_my_recipes(
+    queries: RecipeQueries = Depends(), account_data: AccountOut = Depends(authenticator.get_current_account_data)
+):
+    try:
+        recipes = queries.get_mine(account_data["id"])
+    except:
+        raise HTTPException(status_code=400, detail="Unable to fetch recipes")
     return recipes
 
 
