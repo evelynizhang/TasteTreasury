@@ -4,25 +4,21 @@ from queries.pool import pool
 
 class RecipeQueries:
     def get_one(self, recipe_id: int):
+        # connect the db
         with pool.connection() as conn:
             # get a cursor to run SQL
             with conn.cursor() as cur:
-                # run our INSERT statement
                 recipe_data = cur.execute(
                     """
-                    SELECT name, prep_time, servings, picture_url
+                    SELECT name, prep_time, servings, picture_url, account_id
                     FROM recipes
                     WHERE id = %s
                     """,
                     [recipe_id],
                 )
-                recipe = (
-                    recipe_data.fetchone()
-                )  # tuple containing specified values from recipe table
+                recipe = recipe_data.fetchone()  # tuple containing specified values from recipe table
                 if recipe == None:
-                    return HttpError(
-                        detail="Unable to match id to existing recipe"
-                    )
+                    return HttpError(detail="Unable to match id to existing recipe")
                 ingredients_data = cur.execute(
                     """
                     SELECT item
@@ -46,11 +42,7 @@ class RecipeQueries:
                 # convert from list of tuples to list of Direction objects
                 directions = []
                 for direction in directions_data.fetchall():
-                    directions.append(
-                        Direction(
-                            step_number=direction[1], recipe_step=direction[0]
-                        )
-                    )
+                    directions.append(Direction(step_number=direction[1], recipe_step=direction[0]))
                 tags_data = cur.execute(
                     """
                     SELECT tag_name
@@ -69,16 +61,17 @@ class RecipeQueries:
                     prep_time=recipe[1],
                     servings=recipe[2],
                     picture_url=recipe[3],
+                    account_id=recipe[4],
                     ingredients=ingredients,
                     directions=directions,
                     tags=tags,
                 )
 
     def get_all(self):
+        # connect the db
         with pool.connection() as conn:
             # get a cursor to run SQL
             with conn.cursor() as cur:
-                # run our INSERT statement
                 cur.execute(
                     """
                     SELECT *
@@ -94,24 +87,19 @@ class RecipeQueries:
                     print(result)
                 return result
 
-    def create(self, info: RecipeIn):
+    def create(self, info: RecipeIn, account_id: int):
+        # connect the db
         with pool.connection() as conn:
             # get a cursor to run SQL
             with conn.cursor() as cur:
-                # run our INSERT statement
                 result = cur.execute(
                     """
                     INSERT INTO recipes
-                        (name, prep_time, servings, picture_url)
-                    VALUES (%s, %s, %s, %s)
+                        (name, prep_time, servings, picture_url, account_id)
+                    VALUES (%s, %s, %s, %s, %s)
                     RETURNING id;
                     """,
-                    [
-                        info.name,
-                        info.prep_time,
-                        info.servings,
-                        info.picture_url,
-                    ],
+                    [info.name, info.prep_time, info.servings, info.picture_url, account_id],
                 )
                 id = result.fetchone()[0]
 
@@ -143,13 +131,13 @@ class RecipeQueries:
                         [id, tag],
                     )
 
-                return RecipeOut(id=id, **info.dict())
+                return RecipeOut(id=id, **info.dict(), account_id=account_id)
 
     def delete(self, recipe_id: int):
+        # connect the db
         with pool.connection() as conn:
             # get a cursor to run SQL
             with conn.cursor() as cur:
-                # run our INSERT statement
                 exists = cur.execute(
                     """
                     SELECT id
@@ -159,30 +147,7 @@ class RecipeQueries:
                     [recipe_id],
                 )
                 if exists.fetchone() == None:
-                    return {
-                        "is_deleted": "unable to locate the recipe by given id"
-                    }
-                cur.execute(
-                    """
-                    DELETE FROM ingredients
-                    WHERE recipe_id = %s
-                    """,
-                    [recipe_id],
-                )
-                cur.execute(
-                    """
-                    DELETE FROM directions
-                    WHERE recipe_id = %s
-                    """,
-                    [recipe_id],
-                )
-                cur.execute(
-                    """
-                    DELETE FROM recipe_tags
-                    WHERE recipe_id = %s
-                    """,
-                    [recipe_id],
-                )
+                    return {"is_deleted": "unable to locate the recipe by given id"}
                 cur.execute(
                     """
                     DELETE FROM recipes
@@ -192,11 +157,11 @@ class RecipeQueries:
                 )
                 return {"is_deleted": "recipe has been deleted"}
 
-    def update(self, recipe_id: int, info: RecipeIn):
+    def update(self, recipe_id: int, info: RecipeIn, account_id: int):
+        # connect the db
         with pool.connection() as conn:
             # get a cursor to run SQL
             with conn.cursor() as cur:
-                # run our INSERT statement
                 cur.execute(
                     """
                     UPDATE recipes
@@ -266,4 +231,4 @@ class RecipeQueries:
                         """,
                         [recipe_id, tag],
                     )
-                return RecipeOut(id=recipe_id, **info.dict())
+                return RecipeOut(id=recipe_id, **info.dict(), account_id=account_id)

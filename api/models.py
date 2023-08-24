@@ -56,6 +56,7 @@ class RecipeOut(BaseModel):
     prep_time: str
     servings: int
     picture_url: str
+    account_id: int
     ingredients: List[str]
     directions: List[Direction]
     tags: List[str]

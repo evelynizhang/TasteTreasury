@@ -15,7 +15,7 @@ def create_recipe(
     account_data: AccountOut = Depends(authenticator.get_current_account_data),
 ):
     try:
-        recipe = queries.create(info)
+        recipe = queries.create(info, account_data["id"])
     except:
         raise HTTPException(status_code=400, detail="Unable to create a recipe")
     return recipe
@@ -60,7 +60,7 @@ def update_recipe(
     account_data: AccountOut = Depends(authenticator.get_current_account_data),
 ):
     try:
-        recipe = queries.update(recipe_id, info)
+        recipe = queries.update(recipe_id, info, account_data["id"])
     except:
         raise HTTPException(status_code=400, detail="Unable to update recipe")
     return recipe

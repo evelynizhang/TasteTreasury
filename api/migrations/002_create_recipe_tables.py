@@ -6,7 +6,10 @@ steps = [
             name VARCHAR(100) NOT NULL,
             prep_time VARCHAR(100),
             servings SMALLINT,
-            picture_url VARCHAR(1000)
+            picture_url VARCHAR(1000),
+            account_id INT,
+            CONSTRAINT FK_accounts
+            FOREIGN KEY (account_id) REFERENCES accounts (id) ON DELETE CASCADE
         );
         """,
         """
@@ -30,7 +33,7 @@ steps = [
             item VARCHAR(100) NOT NULL,
             recipe_id INT,
             CONSTRAINT FK_recipes
-            FOREIGN KEY (recipe_id) REFERENCES recipes (id)
+            FOREIGN KEY (recipe_id) REFERENCES recipes (id) ON DELETE CASCADE
         );
         """,
         """
@@ -45,7 +48,7 @@ steps = [
             step_number SMALLINT,
             recipe_id INT,
             CONSTRAINT FK_recipes
-            FOREIGN KEY (recipe_id) REFERENCES recipes (id),
+            FOREIGN KEY (recipe_id) REFERENCES recipes (id) ON DELETE CASCADE,
             CONSTRAINT unique_steps
             UNIQUE (recipe_id, step_number)
         );
@@ -61,9 +64,9 @@ steps = [
             tag_name VARCHAR(50),
             CONSTRAINT recipe_tags_pk PRIMARY KEY (recipe_id, tag_name),
             CONSTRAINT FK_recipes
-            FOREIGN KEY (recipe_id) REFERENCES recipes (id),
+            FOREIGN KEY (recipe_id) REFERENCES recipes (id) ON DELETE CASCADE,
             CONSTRAINT FK_tags
-            FOREIGN KEY (tag_name) REFERENCES tags (name)
+            FOREIGN KEY (tag_name) REFERENCES tags (name) ON DELETE CASCADE
         );
         """,
         """
