@@ -2,15 +2,28 @@
 import "./App.css";
 import Nav from "./Nav";
 
-// import Login from "./Login"
+import Login from "./Login"
+// import Signup from "./Signup"
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from "./Home"
+
 
 function App() {
 
   return (
-    <div>
+    <BrowserRouter>
       <Nav />
-      {/* <Login /> */}
-    </div>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+        <Routes>
+          <Route path="login" element={<Login />} />
+        </Routes>
+      </div>
+
+    </BrowserRouter>
+
   );
 }
 
