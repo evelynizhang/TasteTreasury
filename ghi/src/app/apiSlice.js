@@ -2,7 +2,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 
 export const recipeApi = createApi({
-
   reducerPath: 'recipeApi',
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_API_HOST,
@@ -28,7 +27,7 @@ export const recipeApi = createApi({
       query: (info) => {
         const formData = new FormData();
         formData.append("username", info.username);
-        formData.append("password", info.passowrd);
+        formData.append("password", info.password);
         return {
           url: "/token",
           method: "POST",
@@ -40,7 +39,6 @@ export const recipeApi = createApi({
     })
   })
 })
-
 
 export const {
   useGetTokenQuery,

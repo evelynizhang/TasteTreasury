@@ -1,46 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-// import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import reportWebVitals from './reportWebVitals';
 
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
 import { store } from './app/store';
 import { Provider } from 'react-redux';
-// import Login from './Login'
-// import Signup from "./Signup"
 
-
-// const router = createBrowserRouter([
-//   {
-//     element: <App />,
-//     children: [
-//       {
-//         path: '/',
-//         element: <div> hi </div>
-//       },
-//       {
-//         path: '/login',
-//         element: <Login />
-//       },
-//       {
-//         path: '/signup',
-//         element: <Signup />
-//       },
-//     ]
-
-//   }
-// ])
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-       {/* <RouterProvider router={router} /> */}
        <App />
     </Provider>
-
-
   </React.StrictMode>
   );
 

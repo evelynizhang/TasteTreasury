@@ -1,23 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLoginMutation } from "./app/apiSlice"
-// import { useAuthContext } from "@galvanize-inc/jwtdown-for-react";
+import { useNavigate } from "react-router-dom"
 
 
 
 function Login(){
-  // const { token } = useAuthContext();
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [login, loginResponse] = useLoginMutation();
+  const navigate = useNavigate();
 
-  console.log(loginResponse)
-  // console.log(username)
+  useEffect(() => {
+    if (loginResponse.isSuccess) navigate("/");
+  }, [loginResponse])
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // console.log("login");
-    console.log({username, password})
     login({username, password});
   }
 
