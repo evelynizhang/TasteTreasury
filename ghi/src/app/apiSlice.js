@@ -36,6 +36,17 @@ export const recipeApi = createApi({
         }
       },
       invalidatesTags: ["Account"]
+    }),
+    signup: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/api/accounts",
+          method: "POST",
+          body,
+          credentials: "include"
+        }
+      },
+      invalidatesTags: ["Account"]
     })
   })
 })
@@ -44,4 +55,5 @@ export const {
   useGetTokenQuery,
   useLogoutMutation,
   useLoginMutation,
+  useSignupMutation,
 } = recipeApi;
