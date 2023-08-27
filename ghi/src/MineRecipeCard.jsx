@@ -1,11 +1,15 @@
-import { useGetMineRecipeQuery } from "./app/apiSlice"
+import { useGetMineRecipeQuery, useGetTokenQuery } from "./app/apiSlice"
 
 
-function MineRecipeCard(props) {
+function MineRecipeCard() {
   const recipes = useGetMineRecipeQuery();
+
+  const token = useGetTokenQuery();
+  if (token.status === "fulfilled") {
+    const account_id = token.currentData.id;
   const data = recipes.data
-  console.log(recipes.status)
   if (recipes.status === "fulfilled") {
+    const myRecipes = recipes.data.filter((each) => each.account_id === account_id)
   return (
     <div className="row row-cols-3 g-3">
        {data.map(recipe => {
@@ -15,7 +19,6 @@ function MineRecipeCard(props) {
               <img src={recipe.picture_url} className="card-img-top" alt="..." height="300" />
               <div className="card-body">
                 <h5 className="card-title">{recipe.name} </h5>
-
               </div>
               <div className="card-footer">
                 <h6 className="text-muted">prep time: {recipe.prep_time}</h6>
@@ -27,6 +30,8 @@ function MineRecipeCard(props) {
     </div>
   );
   }
+}
+
 }
 
 export default MineRecipeCard;

@@ -1,9 +1,8 @@
 import { useGetRecipeQuery } from "./app/apiSlice"
 
 
-function AllRecipeCard(props) {
+function AllRecipeCard() {
   const recipes = useGetRecipeQuery();
-  // console.log(recipes)
   const data = recipes.data
   if (recipes.status === "fulfilled") {
   return (
