@@ -16,18 +16,26 @@ function Signup() {
   const getAccount = useGetAccountQuery();
   const navigate = useNavigate();
 
-  console.log(getAccount.status)
-
-
   useEffect(() => {
     if (signupResponse.isSuccess) navigate("/");
   } , [signupResponse])
 
+  if (getAccount.status === "fulfilled") {
+    const allUsername = getAccount.data.map((each) => each.username)
+    const allEmail = getAccount.data.map((each) => each.email)
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== password_confirmation) {
       setErrorMessage("Passwords do not match!")
+      return
+    };
+    if (allUsername.includes(username)) {
+      setErrorMessage("username is taken!")
+      return
+    }
+    if (allEmail.includes(email)) {
+      setErrorMessage("email is taken!")
       return
     }
     signup({username, password});
@@ -61,6 +69,7 @@ function Signup() {
    </div>
    </>
   )
+  }
 }
 
 export default Signup
