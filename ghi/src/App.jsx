@@ -1,11 +1,10 @@
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Nav from "./Nav";
-import Login from "./Login"
-import Signup from "./Signup"
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from "./Home"
-
+import Login from "./Login";
+import Signup from "./Signup";
+import Home from "./Home";
+import AllRecipes from "./AllRecipes";
 
 function App() {
   return (
@@ -20,6 +19,7 @@ function App() {
           <Route path="signup">
             <Route index element={<Signup />} />
           </Route>
+          <Route path="recipes" element={<AllRecipes />} />
         </Routes>
       </div>
     </BrowserRouter>
