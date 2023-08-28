@@ -1,7 +1,16 @@
 from fastapi import APIRouter, Depends, Request, Response, HTTPException
-from models import AccountToken, AccountIn, AccountForm, HttpError, AccountOut
+from jwtdown_fastapi.authentication import Token
+from models import (
+    AccountToken,
+    AccountIn,
+    AccountForm,
+    HttpError,
+    AccountOut,
+    AccountList,
+)
 from queries.accounts import AccountQueries, DuplicateAccountError
 from authenticator import authenticator
+from typing import List
 
 
 router = APIRouter()
@@ -22,6 +31,12 @@ async def create_account(
     form = AccountForm(username=info.username, password=info.password)
     token = await authenticator.login(response, request, form, queries)
     return AccountToken(account=account, **token.dict())
+
+
+@router.get("/api/accounts", response_model=List[AccountList] | HttpError)
+async def get_all_accounts(queries: AccountQueries = Depends()):
+    accounts = queries.get_all()
+    return accounts
 
 
 @router.get("/token", response_model=AccountToken | None)
