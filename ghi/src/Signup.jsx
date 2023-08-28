@@ -23,8 +23,6 @@ function Signup() {
     const allUsername = getAccounts.data.map((each) => each.username)
     const allEmail = getAccounts.data.map((each) => each.email)
 
-    console.log(signupResponse)
-
     const handleSubmit = (e) => {
       e.preventDefault();
       if (password !== password_confirmation) {
@@ -32,11 +30,11 @@ function Signup() {
         return
       };
       if (allUsername.includes(username)) {
-        setErrorMessage("username is taken!")
+        setErrorMessage("Username is taken!")
         return
       }
       if (allEmail.includes(email)) {
-        setErrorMessage("email is taken!")
+        setErrorMessage("Email is taken!")
         return
       }
       signup({username, email, password});
@@ -63,6 +61,7 @@ function Signup() {
           className="form-control"
           id="signup_email"
           aria-describedby="emailHelp"
+          maxLength="254"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Enter email" />
