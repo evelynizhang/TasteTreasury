@@ -1,28 +1,27 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-
+import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 export const recipeApi = createApi({
-  reducerPath: 'recipeApi',
+  reducerPath: "recipeApi",
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.REACT_APP_API_HOST,
   }),
   endpoints: (builder) => ({
     getToken: builder.query({
       query: () => ({
-        url: '/token',
-        credentials: 'include'
+        url: "/token",
+        credentials: "include",
       }),
       transformResponse: (response) => response?.account || null,
-      providesTags: ["Account"]
+      providesTags: ["Account"],
     }),
 
     logout: builder.mutation({
       query: () => ({
-        url: '/token',
+        url: "/token",
         method: "DELETE",
-        credentials: 'include'
+        credentials: "include",
       }),
-      invalidatesTags: ["Account"]
+      invalidatesTags: ["Account"],
     }),
 
     login: builder.mutation({
@@ -34,10 +33,10 @@ export const recipeApi = createApi({
           url: "/token",
           method: "POST",
           body: formData,
-          credentials: "include"
-        }
+          credentials: "include",
+        };
       },
-      invalidatesTags: ["Account"]
+      invalidatesTags: ["Account"],
     }),
 
     signup: builder.mutation({
@@ -46,23 +45,31 @@ export const recipeApi = createApi({
           url: "/api/accounts",
           method: "POST",
           body,
-          credentials: "include"
-        }
+          credentials: "include",
+        };
       },
-      invalidatesTags: ["Account"]
+      invalidatesTags: ["Account"],
     }),
 
     getAccounts: builder.query({
       query: () => ({
         url: "api/accounts",
         method: "GET",
-        credentials: "include"
+        credentials: "include",
       }),
-      providesTags: ["Account"]
+      providesTags: ["Account"],
     }),
 
-  })
-})
+    getAllRecipes: builder.query({
+      query: () => ({
+        url: "api/recipes",
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["Recipe"],
+    }),
+  }),
+});
 
 export const {
   useGetTokenQuery,
@@ -70,4 +77,5 @@ export const {
   useLoginMutation,
   useSignupMutation,
   useGetAccountsQuery,
+  useGetAllRecipesQuery,
 } = recipeApi;
