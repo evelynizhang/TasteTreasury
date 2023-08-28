@@ -1,4 +1,4 @@
-# Module3 Project Gamma
+# TasteTreasury
 
 ## Getting started
 

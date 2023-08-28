@@ -15,6 +15,7 @@ export const recipeApi = createApi({
       transformResponse: (response) => response?.account || null,
       providesTags: ["Account"]
     }),
+
     logout: builder.mutation({
       query: () => ({
         url: '/token',
@@ -23,6 +24,7 @@ export const recipeApi = createApi({
       }),
       invalidatesTags: ["Account"]
     }),
+
     login: builder.mutation({
       query: (info) => {
         const formData = new FormData();
@@ -36,7 +38,29 @@ export const recipeApi = createApi({
         }
       },
       invalidatesTags: ["Account"]
-    })
+    }),
+
+    signup: builder.mutation({
+      query: (body) => {
+        return {
+          url: "/api/accounts",
+          method: "POST",
+          body,
+          credentials: "include"
+        }
+      },
+      invalidatesTags: ["Account"]
+    }),
+
+    getAccounts: builder.query({
+      query: () => ({
+        url: "api/accounts",
+        method: "GET",
+        credentials: "include"
+      }),
+      providesTags: ["Account"]
+    }),
+
   })
 })
 
@@ -44,4 +68,6 @@ export const {
   useGetTokenQuery,
   useLogoutMutation,
   useLoginMutation,
+  useSignupMutation,
+  useGetAccountsQuery,
 } = recipeApi;

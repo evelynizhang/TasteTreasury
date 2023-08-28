@@ -1,10 +1,19 @@
 import { NavLink } from "react-router-dom";
 import { useGetTokenQuery, useLogoutMutation } from './app/apiSlice';
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+
 
 
 function Nav(){
   const { data: account } = useGetTokenQuery();
   const [logout, logoutResponse] = useLogoutMutation();
+  const navigate = useNavigate();
+
+
+  useEffect(() => {
+    if (logoutResponse.isSuccess) navigate("/");
+  }, [logoutResponse])
 
   return (
   <nav className="navbar navbar-expand-lg navbar-light bg-light">

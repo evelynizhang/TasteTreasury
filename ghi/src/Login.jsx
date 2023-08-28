@@ -12,7 +12,7 @@ function Login(){
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (loginResponse.isSuccess) navigate("/");
+    if (loginResponse.isSuccess) navigate("/recipes/mine");
   }, [loginResponse])
 
 

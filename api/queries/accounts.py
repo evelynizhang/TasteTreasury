@@ -33,12 +33,30 @@ class AccountQueries:
                 print(record)
                 return AccountOutHashedPassword(**record)
 
+    def get_all(self):
+        with pool.connection() as conn:
+            # get a cursor to run SQL
+            with conn.cursor() as cur:
+                # run our INSERT statement
+                cur.execute(
+                    """
+                    SELECT *
+                    FROM accounts
+                    """
+                )
+                result = []
+                for row in cur.fetchall():
+                    record = {}
+                    for i, column in enumerate(cur.description):
+                        record[column.name] = row[i]
+                    result.append(record)
+                return result
+
     def create(self, info: AccountIn, hashed_password: str):
         # connect the db
         with pool.connection() as conn:
             # get a cursor to run SQL
             with conn.cursor() as cur:
-                # run our INSERT statement
                 check = cur.execute(
                     """
                     SELECT *
@@ -63,5 +81,4 @@ class AccountQueries:
                 )
 
                 id = result.fetchone()[0]
-                # return new data
                 return AccountOut(id=id, username=info.username)
