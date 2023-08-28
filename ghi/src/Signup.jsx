@@ -3,8 +3,6 @@ import { useSignupMutation, useGetAccountQuery } from "./app/apiSlice"
 import { useNavigate } from "react-router-dom"
 
 
-
-
 function Signup() {
 
   const [username, setUsername] = useState("");
@@ -24,22 +22,22 @@ function Signup() {
     const allUsername = getAccount.data.map((each) => each.username)
     const allEmail = getAccount.data.map((each) => each.email)
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (password !== password_confirmation) {
-      setErrorMessage("Passwords do not match!")
-      return
-    };
-    if (allUsername.includes(username)) {
-      setErrorMessage("username is taken!")
-      return
+    const handleSubmit = (e) => {
+      e.preventDefault();
+      if (password !== password_confirmation) {
+        setErrorMessage("Passwords do not match!")
+        return
+      };
+      if (allUsername.includes(username)) {
+        setErrorMessage("username is taken!")
+        return
+      }
+      if (allEmail.includes(email)) {
+        setErrorMessage("email is taken!")
+        return
+      }
+      signup({username, password});
     }
-    if (allEmail.includes(email)) {
-      setErrorMessage("email is taken!")
-      return
-    }
-    signup({username, password});
-  }
 
   return (
     <>
