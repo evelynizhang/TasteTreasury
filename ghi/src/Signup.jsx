@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useSignupMutation, useGetAccountQuery } from "./app/apiSlice"
+import { useSignupMutation, useGetAccountsQuery } from "./app/apiSlice"
 import { useNavigate } from "react-router-dom"
 
 
@@ -11,16 +11,19 @@ function Signup() {
   const [password_confirmation, setPasswordConfirmation] = useState("");
   const [signup, signupResponse] = useSignupMutation();
   const [errorMessage, setErrorMessage] = useState("");
-  const getAccount = useGetAccountQuery();
+
+  const getAccounts = useGetAccountsQuery();
   const navigate = useNavigate();
 
   useEffect(() => {
     if (signupResponse.isSuccess) navigate("/");
   } , [signupResponse])
 
-  if (getAccount.status === "fulfilled") {
-    const allUsername = getAccount.data.map((each) => each.username)
-    const allEmail = getAccount.data.map((each) => each.email)
+  if (getAccounts.status === "fulfilled") {
+    const allUsername = getAccounts.data.map((each) => each.username)
+    const allEmail = getAccounts.data.map((each) => each.email)
+
+    console.log(signupResponse)
 
     const handleSubmit = (e) => {
       e.preventDefault();
@@ -36,7 +39,7 @@ function Signup() {
         setErrorMessage("email is taken!")
         return
       }
-      signup({username, password});
+      signup({username, email, password});
     }
 
   return (
@@ -47,20 +50,41 @@ function Signup() {
     <form onSubmit={handleSubmit}>
       <div className="form-group">
         <label htmlFor="username">Username</label>
-        <input type="text" className="form-control" id="signup_username" value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+        <input type="text"
+          className="form-control"
+          id="signup_username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username" />
       </div>
       <div className="form-group">
         <label htmlFor="exampleInputEmail1">Email address</label>
-        <input type="email" className="form-control" id="signup_email" aria-describedby="emailHelp" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Enter email" />
+        <input type="email"
+          className="form-control"
+          id="signup_email"
+          aria-describedby="emailHelp"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Enter email" />
         <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
       </div>
       <div className="form-group">
         <label htmlFor="exampleInputPassword1">Password</label>
-        <input type="password" className="form-control" id="signup_password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" />
+        <input type="password"
+          className="form-control"
+          id="signup_password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password" />
       </div>
        <div className="form-group">
         <label htmlFor="exampleInputPassword2">Password confirmation</label>
-        <input type="password" className="form-control" id="signup_password_confirmation" value={password_confirmation} onChange={(e) => setPasswordConfirmation(e.target.value)} placeholder="Password Confirmation" />
+        <input type="password"
+          className="form-control"
+          id="signup_password_confirmation"
+          value={password_confirmation}
+          onChange={(e) => setPasswordConfirmation(e.target.value)}
+          placeholder="Password Confirmation" />
       </div>
       <button type="submit" className="btn btn-primary">Sign up</button>
    </form>

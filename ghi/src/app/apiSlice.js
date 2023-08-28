@@ -61,7 +61,7 @@ export const recipeApi = createApi({
       providesTags: ["Recipe"]
     }),
 
-    getAccount: builder.query({
+    getAccounts: builder.query({
       query: () => ({
         url: "api/accounts",
         method: "GET",
@@ -87,6 +87,6 @@ export const {
   useLoginMutation,
   useSignupMutation,
   useGetRecipeQuery,
-  useGetAccountQuery,
+  useGetAccountsQuery,
   useGetMineRecipeQuery,
 } = recipeApi;
