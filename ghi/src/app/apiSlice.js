@@ -52,15 +52,6 @@ export const recipeApi = createApi({
       invalidatesTags: ["Account"]
     }),
 
-    getRecipe: builder.query({
-      query: () => ({
-          url: "api/recipes",
-          method: "GET",
-          credentials: "include"
-      }),
-      providesTags: ["Recipe"]
-    }),
-
     getAccounts: builder.query({
       query: () => ({
         url: "api/accounts",
@@ -70,14 +61,6 @@ export const recipeApi = createApi({
       providesTags: ["Account"]
     }),
 
-    getMineRecipe: builder.query({
-      query: () => ({
-        url: "api/recipes/mine",
-        method: "GET",
-        credentials: "include"
-      }),
-      providesTags: ["Recipes"]
-    })
   })
 })
 
@@ -86,7 +69,5 @@ export const {
   useLogoutMutation,
   useLoginMutation,
   useSignupMutation,
-  useGetRecipeQuery,
   useGetAccountsQuery,
-  useGetMineRecipeQuery,
 } = recipeApi;
