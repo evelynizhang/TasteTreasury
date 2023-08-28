@@ -1,5 +1,12 @@
 from fastapi import APIRouter, Depends, HTTPException
-from models import RecipeOut, RecipeIn, HttpError, RecipeCardOut, DeleteResponse, AccountOut
+from models import (
+    RecipeOut,
+    RecipeIn,
+    HttpError,
+    RecipeCardOut,
+    DeleteResponse,
+    AccountOut,
+)
 from queries.recipes import RecipeQueries
 from typing import List
 from authenticator import authenticator
@@ -16,8 +23,10 @@ def create_recipe(
 ):
     try:
         recipe = queries.create(info, account_data["id"])
-    except:
-        raise HTTPException(status_code=400, detail="Unable to create a recipe")
+    except HttpError:
+        raise HTTPException(
+            status_code=400, detail="Unable to create a recipe"
+        )
     return recipe
 
 
@@ -25,18 +34,21 @@ def create_recipe(
 def get_all_recipes(queries: RecipeQueries = Depends()):
     try:
         recipes = queries.get_all()
-    except:
+    except HttpError:
         raise HTTPException(status_code=400, detail="Unable to fetch recipes")
     return recipes
 
 
-@router.get("/api/recipes/mine", response_model=List[RecipeCardOut] | HttpError)
+@router.get(
+    "/api/recipes/mine", response_model=List[RecipeCardOut] | HttpError
+)
 def get_my_recipes(
-    queries: RecipeQueries = Depends(), account_data: AccountOut = Depends(authenticator.get_current_account_data)
+    queries: RecipeQueries = Depends(),
+    account_data: AccountOut = Depends(authenticator.get_current_account_data),
 ):
     try:
         recipes = queries.get_mine(account_data["id"])
-    except:
+    except HttpError:
         raise HTTPException(status_code=400, detail="Unable to fetch recipes")
     return recipes
 
@@ -45,12 +57,14 @@ def get_my_recipes(
 def get_one_recipe(recipe_id: int, queries: RecipeQueries = Depends()):
     try:
         recipe = queries.get_one(recipe_id)
-    except:
+    except HttpError:
         raise HTTPException(status_code=400, detail="Unable to fetch recipe")
     return recipe
 
 
-@router.delete("/api/recipes/{recipe_id}", response_model=DeleteResponse | HttpError)
+@router.delete(
+    "/api/recipes/{recipe_id}", response_model=DeleteResponse | HttpError
+)
 def delete_one_recipe(
     recipe_id: int,
     queries: RecipeQueries = Depends(),
@@ -58,8 +72,10 @@ def delete_one_recipe(
 ):
     try:
         is_deleted = queries.delete(recipe_id)
-    except:
-        raise HTTPException(status_code=400, detail="Unable to delete the recipe")
+    except HttpError:
+        raise HTTPException(
+            status_code=400, detail="Unable to delete the recipe"
+        )
     return is_deleted
 
 
@@ -72,6 +88,6 @@ def update_recipe(
 ):
     try:
         recipe = queries.update(recipe_id, info, account_data["id"])
-    except:
+    except HttpError:
         raise HTTPException(status_code=400, detail="Unable to update recipe")
     return recipe

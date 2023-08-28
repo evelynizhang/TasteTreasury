@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, Request, Response, HTTPException
-from jwtdown_fastapi.authentication import Token
 from models import AccountToken, AccountIn, AccountForm, HttpError, AccountOut
 from queries.accounts import AccountQueries, DuplicateAccountError
 from authenticator import authenticator
@@ -27,7 +26,8 @@ async def create_account(
 
 @router.get("/token", response_model=AccountToken | None)
 async def get_token(
-    request: Request, account: AccountOut = Depends(authenticator.try_get_current_account_data)
+    request: Request,
+    account: AccountOut = Depends(authenticator.try_get_current_account_data),
 ) -> AccountToken | None:
     if account and authenticator.cookie_name in request.cookies:
         return {
