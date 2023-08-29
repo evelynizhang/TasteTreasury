@@ -41,6 +41,15 @@ class FakeRecipeQueries:
     def create(self, info: RecipeIn, account_id: int):
         return RecipeOut(id=1, **info.dict(), account_id=account_id)
 
+    def delete(self, recipe_id: int):
+        return {"is_deleted": "recipe has been deleted"}
+
+    def update(self, recipe_id: int, info: RecipeIn, account_id: int):
+        result = info.dict()
+        result["account_id"] = account_id
+        result["id"] = recipe_id
+        return result
+
 
 def test_get_all_recipes():
     app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
@@ -81,7 +90,9 @@ def test_get_one_recipe():
 
 def test_create_recipe():
     app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
-    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+    ] = fake_get_current_account_data
     body = {
         "name": "best pizza",
         "prep_time": "string",
@@ -105,4 +116,47 @@ def test_create_recipe():
         "directions": [{"step_number": 0, "recipe_step": "string"}],
         "tags": ["pizza"],
         "account_id": 1,
+    }
+
+
+def test_delete_one_recipe():
+    app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
+    app.dependency_overrides[
+        authenticator.get_current_account_data
+    ] = fake_get_current_account_data
+    res = client.delete("/api/recipes/1")
+    data = res.json()
+
+    assert res.status_code == 200
+    assert data == {"is_deleted": "recipe has been deleted"}
+
+
+def test_update_recipe():
+    app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
+    app.dependency_overrides[
+        authenticator.get_account_data
+    ] = fake_get_current_account_data
+    body = {
+        "name": "practice",
+        "prep_time": "string",
+        "servings": 0,
+        "picture_url": "string",
+        "ingredients": ["string"],
+        "directions": [{"step_number": 0, "recipe_step": "string"}],
+        "tags": ["string"],
+    }
+    res = client.put("/api/recipes/1", json=body)
+    data = res.json()
+
+    assert res.status_code == 200
+    assert data == {
+        "id": 1,
+        "name": "practice",
+        "prep_time": "string",
+        "servings": 0,
+        "picture_url": "string",
+        "account_id": 1,
+        "ingredients": ["string"],
+        "directions": [{"step_number": 0, "recipe_step": "string"}],
+        "tags": ["string"],
     }
