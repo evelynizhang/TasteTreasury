@@ -2,6 +2,7 @@ from fastapi.testclient import TestClient
 from main import app
 from queries.recipes import RecipeQueries
 from authenticator import authenticator
+from models import RecipeIn, RecipeOut
 
 
 client = TestClient(app)
@@ -36,6 +37,9 @@ class FakeRecipeQueries:
             "directions": [{"step_number": 0, "recipe_step": "string"}],
             "tags": ["chicken"],
         }
+
+    def create(self, info: RecipeIn, account_id: int):
+        return RecipeOut(id=1, **info.dict(), account_id=account_id)
 
 
 def test_get_all_recipes():
@@ -77,4 +81,28 @@ def test_get_one_recipe():
 
 def test_create_recipe():
     app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
-    app.dependency_overrides[authenticator.get_current_account_data] = FakeRecipeQueries
+    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
+    body = {
+        "name": "best pizza",
+        "prep_time": "string",
+        "servings": 0,
+        "picture_url": "string",
+        "ingredients": ["string"],
+        "directions": [{"step_number": 0, "recipe_step": "string"}],
+        "tags": ["pizza"],
+    }
+    res = client.post("/api/recipes", json=body)
+    data = res.json()
+
+    assert res.status_code == 200
+    assert data == {
+        "id": 1,
+        "name": "best pizza",
+        "prep_time": "string",
+        "servings": 0,
+        "picture_url": "string",
+        "ingredients": ["string"],
+        "directions": [{"step_number": 0, "recipe_step": "string"}],
+        "tags": ["pizza"],
+        "account_id": 1,
+    }
