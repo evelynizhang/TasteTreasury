@@ -16,9 +16,12 @@ class RecipeQueries:
                     """,
                     [recipe_id],
                 )
-                recipe = recipe_data.fetchone()  # tuple containing specified values from recipe table
-                if recipe == None:
-                    return HttpError(detail="Unable to match id to existing recipe")
+                # tuple containing specified values from recipe table
+                recipe = recipe_data.fetchone()
+                if recipe is None:
+                    return HttpError(
+                        detail="Unable to match id to existing recipe"
+                    )
                 ingredients_data = cur.execute(
                     """
                     SELECT item
@@ -42,7 +45,11 @@ class RecipeQueries:
                 # convert from list of tuples to list of Direction objects
                 directions = []
                 for direction in directions_data.fetchall():
-                    directions.append(Direction(step_number=direction[1], recipe_step=direction[0]))
+                    directions.append(
+                        Direction(
+                            step_number=direction[1], recipe_step=direction[0]
+                        )
+                    )
                 tags_data = cur.execute(
                     """
                     SELECT tag_name
@@ -119,7 +126,13 @@ class RecipeQueries:
                     VALUES (%s, %s, %s, %s, %s)
                     RETURNING id
                     """,
-                    [info.name, info.prep_time, info.servings, info.picture_url, account_id],
+                    [
+                        info.name,
+                        info.prep_time,
+                        info.servings,
+                        info.picture_url,
+                        account_id,
+                    ],
                 )
                 id = result.fetchone()[0]
 
@@ -166,8 +179,10 @@ class RecipeQueries:
                     """,
                     [recipe_id],
                 )
-                if exists.fetchone() == None:
-                    return {"is_deleted": "unable to locate the recipe by given id"}
+                if exists.fetchone() is None:
+                    return {
+                        "is_deleted": "unable to locate the recipe by given id"
+                    }
                 cur.execute(
                     """
                     DELETE FROM recipes
@@ -251,4 +266,6 @@ class RecipeQueries:
                         """,
                         [recipe_id, tag],
                     )
-                return RecipeOut(id=recipe_id, **info.dict(), account_id=account_id)
+                return RecipeOut(
+                    id=recipe_id, **info.dict(), account_id=account_id
+                )
