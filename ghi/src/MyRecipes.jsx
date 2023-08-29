@@ -1,13 +1,13 @@
-import { useGetAllRecipesQuery } from "./app/apiSlice";
+import { useGetMyRecipesQuery } from "./app/apiSlice";
 import "./App";
 import "./styles.css";
 import { Link } from "react-router-dom";
 
-function AllRecipes() {
-  const allRecipes = useGetAllRecipesQuery();
-  const data = allRecipes.data;
+function MyRecipes() {
+  const myRecipes = useGetMyRecipesQuery();
+  const data = myRecipes.data;
   console.log(data);
-  if (allRecipes.status === "fulfilled") {
+  if (myRecipes.status === "fulfilled") {
     return (
       <>
         <header className="bg-dark py-5">
@@ -25,7 +25,7 @@ function AllRecipes() {
               {data.map((recipe) => {
                 let path = `/recipes/${recipe.id}`;
                 return (
-                  <div className="col mb-5">
+                  <div className="col mb-5" key={recipe.id}>
                     <div className="card h-100">
                       {/* Product image*/}
                       <Link to={path}>
@@ -59,4 +59,4 @@ function AllRecipes() {
     );
   }
 }
-export default AllRecipes;
+export default MyRecipes;

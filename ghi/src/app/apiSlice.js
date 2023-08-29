@@ -21,7 +21,7 @@ export const recipeApi = createApi({
         method: "DELETE",
         credentials: "include",
       }),
-      invalidatesTags: ["Account"],
+      invalidatesTags: ["Account", "Recipe"],
     }),
 
     login: builder.mutation({
@@ -68,6 +68,15 @@ export const recipeApi = createApi({
       }),
       providesTags: ["Recipe"],
     }),
+
+    getMyRecipes: builder.query({
+      query: () => ({
+        url: "api/recipes/mine",
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["Recipe"],
+    }),
   }),
 });
 
@@ -78,4 +87,5 @@ export const {
   useSignupMutation,
   useGetAccountsQuery,
   useGetAllRecipesQuery,
+  useGetMyRecipesQuery,
 } = recipeApi;
