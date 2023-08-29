@@ -20,7 +20,7 @@ class FakeRecipeQueries:
                 "name": "string",
                 "prep_time": "string",
                 "servings": 0,
-                "picture_url": "https://pinchofyum.com/wp-content/uploads/Instant-Pot-Mac-and-Cheese-Square.jpg",
+                "picture_url": "jpg",
                 "account_id": 3,
             }
         ]
@@ -31,7 +31,7 @@ class FakeRecipeQueries:
             "name": "string",
             "prep_time": "string",
             "servings": 0,
-            "picture_url": "https://pinchofyum.com/wp-content/uploads/Instant-Pot-Mac-and-Cheese-Square.jpg",
+            "picture_url": "jpg",
             "account_id": 3,
             "ingredients": ["string"],
             "directions": [{"step_number": 0, "recipe_step": "string"}],
@@ -50,7 +50,6 @@ class FakeRecipeQueries:
         result["id"] = recipe_id
         return result
 
-
     def get_mine(self, account_id: int):
         return [
             {
@@ -59,8 +58,8 @@ class FakeRecipeQueries:
                 "prep_time": "string",
                 "servings": 0,
                 "picture_url": "string",
-                "account_id": account_id
-             }
+                "account_id": account_id,
+            }
         ]
 
 
@@ -76,7 +75,8 @@ def test_get_all_recipes():
             "name": "string",
             "prep_time": "string",
             "servings": 0,
-            "picture_url": "https://pinchofyum.com/wp-content/uploads/Instant-Pot-Mac-and-Cheese-Square.jpg",
+            "picture_url":
+            "jpg",
             "account_id": 3,
         }
     ]
@@ -93,7 +93,7 @@ def test_get_one_recipe():
         "name": "string",
         "prep_time": "string",
         "servings": 0,
-        "picture_url": "https://pinchofyum.com/wp-content/uploads/Instant-Pot-Mac-and-Cheese-Square.jpg",
+        "picture_url": "jpg",
         "account_id": 3,
         "ingredients": ["string"],
         "directions": [{"step_number": 0, "recipe_step": "string"}],
@@ -174,6 +174,7 @@ def test_update_recipe():
         "tags": ["string"],
     }
 
+
 def test_get_my_recipes():
     app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
     app.dependency_overrides[
@@ -189,6 +190,6 @@ def test_get_my_recipes():
             "prep_time": "string",
             "servings": 0,
             "picture_url": "string",
-            "account_id": 1
+            "account_id": 1,
         }
     ]
