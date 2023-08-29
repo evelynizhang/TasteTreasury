@@ -1,5 +1,4 @@
 from fastapi import APIRouter, Depends, Request, Response, HTTPException
-from jwtdown_fastapi.authentication import Token
 from models import (
     AccountToken,
     AccountIn,
