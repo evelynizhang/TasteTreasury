@@ -51,6 +51,19 @@ class FakeRecipeQueries:
         return result
 
 
+    def get_mine(self, account_id: int):
+        return [
+            {
+                "id": 1,
+                "name": "string",
+                "prep_time": "string",
+                "servings": 0,
+                "picture_url": "string",
+                "account_id": account_id
+             }
+        ]
+
+
 def test_get_all_recipes():
     app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
     res = client.get("/api/recipes")
@@ -160,3 +173,22 @@ def test_update_recipe():
         "directions": [{"step_number": 0, "recipe_step": "string"}],
         "tags": ["string"],
     }
+
+def test_get_my_recipes():
+    app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
+    app.dependency_overrides[
+        authenticator.get_account_data
+    ] = fake_get_current_account_data
+    res = client.get("/api/recipes/mine")
+    data = res.json()
+    assert res.status_code == 200
+    assert data == [
+        {
+            "id": 1,
+            "name": "string",
+            "prep_time": "string",
+            "servings": 0,
+            "picture_url": "string",
+            "account_id": 1
+        }
+    ]
