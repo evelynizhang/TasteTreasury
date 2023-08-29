@@ -1,9 +1,14 @@
 from fastapi.testclient import TestClient
 from main import app
 from queries.recipes import RecipeQueries
+from authenticator import authenticator
 
 
 client = TestClient(app)
+
+
+def fake_get_current_account_data():
+    return {"id": 1, "username": "fakeuser"}
 
 
 class FakeRecipeQueries:
@@ -68,3 +73,8 @@ def test_get_one_recipe():
         "directions": [{"step_number": 0, "recipe_step": "string"}],
         "tags": ["chicken"],
     }
+
+
+def test_create_recipe():
+    app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
+    app.dependency_overrides[authenticator.get_current_account_data] = FakeRecipeQueries
