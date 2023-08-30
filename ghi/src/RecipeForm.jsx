@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, React } from "react";
 import { useGetAllTagsQuery, useCreateRecipeMutation } from "./app/apiSlice";
 import { useNavigate } from "react-router-dom";
+import Select from 'react-select';
+
 
 function RecipeForm() {
   const [formData, setFormData] = useState({
@@ -17,6 +19,10 @@ function RecipeForm() {
   const getTags = useGetAllTagsQuery();
   const [createRecipe, createRecipeResponse] = useCreateRecipeMutation();
   const navigate = useNavigate();
+  const [selectedOption, setSelectedOption] = useState(null);
+
+
+
 
   const handleFormChange = (e) => {
     const inputName = e.target.name;
@@ -72,16 +78,39 @@ function RecipeForm() {
         recipe_step: each,
       });
     }
-    console.log(directions);
     setFormData({
       ...formData,
       servings: Number(formData.servings),
       ingredients,
       directions,
-      tags: getTags.data,
+      tags: tags,
     });
     createRecipe(formData);
   };
+
+
+
+  const options = []
+  if (getTags.status === "fulfilled") {
+    getTags.data.map((each) => {
+      return (
+        options.push({"value": each, "label": each})
+      )
+    })
+  }
+
+
+  const handleTagChange = (selectedOption) => {
+    setSelectedOption(selectedOption)
+  }
+   const tags = []
+  if (selectedOption) {
+    selectedOption.map( (each) => {
+      return tags.push(each.value)
+    })
+  }
+  console.log(tags)
+
 
   useEffect(() => {
     if (createRecipeResponse.isSuccess) {
@@ -89,6 +118,9 @@ function RecipeForm() {
       navigate(recipeUrl);
     }
   }, [createRecipeResponse]);
+
+
+
 
   return (
     <div className="row">
@@ -153,10 +185,10 @@ function RecipeForm() {
             </div>
             <h6>Enter your ingredients</h6>
             <div className="form-floating mb-3">
-              {/* <label htmlFor="ingredients">Ingredients</label> */}
               {ingredients.map((singleIngredient, index) => (
                 <div key={index} className="ingredients">
-                  <div className="first-division">
+                  <div className="form-row" >
+                    <div className="col-9">
                     <input
                       type="ingredients"
                       className="form-control"
@@ -166,21 +198,22 @@ function RecipeForm() {
                       onChange={(e) => handleIngredientChange(e, index)}
                     />
                   </div>
-                  <div className="second-division">
+                  <div className="col-2">
                     {ingredients.length > 1 && (
                       <button
                         type="button"
-                        className="btn btn-danger"
+                        className="btn btn-danger btn-sm"
                         onClick={() => handleIngredientRemove(index)}
                       >
-                        <span>Remove an ingredient</span>
+                        <span>Remove</span>
                       </button>
                     )}
+                  </div>
                   </div>
                   {ingredients.length - 1 === index && (
                     <button
                       type="button"
-                      className="btn btn-success"
+                      className="btn btn-success btn-sm"
                       onClick={handleIngredientsAdd}
                     >
                       <span>Add an ingredient</span>
@@ -189,12 +222,17 @@ function RecipeForm() {
                 </div>
               ))}
             </div>
+
+
             <h6>Enter your directions</h6>
             <div className="form-floating mb-3">
-              {/* <label htmlFor="ingredients">Ingredients</label> */}
               {directionsList.map((singleDirection, index) => (
                 <div key={index} className="directions">
-                  <div className="first-division">
+                  <div className="form-row" >
+                    <div className="col-1">
+                        <input className="form-control" type="text" name="step_number" value={index+1} readOnly></input>
+                    </div>
+                    <div className="col-10">
                     <input
                       type="directions"
                       className="form-control"
@@ -204,29 +242,43 @@ function RecipeForm() {
                       onChange={(e) => handleDirectionChange(e, index)}
                     />
                   </div>
-                  <div className="second-division">
-                    {directionsList.length > 1 && (
+
+                  <div className="col-1">
+                    {directionsList.length > 1 &&
                       <button
                         type="button"
-                        className="btn btn-danger"
+                        className="btn btn-danger btn-sm"
                         onClick={() => handleDirectionRemove(index)}
                       >
-                        <span>Remove an direction</span>
+                        <span>X</span>
                       </button>
-                    )}
+                    }
                   </div>
-                  {directionsList.length - 1 === index && (
+                  </div>
+                  {directionsList.length - 1 === index &&
+                    <div>
                     <button
                       type="button"
-                      className="btn btn-success"
+                      className="btn btn-success btn-sm"
                       onClick={handleDirectionsAdd}
                     >
                       <span>Add an direction</span>
                     </button>
-                  )}
+                    </div>}
+
                 </div>
               ))}
             </div>
+
+            <div className="form-floating mb-3">
+              <Select
+                defaultValue={selectedOption}
+                onChange={handleTagChange}
+                options={options}
+                isMulti
+             />
+            </div>
+
             <button className="btn btn-primary">Submit</button>
           </form>
         </div>
