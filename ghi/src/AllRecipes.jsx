@@ -25,7 +25,7 @@ function AllRecipes() {
               {data.map((recipe) => {
                 let path = `/recipes/${recipe.id}`;
                 return (
-                  <div className="col mb-5">
+                  <div className="col mb-5" key={recipe.id}>
                     <div className="card h-100">
                       {/* Product image*/}
                       <Link to={path}>

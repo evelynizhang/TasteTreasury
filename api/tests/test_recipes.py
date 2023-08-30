@@ -1,6 +1,7 @@
 from fastapi.testclient import TestClient
 from main import app
 from queries.recipes import RecipeQueries
+from queries.tags import TagsQueries
 from authenticator import authenticator
 from models import RecipeIn, RecipeOut
 
@@ -10,6 +11,11 @@ client = TestClient(app)
 
 def fake_get_current_account_data():
     return {"id": 1, "username": "fakeuser"}
+
+
+class FakeTagsQueries:
+    def get_tags(self):
+        return ["string"]
 
 
 class FakeRecipeQueries:
@@ -75,8 +81,7 @@ def test_get_all_recipes():
             "name": "string",
             "prep_time": "string",
             "servings": 0,
-            "picture_url":
-            "jpg",
+            "picture_url": "jpg",
             "account_id": 3,
         }
     ]
@@ -103,9 +108,7 @@ def test_get_one_recipe():
 
 def test_create_recipe():
     app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
-    app.dependency_overrides[
-        authenticator.get_current_account_data
-    ] = fake_get_current_account_data
+    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
     body = {
         "name": "best pizza",
         "prep_time": "string",
@@ -134,9 +137,7 @@ def test_create_recipe():
 
 def test_delete_one_recipe():
     app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
-    app.dependency_overrides[
-        authenticator.get_current_account_data
-    ] = fake_get_current_account_data
+    app.dependency_overrides[authenticator.get_current_account_data] = fake_get_current_account_data
     res = client.delete("/api/recipes/1")
     data = res.json()
 
@@ -146,9 +147,7 @@ def test_delete_one_recipe():
 
 def test_update_recipe():
     app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
-    app.dependency_overrides[
-        authenticator.get_account_data
-    ] = fake_get_current_account_data
+    app.dependency_overrides[authenticator.get_account_data] = fake_get_current_account_data
     body = {
         "name": "practice",
         "prep_time": "string",
@@ -177,9 +176,7 @@ def test_update_recipe():
 
 def test_get_my_recipes():
     app.dependency_overrides[RecipeQueries] = FakeRecipeQueries
-    app.dependency_overrides[
-        authenticator.get_account_data
-    ] = fake_get_current_account_data
+    app.dependency_overrides[authenticator.get_account_data] = fake_get_current_account_data
     res = client.get("/api/recipes/mine")
     data = res.json()
     assert res.status_code == 200
@@ -193,3 +190,12 @@ def test_get_my_recipes():
             "account_id": 1,
         }
     ]
+
+
+def test_get_tags():
+    app.dependency_overrides[TagsQueries] = FakeTagsQueries
+    res = client.get("/api/tags")
+    data = res.json()
+
+    assert res.status_code == 200
+    assert data == ["string"]

@@ -77,6 +77,25 @@ export const recipeApi = createApi({
       }),
       providesTags: ["Recipe"],
     }),
+
+    getAllTags: builder.query({
+      query: () => ({
+        url: "api/tags",
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["Tags"],
+    }),
+
+    createRecipe: builder.mutation({
+      query: (body) => ({
+        url: "api/recipes",
+        method: "POST",
+        body,
+        credentials: "include",
+      }),
+      invalidatesTags: ["Recipe"],
+    }),
   }),
 });
 
@@ -88,4 +107,6 @@ export const {
   useGetAccountsQuery,
   useGetAllRecipesQuery,
   useGetMyRecipesQuery,
+  useGetAllTagsQuery,
+  useCreateRecipeMutation,
 } = recipeApi;

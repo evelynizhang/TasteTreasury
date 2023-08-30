@@ -24,9 +24,7 @@ def create_recipe(
     try:
         recipe = queries.create(info, account_data["id"])
     except HttpError:
-        raise HTTPException(
-            status_code=400, detail="Unable to create a recipe"
-        )
+        raise HTTPException(status_code=400, detail="Unable to create a recipe")
     return recipe
 
 
@@ -39,9 +37,7 @@ def get_all_recipes(queries: RecipeQueries = Depends()):
     return recipes
 
 
-@router.get(
-    "/api/recipes/mine", response_model=List[RecipeCardOut] | HttpError
-)
+@router.get("/api/recipes/mine", response_model=List[RecipeCardOut] | HttpError)
 def get_my_recipes(
     queries: RecipeQueries = Depends(),
     account_data: AccountOut = Depends(authenticator.get_current_account_data),
@@ -62,9 +58,7 @@ def get_one_recipe(recipe_id: int, queries: RecipeQueries = Depends()):
     return recipe
 
 
-@router.delete(
-    "/api/recipes/{recipe_id}", response_model=DeleteResponse | HttpError
-)
+@router.delete("/api/recipes/{recipe_id}", response_model=DeleteResponse | HttpError)
 def delete_one_recipe(
     recipe_id: int,
     queries: RecipeQueries = Depends(),
@@ -73,9 +67,7 @@ def delete_one_recipe(
     try:
         is_deleted = queries.delete(recipe_id)
     except HttpError:
-        raise HTTPException(
-            status_code=400, detail="Unable to delete the recipe"
-        )
+        raise HTTPException(status_code=400, detail="Unable to delete the recipe")
     return is_deleted
 
 
