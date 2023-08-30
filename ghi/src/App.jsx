@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Home";
 import AllRecipes from "./AllRecipes";
 import MyRecipes from "./MyRecipes";
+import RecipeForm from "./RecipeForm";
 
 function App() {
   return (
@@ -19,8 +20,8 @@ function App() {
           <Route path="recipes">
             <Route index element={<AllRecipes />} />
             <Route path="mine" element={<MyRecipes />} />
+            <Route path="create" element={<RecipeForm />} />
           </Route>
-          <Route path="recipes" element={<AllRecipes />} />
         </Routes>
       </div>
     </BrowserRouter>
