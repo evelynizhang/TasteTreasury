@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function AllRecipes() {
   const allRecipes = useGetAllRecipesQuery();
   const data = allRecipes.data;
-  console.log(data);
+
   if (allRecipes.status === "fulfilled") {
     return (
       <>

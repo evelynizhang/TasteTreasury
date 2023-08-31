@@ -1,5 +1,5 @@
 import { useState, useEffect, React } from "react";
-import { useGetAllTagsQuery, useCreateRecipeMutation } from "./app/apiSlice";
+import { useCreateRecipeMutation, useGetAllTagsQuery } from "./app/apiSlice";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 
@@ -14,18 +14,15 @@ function RecipeForm() {
   ]);
   const tagList = useGetAllTagsQuery();
   const [newRecipe, newRecipeResponse] = useCreateRecipeMutation();
-  // const [tags, setTags] = useState([""]);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (newRecipeResponse.isSuccess) navigate("/recipes");
   }, [newRecipeResponse]);
 
-  console.log(newRecipeResponse);
-
   const options = [];
   if (tagList.status === "fulfilled") {
-    tagList.data.tag.map((each) => {
+    tagList.data.map((each) => {
       return options.push({ value: each, label: each });
     });
   }
@@ -38,13 +35,9 @@ function RecipeForm() {
   const tags = [];
   if (selectedOption) {
     selectedOption.map((each) => {
-      // console.log(each)
       return tags.push(each.value);
     });
   }
-  // console.log("&&&&&",tags)
-
-  // console.log(newRecipeResponse)
 
   const handleSubmit = (e) => {
     e.preventDefault();
