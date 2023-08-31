@@ -5,286 +5,237 @@ import Select from 'react-select';
 
 
 function RecipeForm() {
-  const [formData, setFormData] = useState({
-    name: "",
-    prep_time: "",
-    servings: "",
-    picture_url: "",
-    ingredients: [""],
-    directions: [""],
-    tags: [""],
-  });
-  const [ingredients, setIngredients] = useState([""]);
-  const [directionsList, setDirectionsList] = useState([""]);
-  const getTags = useGetAllTagsQuery();
-  const [createRecipe, createRecipeResponse] = useCreateRecipeMutation();
+  const [name, setName] = useState(“”);
+  const [prep_time, setPrep_time] = useState(“”);
+  const [servings, setServings] = useState(0);
+  const [picture_url, setPicture_url] = useState(“”);
+  const [ingredients, setIngredients] = useState([“”]);
+  const [directions, setDirections] = useState([
+    { step_number: 0, recipe_step: “” },
+  ]);
+  const tagList = useGetTagsQuery();
+  const [newRecipe, newRecipeResponse] = useNewRecipeMutation();
+  // const [tags, setTags] = useState([“”]);
   const navigate = useNavigate();
-  const [selectedOption, setSelectedOption] = useState(null);
-
-
-
-
-  const handleFormChange = (e) => {
-    const inputName = e.target.name;
-    const value = e.target.value;
-    setFormData({
-      //Previous form data is spread (i.e. copied) into our new state object
-      ...formData,
-      //On top of the that data, we add the currently engaged input key and value
-      [inputName]: value,
+  useEffect(() => {
+    if (newRecipeResponse.isSuccess) navigate(“/recipes”);
+  }, [newRecipeResponse]);
+  console.log(newRecipeResponse);
+  const options = [];
+  if (tagList.status === “fulfilled”) {
+    tagList.data.tag.map((each) => {
+      return options.push({ value: each, label: each });
+    });
+  }
+  const [selectedOption, setSelectedOption] = useState(“”);
+  const handleChange = (selectedOption) => {
+    setSelectedOption(selectedOption);
+  };
+  const tags = [];
+  if (selectedOption) {
+    selectedOption.map((each) => {
+      // console.log(each)
+      return tags.push(each.value);
+    });
+  }
+  // console.log(“&&&&&“,tags)
+  // console.log(newRecipeResponse)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    newRecipe({
+      name,
+      prep_time,
+      servings,
+      picture_url,
+      ingredients,
+      directions,
+      tags,
     });
   };
-
   const handleIngredientsAdd = () => {
-    setIngredients([...ingredients, ""]);
+    setIngredients([...ingredients, “”]);
   };
-
   const handleIngredientRemove = (index) => {
     const list = [...ingredients];
     list.splice(index, 1);
     setIngredients(list);
   };
-
   const handleIngredientChange = (e, index) => {
     const { value } = e.target;
     const list = [...ingredients];
     list[index] = value;
     setIngredients(list);
   };
-
+  const handleServing = (e) => {
+    const { value } = e.target;
+    setServings(Number(value));
+  };
   const handleDirectionsAdd = () => {
-    setDirectionsList([...directionsList, ""]);
+    setDirections([...directions, {}]);
   };
-
   const handleDirectionRemove = (index) => {
-    const list = [...directionsList];
+    const list = [...directions];
     list.splice(index, 1);
-    setDirectionsList(list);
+    setDirections(list);
   };
-
   const handleDirectionChange = (e, index) => {
     const { value } = e.target;
-    const list = [...directionsList];
-    list[index] = value;
-    setDirectionsList(list);
+    const list = [...directions];
+    list[index][“step_number”] = index + 1;
+    list[index][“recipe_step”] = value;
+    setDirections(list);
   };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    let directions = [];
-    for (let each of directionsList) {
-      directions.push({
-        step_number: directionsList.indexOf(each) + 1,
-        recipe_step: each,
-      });
-    }
-    setFormData({
-      ...formData,
-      servings: Number(formData.servings),
-      ingredients,
-      directions,
-      tags: tags,
-    });
-    createRecipe(formData);
-  };
-
-
-
-  const options = []
-  if (getTags.status === "fulfilled") {
-    getTags.data.map((each) => {
-      return (
-        options.push({"value": each, "label": each})
-      )
-    })
-  }
-
-
-  const handleTagChange = (selectedOption) => {
-    setSelectedOption(selectedOption)
-  }
-   const tags = []
-  if (selectedOption) {
-    selectedOption.map( (each) => {
-      return tags.push(each.value)
-    })
-  }
-  console.log(tags)
-
-
-  useEffect(() => {
-    if (createRecipeResponse.isSuccess) {
-      let recipeUrl = `/recipes/${createRecipeResponse.data["id"]}`;
-      navigate(recipeUrl);
-    }
-  }, [createRecipeResponse]);
-
-
-
-
   return (
-    <div className="row">
-      <div className="offset-3 col-6">
-        <div className="shadow p-4 mt-4">
-          <h1>Create a new recipe</h1>
-          <form onSubmit={handleSubmit} id="create-recipe-form">
-            <div className="form-floating mb-3">
-              <input
-                value={formData.name}
-                onChange={handleFormChange}
-                placeholder="Name your recipe"
-                required
-                type="text"
-                name="name"
-                id="name"
-                className="form-control"
-              />
-              <label htmlFor="name">Recipe title</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={formData.prep_time}
-                onChange={handleFormChange}
-                placeholder="Enter a time estimate"
-                required
-                type="text"
-                name="prep_time"
-                id="prep_time"
-                className="form-control"
-              />
-              <label htmlFor="prep_time">Prep time</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={formData.servings}
-                onChange={handleFormChange}
-                placeholder="Number of servings"
-                required
-                type="number"
-                name="servings"
-                id="servings"
-                className="form-control"
-              />
-              <label htmlFor="servings">Number of servings</label>
-            </div>
-            <div className="form-floating mb-3">
-              <input
-                value={formData.picture_url}
-                onChange={handleFormChange}
-                placeholder="Enter an image link (max 1000 characters)"
-                required
-                type="url"
-                maxLength="1000"
-                name="picture_url"
-                id="picture_url"
-                className="form-control"
-              />
-              <label htmlFor="picture_url">
-                Image link - max 1000 characters
-              </label>
-            </div>
-            <h6>Enter your ingredients</h6>
-            <div className="form-floating mb-3">
-              {ingredients.map((singleIngredient, index) => (
-                <div key={index} className="ingredients">
-                  <div className="form-row" >
-                    <div className="col-9">
+    <>
+      <div className=“col-md-6 offset-md-3">
+        <h1>Add Recipe form</h1>
+        <form onSubmit={handleSubmit}>
+          <div className=“form-group”>
+            <label htmlFor=“name”>Name</label>
+            <input
+              type=“text”
+              className=“form-control”
+              id=“name”
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder=“Enter Recipe Name”
+            />
+          </div>
+          <div className=“form-group”>
+            <label htmlFor=“prep_time”>Prep_time</label>
+            <input
+              type=“prep_time”
+              className=“form-control”
+              id=“prep_time”
+              value={prep_time}
+              onChange={(e) => setPrep_time(e.target.value)}
+              placeholder=“Enter Preparation Time”
+            />
+          </div>
+          <div className=“form-group”>
+            <label htmlFor=“servings”>Servings</label>
+            <input
+              type=“number”
+              className=“form-control”
+              id=“servings”
+              value={servings}
+              onChange={(e) => handleServing(e)}
+              placeholder=“Enter Servings”
+            />
+          </div>
+          <div className=“form-group”>
+            <label htmlFor=“picture_url”>Picture url</label>
+            <input
+              type=“text”
+              className=“form-control”
+              id=“picture_url”
+              value={picture_url}
+              onChange={(e) => setPicture_url(e.target.value)}
+              placeholder=“Enter Picture URL”
+            />
+          </div>
+          <div className=“form-group”>
+            <label htmlFor=“ingredients”>Ingredients</label>
+            {ingredients.map((singleIngredient, index) => (
+              <div key={index} className=“ingredients”>
+                <div className=“form-row”>
+                  <div className=“col-9”>
                     <input
-                      type="ingredients"
-                      className="form-control"
-                      id="ingredients"
-                      placeholder="Enter the next ingredient"
+                      type=“ingredients”
+                      className=“form-control”
+                      id=“ingredients”
+                      placeholder=“Enter Ingredients”
                       value={singleIngredient}
                       onChange={(e) => handleIngredientChange(e, index)}
                     />
                   </div>
-                  <div className="col-2">
+                  <div className=“col-2">
                     {ingredients.length > 1 && (
                       <button
-                        type="button"
-                        className="btn btn-danger btn-sm"
+                        type=“button”
+                        className=“btn btn-danger btn-sm”
                         onClick={() => handleIngredientRemove(index)}
                       >
                         <span>Remove</span>
                       </button>
                     )}
                   </div>
-                  </div>
-                  {ingredients.length - 1 === index && (
-                    <button
-                      type="button"
-                      className="btn btn-success btn-sm"
-                      onClick={handleIngredientsAdd}
-                    >
-                      <span>Add an ingredient</span>
-                    </button>
-                  )}
                 </div>
-              ))}
-            </div>
-
-
-            <h6>Enter your directions</h6>
-            <div className="form-floating mb-3">
-              {directionsList.map((singleDirection, index) => (
-                <div key={index} className="directions">
-                  <div className="form-row" >
-                    <div className="col-1">
-                        <input className="form-control" type="text" name="step_number" value={index+1} readOnly></input>
-                    </div>
-                    <div className="col-10">
+                {ingredients.length - 1 === index && (
+                  <button
+                    type=“button”
+                    className=“btn btn-success btn-sm”
+                    onClick={handleIngredientsAdd}
+                  >
+                    <span>Add an ingredient</span>
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className=“form-group”>
+            <label htmlFor=“direction”>Directions</label>
+            {directions.map((singleDirection, index) => (
+              <div className=“row” key={index}>
+                <div className=“form-row”>
+                  <div className=“col-1”>
+                    {index === 0 && <label htmlFor=“Step”>Step</label>}
                     <input
-                      type="directions"
-                      className="form-control"
-                      id="directions"
-                      placeholder="Enter the next direction"
-                      value={singleDirection}
+                      className=“form-control”
+                      type=“text”
+                      name=“step_number”
+                      value={index + 1}
+                      readOnly
+                    ></input>
+                  </div>
+                  <div className=“col-10">
+                    {index === 0 && (
+                      <label htmlFor=“Recipe Step”>Direction</label>
+                    )}
+                    <input
+                      type=“text”
+                      className=“form-control”
+                      id=“Recipe Step”
+                      placeholder=“Recipe Step”
                       onChange={(e) => handleDirectionChange(e, index)}
                     />
                   </div>
-
-                  <div className="col-1">
-                    {directionsList.length > 1 &&
+                  <div className=“col-1">
+                    {directions.length > 1 && index !== 0 && (
                       <button
-                        type="button"
-                        className="btn btn-danger btn-sm"
+                        type=“button”
+                        className=“btn btn-danger btn-sm ”
                         onClick={() => handleDirectionRemove(index)}
                       >
                         <span>X</span>
                       </button>
-                    }
+                    )}
                   </div>
-                  </div>
-                  {directionsList.length - 1 === index &&
-                    <div>
+                </div>
+                {directions.length - 1 === index && (
+                  <div>
                     <button
-                      type="button"
-                      className="btn btn-success btn-sm"
+                      type=“button”
+                      className=“btn btn-success btn-sm”
                       onClick={handleDirectionsAdd}
                     >
-                      <span>Add an direction</span>
+                      add another step
                     </button>
-                    </div>}
-
-                </div>
-              ))}
-            </div>
-
-            <div className="form-floating mb-3">
-              <Select
-                defaultValue={selectedOption}
-                onChange={handleTagChange}
-                options={options}
-                isMulti
-             />
-            </div>
-
-            <button className="btn btn-primary">Submit</button>
-          </form>
-        </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className=“form-group”>
+            <Select isMulti onChange={handleChange} options={options} />
+          </div>
+          <button type=“submit” className=“btn btn-primary”>
+            Add Recipe
+          </button>
+        </form>
       </div>
-    </div>
-  );
-}
+    </>
+  )
+                }
 
 export default RecipeForm;
