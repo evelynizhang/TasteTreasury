@@ -66,7 +66,7 @@ export const recipeApi = createApi({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: ["Recipe"],
+      providesTags: [{ type: "Recipe", id: "ALL" }],
     }),
 
     getMyRecipes: builder.query({
@@ -75,7 +75,7 @@ export const recipeApi = createApi({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: ["Recipe"],
+      providesTags: [{ type: "Recipe", id: "MINE" }],
     }),
 
     getAllTags: builder.query({
@@ -96,6 +96,27 @@ export const recipeApi = createApi({
       }),
       invalidatesTags: ["Recipe"],
     }),
+
+    getSingleRecipe: builder.query({
+      query: (recipe_id) => ({
+        url: `api/recipes/${recipe_id}`,
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: (response, error, arg) => {
+        console.log({ response, error, arg });
+        return ["Recipe"];
+      },
+    }),
+
+    deleteRecipe: builder.mutation({
+      query: (recipe_id) => ({
+        url: `api/recipes/${recipe_id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["Recipe"],
+    }),
   }),
 });
 
@@ -109,4 +130,6 @@ export const {
   useGetMyRecipesQuery,
   useGetAllTagsQuery,
   useCreateRecipeMutation,
+  useGetSingleRecipeQuery,
+  useDeleteRecipeMutation,
 } = recipeApi;

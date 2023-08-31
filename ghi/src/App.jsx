@@ -7,6 +7,7 @@ import Home from "./Home";
 import AllRecipes from "./AllRecipes";
 import MyRecipes from "./MyRecipes";
 import RecipeForm from "./RecipeForm";
+import SingleRecipe from "./SingleRecipe";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route index element={<AllRecipes />} />
             <Route path="mine" element={<MyRecipes />} />
             <Route path="create" element={<RecipeForm />} />
+            <Route path=":recipe_id" element={<SingleRecipe />} />
           </Route>
         </Routes>
       </div>
