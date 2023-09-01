@@ -20,7 +20,7 @@ function Login() {
   return (
     <>
       <div className="col-md-6 offset-md-3">
-        <h1>Login form</h1>
+        <h1>Log in </h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="exampleInputEmail1">username</label>
@@ -44,9 +44,18 @@ function Login() {
               placeholder="Password"
             />
           </div>
-          <button type="submit" className="btn btn-success">
-            Login
-          </button>
+          <div className="d-flex justify-content-around">
+            <button type="submit" className="btn btn-success">
+              Login
+            </button>
+            <button
+              type="submit"
+              className="btn btn-primary "
+              onClick={() => navigate("/signup")}
+            >
+              Sign up
+            </button>
+          </div>
         </form>
       </div>
     </>

@@ -49,7 +49,7 @@ function Nav() {
               </NavLink>
             </li>
           )}
-          {!account && (
+          {/* {!account && (
             <li className="nav-item">
               <NavLink className="nav-link" to="/login">
                 Log in
@@ -62,26 +62,35 @@ function Nav() {
                 Sign up
               </NavLink>
             </li>
-          )}
-          <li className="nav-item">
-            <input
-              className="form-control mr-sm-2"
-              type="search"
-              placeholder="Search recipe"
-              aria-label="Search"
-            />
-          </li>
-          <li className="nav-item">
-            <button
-              className="btn btn-outline-success my-2 my-sm-0"
-              type="submit"
-            >
-              Search
-            </button>
-          </li>
+          )} */}
         </ul>
+        <form className="form-inline my-2 my-lg-0">
+          <input
+            className="form-control mr-sm-2"
+            type="search"
+            placeholder="Search recipe"
+            aria-label="Search"
+          />
+          <button
+            className="btn btn-outline-success my-2 my-sm-0"
+            type="submit"
+          >
+            Search
+          </button>
+        </form>
+        {!account && (
+          <button
+            className="btn btn-outline-primary ml-2"
+            onClick={() => navigate("/login")}
+          >
+            Account
+          </button>
+        )}
         {account && (
-          <button className="btn btn-outline-danger" onClick={() => logout()}>
+          <button
+            className="btn btn-outline-danger ml-2"
+            onClick={() => logout()}
+          >
             Logout
           </button>
         )}
