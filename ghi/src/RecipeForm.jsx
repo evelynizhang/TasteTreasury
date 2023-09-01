@@ -2,6 +2,7 @@ import { useState, useEffect, React } from "react";
 import { useCreateRecipeMutation, useGetAllTagsQuery } from "./app/apiSlice";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
+import "./styles.css";
 
 function RecipeForm() {
   const [name, setName] = useState("");
@@ -109,7 +110,7 @@ function RecipeForm() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="prep_time">Prep_time</label>
+            <label htmlFor="prep_time">Prep time</label>
             <input
               type="prep_time"
               className="form-control"
@@ -143,12 +144,11 @@ function RecipeForm() {
             />
           </div>
 
-          <div className="form-group">
+          <div className="form-group ">
             <label htmlFor="ingredients">Ingredients</label>
-
             {ingredients.map((singleIngredient, index) => (
-              <div key={index} className="ingredients">
-                <div className="form-row input-group">
+              <div key={index} className="ingredients direction-box">
+                <div className="form-row input-group mb-1">
                   <input
                     type="ingredients"
                     className="form-control"
@@ -182,16 +182,16 @@ function RecipeForm() {
             ))}
           </div>
 
-          <div className="form-group ">
+          <div className="form-group">
             <label htmlFor="direction">Directions</label>
             {directions.map((singleDirection, index) => (
-              <div className="row" key={index}>
-                <div className="form-row input-group">
+              <div className="row direction-box" key={index}>
+                <div className="form-row input-group mb-1">
                   <input
                     type="text"
                     className="form-control"
                     id="Recipe Step"
-                    placeholder={index + 1}
+                    placeholder="Add a step"
                     onChange={(e) => handleDirectionChange(e, index)}
                   />
                   {directions.length > 1 && index !== 0 && (
@@ -218,6 +218,7 @@ function RecipeForm() {
           </div>
 
           <div className="form-group">
+            <label htmlFor="tags">Tags</label>
             <Select isMulti onChange={handleChange} options={options} />
           </div>
 

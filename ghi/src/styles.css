@@ -114,6 +114,10 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.direction-box {
+  padding-left: 5px;
+}
+
 .button-container {
   display: flex;
   gap: 32px;
