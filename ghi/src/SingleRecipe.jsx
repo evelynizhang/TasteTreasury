@@ -22,10 +22,6 @@ function SingleRecipe() {
     if (deleteRecipeResponse.isSuccess) navigate("/recipes/mine");
   }, [deleteRecipeResponse]);
 
-  // const handleDelete = () => {
-  //   deleteRecipe(Number(recipe_id));
-  // };
-
   const handleSubmit = () => {
     confirmAlert({
       title: "Confirm to submit",
