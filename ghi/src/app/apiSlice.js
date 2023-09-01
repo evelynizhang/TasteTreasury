@@ -104,7 +104,6 @@ export const recipeApi = createApi({
         credentials: "include",
       }),
       providesTags: (response, error, arg) => {
-        console.log({ response, error, arg });
         return ["Recipe"];
       },
     }),

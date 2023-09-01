@@ -19,6 +19,7 @@ function SingleRecipe() {
   useEffect(() => {
     if (deleteRecipeResponse.isSuccess) navigate("/recipes/mine");
   }, [deleteRecipeResponse]);
+
   const handleDelete = () => {
     deleteRecipe(Number(recipe_id));
   };
@@ -55,10 +56,14 @@ function SingleRecipe() {
         )}
         <section className="single-recipe-space">
           <li>
-            <div class="container text-left">
+            <div className="container text-left">
               {data.tags.map((tag) => {
                 return (
-                  <button type="button" class="btn btn-secondary btn-sm">
+                  <button
+                    key={tag}
+                    type="button"
+                    className="btn btn-secondary btn-sm"
+                  >
                     {tag}
                   </button>
                 );
@@ -69,14 +74,14 @@ function SingleRecipe() {
             <li>
               <h2>Ingredients</h2>
               {data.ingredients.map((i) => {
-                return <p>{i}</p>;
+                return <p key={i}>{i}</p>;
               })}
             </li>
             <li>
               <h2>Directions</h2>
               {data.directions.map((d) => {
                 return (
-                  <p>
+                  <p key={d.step_number}>
                     Step {d.step_number}: {d.recipe_step}
                   </p>
                 );
