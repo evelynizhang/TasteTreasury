@@ -6,7 +6,7 @@ import {
   useGetTokenQuery,
 } from "./app/apiSlice";
 import "./styles.css";
-import { confirmAlert } from "react-confirm-alert"; // Import
+import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 
 function SingleRecipe() {

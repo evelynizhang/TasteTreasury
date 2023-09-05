@@ -157,7 +157,6 @@ function RecipeForm() {
                     value={singleIngredient}
                     onChange={(e) => handleIngredientChange(e, index)}
                   />
-
                   {ingredients.length > 1 && (
                     <button
                       type="button"
@@ -167,7 +166,6 @@ function RecipeForm() {
                       <span>X</span>
                     </button>
                   )}
-
                   {ingredients.length - 1 === index && (
                     <button
                       type="button"
@@ -184,37 +182,40 @@ function RecipeForm() {
 
           <div className="form-group">
             <label htmlFor="direction">Directions</label>
-            {directions.map((singleDirection, index) => (
-              <div className="row direction-box" key={index}>
-                <div className="form-row input-group mb-1">
-                  <input
-                    type="text"
-                    className="form-control"
-                    id="Recipe Step"
-                    placeholder="Add a step"
-                    onChange={(e) => handleDirectionChange(e, index)}
-                  />
-                  {directions.length > 1 && index !== 0 && (
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm "
-                      onClick={() => handleDirectionRemove(index)}
-                    >
-                      <span>X</span>
-                    </button>
-                  )}
-                  {directions.length - 1 === index && (
-                    <button
-                      type="button"
-                      className="btn btn-success btn-sm"
-                      onClick={handleDirectionsAdd}
-                    >
-                      +
-                    </button>
-                  )}
+            {directions.map((singleDirection, index) => {
+              let placeholderValue = `Step ${index + 1}`;
+              return (
+                <div className="row direction-box" key={index}>
+                  <div className="form-row input-group mb-1">
+                    <input
+                      type="text"
+                      className="form-control"
+                      id="Recipe Step"
+                      placeholder={placeholderValue}
+                      onChange={(e) => handleDirectionChange(e, index)}
+                    />
+                    {directions.length > 1 && index !== 0 && (
+                      <button
+                        type="button"
+                        className="btn btn-danger btn-sm "
+                        onClick={() => handleDirectionRemove(index)}
+                      >
+                        <span>X</span>
+                      </button>
+                    )}
+                    {directions.length - 1 === index && (
+                      <button
+                        type="button"
+                        className="btn btn-success btn-sm"
+                        onClick={handleDirectionsAdd}
+                      >
+                        <span>+</span>
+                      </button>
+                    )}
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           <div className="form-group">

@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useGetTokenQuery, useLogoutMutation } from "./app/apiSlice";
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Nav() {
@@ -49,20 +49,6 @@ function Nav() {
               </NavLink>
             </li>
           )}
-          {/* {!account && (
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                Log in
-              </NavLink>
-            </li>
-          )}
-          {!account && (
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/signup">
-                Sign up
-              </NavLink>
-            </li>
-          )} */}
         </ul>
         <form className="form-inline my-2 my-lg-0">
           <input
