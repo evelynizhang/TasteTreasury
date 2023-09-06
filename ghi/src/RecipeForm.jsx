@@ -194,7 +194,7 @@ function RecipeForm() {
                       placeholder={placeholderValue}
                       onChange={(e) => handleDirectionChange(e, index)}
                     />
-                    {directions.length > 1 && index !== 0 && (
+                    {directions.length > 1 && (
                       <button
                         type="button"
                         className="btn btn-danger btn-sm "
