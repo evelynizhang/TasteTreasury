@@ -1,6 +1,6 @@
+@import url("https://fonts.googleapis.com/css2?family=Alice&family=Sanchez&display=swap");
 img {
-  max-height: 17rem;
   width: 100%;
-  overflow: hidden;
-  position: relative;
+  height: 220px;
+  object-fit: cover;
 }

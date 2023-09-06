@@ -17,33 +17,32 @@ const SearchBar = () => {
 
   return (
     <form
-      className="form-inline my-2 my-lg-0 float-right"
+      className="d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0 float-right"
       onSubmit={handleSubmit}
     >
-      <input
-        className="form-control mr-sm-2"
-        type="search"
-        placeholder="Search recipe"
-        aria-label="Search"
-        value={searchInput}
-        onChange={(e) => setSearchInput(e.target.value)}
-      />
-      <button
-        className="btn btn-outline-success my-2 mr-2 my-sm-0"
-        type="submit"
-      >
-        Search
-      </button>
-      <button
-        className="btn btn-outline-danger my-2 mr-2 my-sm-0"
-        type="submit"
-        onClick={() => {
-          dispatch(reset());
-          setSearchInput("");
-        }}
-      >
-        Reset
-      </button>
+      <div className="input-group mt-2">
+        <input
+          className="form-control"
+          type="search"
+          placeholder="Search Recipe..."
+          aria-label="Search"
+          value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+        />
+        <button className="btn btn-primary" type="submit">
+          <i className="fas fa-search" />
+        </button>
+        <button
+          className="btn btn-secondary"
+          type="submit"
+          onClick={() => {
+            dispatch(reset());
+            setSearchInput("");
+          }}
+        >
+          Reset
+        </button>
+      </div>
     </form>
   );
 };

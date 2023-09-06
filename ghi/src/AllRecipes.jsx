@@ -24,10 +24,10 @@ function AllRecipes() {
             </div>
           </div>
         </header>
-        {/* Section*/}
         <SearchBar />
-        <section className="py-5">
-          <div className="container px-4 mt-2">
+        {/* Section*/}
+        <section className="py-5 ">
+          <div className="container px-4 mt-3">
             <div className="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center">
               {filteredData().map((recipe) => {
                 let path = `/recipes/${recipe.id}`;
@@ -43,8 +43,15 @@ function AllRecipes() {
                       {/* Product image*/}
                       <img
                         className="card-img-top"
-                        src={recipe.picture_url}
+                        src={
+                          recipe.picture_url ||
+                          "https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fHw%3D&w=1000&q=80"
+                        }
                         alt="..."
+                        onError={(e) => {
+                          e.target.src =
+                            "https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fHw%3D&w=1000&q=80";
+                        }}
                       />
 
                       {/* Product details*/}
@@ -66,13 +73,13 @@ function AllRecipes() {
                       </div>
                       {/* Product actions*/}
 
-                      <div className="d-grid gap-2 col-5 mx-auto">
-                        <Link to={path}>
+                      <Link to={path}>
+                        <div className="d-grid gap-2 col-5 mx-auto">
                           <button type="button" className="btn btn-primary">
                             View
                           </button>
-                        </Link>
-                      </div>
+                        </div>
+                      </Link>
                     </div>
                   </div>
                 );

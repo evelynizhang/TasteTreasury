@@ -1,0 +1,11 @@
+.home-page-image {
+  background-image: linear-gradient(
+      to top,
+      rgba(81, 79, 90, 0.568) 50%,
+      rgba(228, 222, 227, 0.589) 100%
+    ),
+    url("https://img.freepik.com/free-photo/ingredients-homemade-tarte-tatin-pie-with-apples-nuts-beige-background-french-apple-pie-selective-focus_127032-2805.jpg?w=1060&t=st=1692208121~exp=1692208721~hmac=21b393bf927cafb2a719185563a71f76591a1f6978591ae872e288086745c090");
+  background-position: center;
+  background-size: cover;
+  position: relative;
+}
