@@ -50,9 +50,9 @@ function MyRecipes() {
                           <div className="text-right">{recipe.prep_time}</div>
                         </div>
                       </Link>
-                      <Link to={updateLink}>
+                      {/* <Link to={updateLink}>
                         <button>update</button>
-                      </Link>
+                      </Link> */}
                     </div>
                   </div>
                 );

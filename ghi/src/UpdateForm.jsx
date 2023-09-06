@@ -119,7 +119,6 @@ function UpdateForm() {
       setSelectedOption(
         recipeData.tags.map((tag) => ({ value: tag, label: tag })) || []
       );
-      // navigate("/recipes/mine");
     }
   }, [recipeData]);
   if (isError) return <div>An error has occurred!</div>;

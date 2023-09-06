@@ -8,6 +8,7 @@ import {
 import "./styles.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
+import { Link } from "react-router-dom";
 
 function SingleRecipe() {
   let { recipe_id } = useParams();
@@ -43,7 +44,7 @@ function SingleRecipe() {
   if (isLoading) return <h1>Page still Loading</h1>;
   if (data.detail === "Unable to match id to existing recipe")
     return <h1>No Recipes Found</h1>;
-
+  const updateLink = `/recipes/update/${recipe_id}`;
   return (
     <>
       <main className="wrapper">
@@ -56,9 +57,11 @@ function SingleRecipe() {
           <h1>{data.name}</h1>
         </section>
         {getToken.data.id === data.account_id && (
-          <button type="button" className="btn btn-primary m-1">
-            Edit
-          </button>
+          <Link to={updateLink}>
+            <button type="button" className="btn btn-primary m-1">
+              Edit
+            </button>
+          </Link>
         )}
         {getToken.data.id === data.account_id && (
           <button
