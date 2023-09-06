@@ -2,11 +2,18 @@ import { useGetAllRecipesQuery } from "./app/apiSlice";
 import "./App";
 import "./css/AllRecipe.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import SearchBar from "./SearchBar";
 
 function AllRecipes() {
+  const searchCriteria = useSelector((state) => state.search.value);
   const allRecipes = useGetAllRecipesQuery();
   const data = allRecipes.data;
-
+  const filteredData = () => {
+    if (searchCriteria)
+      return data.filter((recipe) => recipe.name.includes(searchCriteria));
+    return data;
+  };
   if (allRecipes.status === "fulfilled") {
     return (
       <>
@@ -18,10 +25,11 @@ function AllRecipes() {
           </div>
         </header>
         {/* Section*/}
+        <SearchBar />
         <section className="py-5">
           <div className="container px-4 mt-2">
             <div className="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center">
-              {data.map((recipe) => {
+              {filteredData().map((recipe) => {
                 let path = `/recipes/${recipe.id}`;
                 return (
                   <div className="col" key={recipe.id}>

@@ -2,10 +2,20 @@ import { useGetMyRecipesQuery } from "./app/apiSlice";
 import "./App";
 import "./styles.css";
 import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import SearchBar from "./SearchBar";
 
 function MyRecipes() {
+  const searchCriteria = useSelector((state) => state.search.value);
+
   const myRecipes = useGetMyRecipesQuery();
   const data = myRecipes.data;
+
+  const filteredData = () => {
+    if (searchCriteria)
+      return data.filter((recipe) => recipe.name.includes(searchCriteria));
+    return data;
+  };
 
   if (myRecipes.status === "fulfilled") {
     return (
@@ -19,12 +29,12 @@ function MyRecipes() {
           </div>
         </header>
         {/* Section*/}
+        <SearchBar />
         <section className="py-5">
           <div className="container px-4 px-lg-5 mt-5">
             <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
-              {data.map((recipe) => {
+              {filteredData().map((recipe) => {
                 let path = `/recipes/${recipe.id}`;
-                const updateLink = `/recipes/update/${recipe.id}`;
                 return (
                   <div className="col mb-5" key={recipe.id}>
                     <div className="card h-100">
@@ -50,9 +60,6 @@ function MyRecipes() {
                           <div className="text-right">{recipe.prep_time}</div>
                         </div>
                       </Link>
-                      {/* <Link to={updateLink}>
-                        <button>update</button>
-                      </Link> */}
                     </div>
                   </div>
                 );

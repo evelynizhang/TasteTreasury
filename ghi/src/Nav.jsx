@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom";
 import { useGetTokenQuery, useLogoutMutation } from "./app/apiSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+// import SearchBar from "./SearchBar";
 
 function Nav() {
   const { data: account } = useGetTokenQuery();
@@ -50,7 +51,7 @@ function Nav() {
             </li>
           )}
         </ul>
-        <form className="form-inline my-2 my-lg-0">
+        {/* <form className="form-inline my-2 my-lg-0">
           <input
             className="form-control mr-sm-2"
             type="search"
@@ -63,7 +64,8 @@ function Nav() {
           >
             Search
           </button>
-        </form>
+        </form> */}
+        {/* <SearchBar /> */}
         {!account && (
           <button
             className="btn btn-outline-primary ml-2"
