@@ -45,7 +45,6 @@ function SingleRecipe() {
   if (data.detail === "Unable to match id to existing recipe")
     return <h1>No Recipes Found</h1>;
   const updateLink = `/recipes/update/${recipe_id}`;
-
   return (
     <>
       <main className="container px-5 my-5">
@@ -58,7 +57,7 @@ function SingleRecipe() {
                     <h3>{data.name}</h3>
                   </div>
                   <div className="right-side">
-                    {getToken.data.id === data.account_id && (
+                    {getToken.data && getToken.data.id === data.account_id && (
                       <Link to={updateLink}>
                         <button
                           type="button"
@@ -68,7 +67,7 @@ function SingleRecipe() {
                         </button>
                       </Link>
                     )}
-                    {getToken.data.id === data.account_id && (
+                    {getToken.data && getToken.data.id === data.account_id && (
                       <button
                         type="button"
                         className="btn btn-outline-secondary"

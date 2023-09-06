@@ -57,13 +57,14 @@ function AllRecipes() {
                         </div>
                       </div>
                       {/* Product actions*/}
-                      <Link to={path}>
-                        <div className="d-grid gap-2 col-5 mx-auto">
+
+                      <div className="d-grid gap-2 col-5 mx-auto">
+                        <Link to={path}>
                           <button type="button" className="btn btn-primary">
                             View
                           </button>
-                        </div>
-                      </Link>
+                        </Link>
+                      </div>
                     </div>
                   </div>
                 );
