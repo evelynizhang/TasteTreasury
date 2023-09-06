@@ -116,6 +116,7 @@ export const recipeApi = createApi({
       }),
       invalidatesTags: ["Recipe"],
     }),
+
     updateRecipe: builder.mutation({
       query: ({ recipe_id, ...patch }) => {
         return {
