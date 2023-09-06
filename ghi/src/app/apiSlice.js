@@ -118,11 +118,11 @@ export const recipeApi = createApi({
     }),
 
     updateRecipe: builder.mutation({
-      query: ({ recipe_id, ...patch }) => {
+      query: ({ recipe_id, ...body }) => {
         return {
           url: `api/recipes/${recipe_id}`,
           method: "PUT",
-          body: patch,
+          body,
           credentials: "include",
         };
       },

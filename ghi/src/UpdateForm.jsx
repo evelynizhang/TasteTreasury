@@ -57,8 +57,8 @@ function UpdateForm() {
   };
 
   useEffect(() => {
-    if (updateRecipeResponse.isSuccess) navigate("/recipes/mine");
-  }, [updateRecipeResponse, navigate]);
+    if (updateRecipeResponse.isSuccess) navigate(`/recipes/${recipe_id}`);
+  }, [updateRecipeResponse]);
 
   const handleIngredientsAdd = () => {
     setIngredients([...ingredients, ""]);
@@ -82,21 +82,30 @@ function UpdateForm() {
     setServings(Number(value));
   };
 
-  const handleDirectionsAdd = () => {
-    setDirections([...directions, {}]);
+  const handleDirectionsAdd = (index) => {
+    setDirections([...directions, { step_number: index + 2, recipe_step: "" }]);
   };
 
   const handleDirectionRemove = (index) => {
-    const list = [...directions];
+    let list = [...directions];
     list.splice(index, 1);
-    setDirections(list);
+    const newList = [];
+    let idx = 1;
+    for (let each of list) {
+      let dir = { step_number: idx, recipe_step: each["recipe_step"] };
+      newList.push(dir);
+      idx++;
+    }
+    setDirections(newList);
   };
 
   const handleDirectionChange = (e, index) => {
     const { value } = e.target;
-    const list = [...directions];
-    list[index]["step_number"] = index + 1;
-    list[index]["recipe_step"] = value;
+    let list = [...directions];
+    const newDir = {};
+    newDir["step_number"] = index + 1;
+    newDir["recipe_step"] = value;
+    list[index] = newDir;
     setDirections(list);
   };
 
@@ -122,7 +131,7 @@ function UpdateForm() {
     }
   }, [recipeData]);
   if (isError) return <div>An error has occurred!</div>;
-  if (isLoading) return <div>An error has occurred!</div>;
+  if (isLoading) return <div>Still loading!</div>;
 
   return (
     <>
@@ -239,7 +248,7 @@ function UpdateForm() {
                       <button
                         type="button"
                         className="btn btn-success btn-sm"
-                        onClick={handleDirectionsAdd}
+                        onClick={() => handleDirectionsAdd(index)}
                       >
                         <span>+</span>
                       </button>
