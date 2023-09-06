@@ -1,0 +1,6 @@
+img {
+  max-height: 17rem;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+}

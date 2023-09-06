@@ -5,7 +5,7 @@ import {
   useDeleteRecipeMutation,
   useGetTokenQuery,
 } from "./app/apiSlice";
-import "./styles.css";
+import "./css/SingleRecipe.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link } from "react-router-dom";
@@ -45,72 +45,92 @@ function SingleRecipe() {
   if (data.detail === "Unable to match id to existing recipe")
     return <h1>No Recipes Found</h1>;
   const updateLink = `/recipes/update/${recipe_id}`;
+
   return (
     <>
-      <main className="wrapper">
-        <section className="hero">
-          <img
-            src={data.picture_url}
-            alt={data.name}
-            style={{ maxHeight: "400px" }}
-          />
-          <h1>{data.name}</h1>
-        </section>
-        {getToken.data.id === data.account_id && (
-          <Link to={updateLink}>
-            <button type="button" className="btn btn-primary m-1">
-              Edit
-            </button>
-          </Link>
-        )}
-        {getToken.data.id === data.account_id && (
-          <button
-            type="button"
-            className="btn btn-secondary"
-            onClick={handleSubmit}
-          >
-            Delete
-          </button>
-        )}
-        <section className="single-recipe-space">
-          <li>
-            <div className="container text-left">
-              {data.tags.map((tag) => {
-                return (
-                  <button
-                    key={tag}
-                    type="button"
-                    className="btn btn-secondary btn-sm"
-                  >
-                    {tag}
-                  </button>
-                );
-              })}
-            </div>
-          </li>
+      <main className="container px-5 my-5">
+        <section className="main">
           <ul>
             <li>
-              <h2>Ingredients</h2>
-              {data.ingredients.map((i) => {
-                return <p key={i}>{i}</p>;
-              })}
+              <figure>
+                <div className="d-flex justify-content-between">
+                  <div className="left-side">
+                    <h3>{data.name}</h3>
+                  </div>
+                  <div className="right-side">
+                    {getToken.data.id === data.account_id && (
+                      <Link to={updateLink}>
+                        <button
+                          type="button"
+                          className="btn btn-outline-primary"
+                        >
+                          Edit
+                        </button>
+                      </Link>
+                    )}
+                    {getToken.data.id === data.account_id && (
+                      <button
+                        type="button"
+                        className="btn btn-outline-secondary"
+                        onClick={handleSubmit}
+                      >
+                        Remove
+                      </button>
+                    )}
+                  </div>
+                </div>
+                <img
+                  src={data.picture_url}
+                  alt={data.name}
+                  style={{
+                    maxHeight: "800px",
+                    position: "relative",
+                    top: "20%",
+                  }}
+                />
+                <figcaption className="d-flex justify-content-start">
+                  <h3>Prep: {data.prep_time}</h3>
+                  <div className="m-3" />
+                  <h3>Servings: {data.servings}</h3>
+                </figcaption>
+              </figure>
+              <div className="d-flex justify-content-end">
+                {data.tags.map((tag) => {
+                  return (
+                    <button
+                      key={tag}
+                      type="button"
+                      className="btn btn-outline-primary"
+                    >
+                      {tag}
+                    </button>
+                  );
+                })}
+              </div>
             </li>
-            <li>
-              <h2>Directions</h2>
+          </ul>
+        </section>
+        <section className="main">
+          <ul>
+            <li className="text-left">
+              <h4>Directions</h4>
               {data.directions.map((d) => {
                 return (
-                  <p key={d.step_number}>
+                  <h5 className="lh-base" key={d.step_number}>
                     Step {d.step_number}: {d.recipe_step}
-                  </p>
+                  </h5>
                 );
+              })}
+            </li>
+            <li className="text-left">
+              <h4>Ingredients</h4>
+              {data.ingredients.map((i) => {
+                return <h5 key={i}>{i}</h5>;
               })}
             </li>
           </ul>
         </section>
       </main>
-      <footer>
-        <h3>Little spacing at the bottom</h3>
-      </footer>
     </>
   );
 }

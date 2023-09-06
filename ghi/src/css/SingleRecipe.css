@@ -1,0 +1,83 @@
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Sanchez", serif;
+}
+
+p,
+a {
+  font-family: "Sanchez", sans-serif;
+}
+
+/* Generic styles */
+html {
+  scroll-behavior: smooth;
+}
+
+a {
+  text-decoration: none;
+  color: white;
+  border-radius: 0.25rem;
+  text-align: center;
+  display: inline-block;
+  transition: all 0.3s;
+}
+
+a:hover {
+  opacity: 0.6;
+}
+/* breweries styles */
+.breweries {
+  padding: 3rem;
+}
+
+.main > ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  grid-gap: 2rem;
+}
+
+.main > ul > li {
+  border: 1px solid #e2e2e200;
+  border-radius: 0.5rem;
+}
+
+.main > ul > li > figure {
+  max-height: 500px;
+  overflow: hidden;
+  border-top-left-radius: 0.5rem;
+  border-top-right-radius: 0.5rem;
+  position: relative;
+}
+
+.main > ul > li > figure > img {
+  width: 100%;
+}
+
+.main > ul > li > figure > figcaption {
+  position: absolute;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.726);
+  width: 100%;
+}
+
+.main > ul > li > figure > figcaption > h3 {
+  color: white;
+  padding: 0.4rem;
+  font-size: 1.25rem;
+}
+
+.main > ul > li > p {
+  font-size: 1rem;
+  line-height: 1.5;
+  padding: 1rem 0.75rem;
+  color: #666666;
+}
+
+.main > ul > li > a {
+  padding: 0.5rem 1rem;
+  margin: 0.5rem;
+}

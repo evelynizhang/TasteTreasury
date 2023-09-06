@@ -1,6 +1,6 @@
 import { useGetAllRecipesQuery } from "./app/apiSlice";
 import "./App";
-import "./styles.css";
+import "./css/AllRecipe.css";
 import { Link } from "react-router-dom";
 
 function AllRecipes() {
@@ -10,42 +10,58 @@ function AllRecipes() {
   if (allRecipes.status === "fulfilled") {
     return (
       <>
-        <header className="bg-dark py-5">
-          <div className="container px-4 px-lg-5 my-5">
+        <header className="all-recipes-image py-5">
+          <div className="container px-2 my-5">
             <div className="text-center text-white">
-              <h1 className="display-4 fw-bolder">Image</h1>
-              <p className="lead fw-normal text-white-50 mb-0">Image text</p>
+              <h1 className="display-4 fw-bolder">All Recipes</h1>
             </div>
           </div>
         </header>
         {/* Section*/}
         <section className="py-5">
-          <div className="container px-4 px-lg-5 mt-5">
-            <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+          <div className="container px-4 mt-2">
+            <div className="row gx-4 gx-lg-5 row-cols-1 row-cols-sm-2 row-cols-md-3 justify-content-center">
               {data.map((recipe) => {
                 let path = `/recipes/${recipe.id}`;
                 return (
-                  <div className="col mb-5" key={recipe.id}>
-                    <div className="card h-100">
+                  <div className="col" key={recipe.id}>
+                    <div className="card pb-3 shadow mb-5 bg-body-tertiary rounded">
+                      <div
+                        className="badge bg-dark text-white position-absolute"
+                        style={{ top: "0.5rem", right: "0.5rem", zIndex: 1 }}
+                      >
+                        {recipe.name}
+                      </div>
                       {/* Product image*/}
-                      <Link to={path}>
-                        <img
-                          className="card-img-top"
-                          src={recipe.picture_url}
-                          alt="..."
-                        />
+                      <img
+                        className="card-img-top"
+                        src={recipe.picture_url}
+                        alt="..."
+                      />
 
-                        {/* Product details*/}
-                        <div className="card-body p-4">
-                          <div className="text-left">
-                            {/* Product name*/}
-                            <h5 className="fw-bolder">{recipe.name}</h5>
-                            Extra Info
+                      {/* Product details*/}
+                      <div className="card-body py-3 card-text-container">
+                        <div className="text-center">
+                          {/* Product name*/}
+                          <h3 className="fw-medium">{recipe.name}</h3>
+                          <div className="d-flex justify-content-around mt-3">
+                            <h6 className="m-0">
+                              <i className="bi bi-alarm"> </i>
+                              {recipe.prep_time}
+                            </h6>
+                            <h6 className="m-0">
+                              <i className="bi bi-people"> </i>
+                              {recipe.servings} Servings
+                            </h6>
                           </div>
                         </div>
-                        {/* Product actions*/}
-                        <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                          <div className="text-right">{recipe.prep_time}</div>
+                      </div>
+                      {/* Product actions*/}
+                      <Link to={path}>
+                        <div className="d-grid gap-2 col-5 mx-auto">
+                          <button type="button" className="btn btn-primary">
+                            View
+                          </button>
                         </div>
                       </Link>
                     </div>

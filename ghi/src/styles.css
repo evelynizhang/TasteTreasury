@@ -114,6 +114,16 @@ body {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+.all-recipes-image {
+  background-image: linear-gradient(
+      to top,
+      rgba(99, 99, 99, 0.541) 50%,
+      rgba(117, 117, 117, 0.5) 100%
+    ),
+    url("https://www.aafoodservice.com/wp-content/themes/custom-theme/img/slider-v1704.jpg");
+  background-size: cover;
+}
+
 .direction-box {
   padding-left: 5px;
 }
