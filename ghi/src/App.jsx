@@ -8,6 +8,7 @@ import AllRecipes from "./AllRecipes";
 import MyRecipes from "./MyRecipes";
 import RecipeForm from "./RecipeForm";
 import SingleRecipe from "./SingleRecipe";
+import UpdateForm from "./UpdateForm";
 
 function App() {
   return (
@@ -23,6 +24,9 @@ function App() {
             <Route path="mine" element={<MyRecipes />} />
             <Route path="create" element={<RecipeForm />} />
             <Route path=":recipe_id" element={<SingleRecipe />} />
+          </Route>
+          <Route path="recipes/update">
+            <Route path=":recipe_id" element={<UpdateForm />} />
           </Route>
         </Routes>
       </div>

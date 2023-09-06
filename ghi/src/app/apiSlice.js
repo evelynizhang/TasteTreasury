@@ -116,6 +116,17 @@ export const recipeApi = createApi({
       }),
       invalidatesTags: ["Recipe"],
     }),
+    updateRecipe: builder.mutation({
+      query: ({ recipe_id, ...patch }) => {
+        return {
+          url: `api/recipes/${recipe_id}`,
+          method: "PUT",
+          body: patch,
+          credentials: "include",
+        };
+      },
+      invalidatesTags: ["Recipe"],
+    }),
   }),
 });
 
@@ -131,4 +142,5 @@ export const {
   useCreateRecipeMutation,
   useGetSingleRecipeQuery,
   useDeleteRecipeMutation,
+  useUpdateRecipeMutation,
 } = recipeApi;
