@@ -4,8 +4,8 @@ import {
   useGetSingleRecipeQuery,
   useDeleteRecipeMutation,
   useGetTokenQuery,
-} from "./app/apiSlice";
-import "./css/SingleRecipe.css";
+} from "../app/apiSlice";
+import "../css/SingleRecipe.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link } from "react-router-dom";
@@ -61,7 +61,7 @@ function SingleRecipe() {
                       <Link to={updateLink}>
                         <button
                           type="button"
-                          className="btn btn-outline-primary"
+                          className="btn btn-outline-primary mr-2"
                         >
                           Edit
                         </button>
@@ -70,7 +70,7 @@ function SingleRecipe() {
                     {getToken.data && getToken.data.id === data.account_id && (
                       <button
                         type="button"
-                        className="btn btn-outline-secondary"
+                        className="btn btn-outline-secondary mr-2"
                         onClick={handleSubmit}
                       >
                         Remove
@@ -79,7 +79,10 @@ function SingleRecipe() {
                   </div>
                 </div>
                 <img
-                  src={data.picture_url}
+                  src={
+                    data.picture_url ||
+                    "https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fHw%3D&w=1000&q=80"
+                  }
                   alt={data.name}
                   style={{
                     maxHeight: "800px",
@@ -99,7 +102,7 @@ function SingleRecipe() {
                     <button
                       key={tag}
                       type="button"
-                      className="btn btn-outline-primary"
+                      className="btn btn-outline-primary mr-2"
                     >
                       {tag}
                     </button>
@@ -112,6 +115,12 @@ function SingleRecipe() {
         <section className="main">
           <ul>
             <li className="text-left">
+              <h4>Ingredients</h4>
+              {data.ingredients.map((i) => {
+                return <h5 key={i}>{i}</h5>;
+              })}
+            </li>
+            <li className="text-left">
               <h4>Directions</h4>
               {data.directions.map((d) => {
                 return (
@@ -122,12 +131,6 @@ function SingleRecipe() {
                     {d.recipe_step}
                   </h5>
                 );
-              })}
-            </li>
-            <li className="text-left">
-              <h4>Ingredients</h4>
-              {data.ingredients.map((i) => {
-                return <h5 key={i}>{i}</h5>;
               })}
             </li>
           </ul>

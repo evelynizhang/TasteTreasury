@@ -1,20 +1,21 @@
-import "./App.css";
-import Nav from "./Nav";
-import Login from "./Login";
-import Signup from "./Signup";
+import "./css/App.css";
+import Nav from "./components/Nav";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Home";
-import AllRecipes from "./AllRecipes";
-import MyRecipes from "./MyRecipes";
-import RecipeForm from "./RecipeForm";
-import SingleRecipe from "./SingleRecipe";
-import UpdateForm from "./UpdateForm";
+import Home from "./pages/Home";
+import AllRecipes from "./pages/AllRecipes";
+import MyRecipes from "./pages/MyRecipes";
+import RecipeForm from "./pages/RecipeForm";
+import SingleRecipe from "./pages/SingleRecipe";
+import UpdateForm from "./pages/UpdateForm";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <BrowserRouter>
       <Nav />
-      <div>
+      <div id="content-body">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
@@ -30,6 +31,7 @@ function App() {
           </Route>
         </Routes>
       </div>
+      <Footer />
     </BrowserRouter>
   );
 }

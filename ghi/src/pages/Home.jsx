@@ -1,6 +1,7 @@
-import "./css/Home.css";
+import "../css/Home.css";
 import { Link } from "react-router-dom";
-import { useGetTokenQuery } from "./app/apiSlice";
+import { useGetTokenQuery } from "../app/apiSlice";
+import HomeIcon from "../components/HomeIcon";
 
 function Home() {
   const getToken = useGetTokenQuery();
@@ -13,7 +14,7 @@ function Home() {
               <div className="col-lg-8 col-xl-7 col-xxl-6">
                 <div className="my-5 text-center text-xl-center">
                   <h1 className="display-5 fw-bolder text-white mb-2">
-                    Tasty Treasure
+                    Tasty Treasury
                   </h1>
                   <p className="lead fw-normal text-white-50 mb-4">
                     Create, update, view, and store any recipe so that you can
@@ -49,50 +50,26 @@ function Home() {
             <h2 className="text-center mt-0">For your Convenience</h2>
             <hr className="border-secondary border-4 opacity-50" />
             <div className="row gx-4 gx-lg-5">
-              <div className="col-lg-3 col-md-6 text-center">
-                <div className="mt-5">
-                  <div className="mb-2">
-                    <i className="bi-mouse2 fs-1 text-primary" />
-                  </div>
-                  <h3 className="h4 mb-2">Simple Usage</h3>
-                  <p className="text-muted mb-0">
-                    Just a few clicks away from what you need.
-                  </p>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 text-center">
-                <div className="mt-5">
-                  <div className="mb-2">
-                    <i className="bi-calendar-check fs-1 text-primary" />
-                  </div>
-                  <h3 className="h4 mb-2">Up to Date</h3>
-                  <p className="text-muted mb-0">
-                    All recipes are kept current, or you can make changes.
-                  </p>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 text-center">
-                <div className="mt-5">
-                  <div className="mb-2">
-                    <i className="bi-upload fs-1 text-primary" />
-                  </div>
-                  <h3 className="h4 mb-2">Ready to Search</h3>
-                  <p className="text-muted mb-0">
-                    Browse by tag name if you're feeling curious.
-                  </p>
-                </div>
-              </div>
-              <div className="col-lg-3 col-md-6 text-center">
-                <div className="mt-5">
-                  <div className="mb-2">
-                    <i className="bi-heart fs-1 text-primary" />
-                  </div>
-                  <h3 className="h4 mb-2">Made with Love</h3>
-                  <p className="text-muted mb-0">
-                    Add more seasoning to your dry chicken now!
-                  </p>
-                </div>
-              </div>
+              <HomeIcon
+                iClassName="bi-mouse2 fs-1 text-primary"
+                h3Input="Simple Usage"
+                pInput="Just a few clicks away from what you need."
+              />
+              <HomeIcon
+                iClassName="bi-calendar-check fs-1 text-primary"
+                h3Input="Up to Date"
+                pInput="All recipes are kept current, or you can make changes."
+              />
+              <HomeIcon
+                iClassName="bi-upload fs-1 text-primary"
+                h3Input="Ready to Search"
+                pInput="Browse by tag name if you're feeling curious."
+              />
+              <HomeIcon
+                iClassName="bi-heart fs-1 text-primary"
+                h3Input="Made with Love"
+                pInput="Add more seasoning to your dry chicken now!"
+              />
             </div>
           </div>
         </section>

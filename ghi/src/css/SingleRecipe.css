@@ -81,3 +81,13 @@ a:hover {
   padding: 0.5rem 1rem;
   margin: 0.5rem;
 }
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container.px-5.my-5 {
+  flex-grow: 1;
+}

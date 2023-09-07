@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
-import { search, reset } from "./app/searchSlice";
+import { search, reset } from "../app/searchSlice";
 
 const SearchBar = () => {
   const [searchInput, setSearchInput] = useState("");

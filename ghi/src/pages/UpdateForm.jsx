@@ -1,11 +1,13 @@
 import {
   useUpdateRecipeMutation,
   useGetSingleRecipeQuery,
-} from "./app/apiSlice";
+} from "../app/apiSlice";
 import Select from "react-select";
 import { useState, useEffect, React } from "react";
-import { useGetAllTagsQuery } from "./app/apiSlice";
+import { useGetAllTagsQuery } from "../app/apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
+import FormInput from "../components/FormInput";
+import FormButtons from "../components/FormButtons";
 
 function UpdateForm() {
   let { recipe_id } = useParams();
@@ -138,52 +140,38 @@ function UpdateForm() {
       <div className="col-md-6 offset-md-3">
         <h1>Update Recipe form</h1>
         <form onSubmit={handleUpdate}>
-          <div className="form-group">
-            <label htmlFor="name">Name</label>
-            <input
-              type="text"
-              className="form-control"
-              id="name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="Enter Recipe Name"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="prep_time">Prep_time</label>
-            <input
-              type="prep_time"
-              className="form-control"
-              id="prep_time"
-              value={prep_time}
-              onChange={(e) => setPrep_time(e.target.value)}
-              placeholder="Enter Preparation Time"
-            />
-          </div>
-          <div className="form-group">
-            <label htmlFor="servings">Servings</label>
-            <input
-              type="number"
-              className="form-control"
-              id="servings"
-              value={servings}
-              onChange={(e) => handleServing(e)}
-              placeholder="Enter Servings"
-            />
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="picture_url">Picture url</label>
-            <input
-              type="text"
-              className="form-control"
-              id="picture_url"
-              value={picture_url}
-              onChange={(e) => setPicture_url(e.target.value)}
-              placeholder="Enter Picture URL"
-            />
-          </div>
-
+          <FormInput
+            id="name"
+            placeholder="Enter Recipe Name"
+            labelText="Name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            type="text"
+          />
+          <FormInput
+            id="prep_time"
+            placeholder="Enter Preparation Time"
+            labelText="Prep time"
+            value={prep_time}
+            onChange={(e) => setPrep_time(e.target.value)}
+            type="text"
+          />
+          <FormInput
+            id="servings"
+            placeholder="Enter Servings"
+            labelText="Servings"
+            value={servings}
+            onChange={(e) => handleServing(e)}
+            type="number"
+          />
+          <FormInput
+            id="picture_url"
+            placeholder="Enter Picture URL"
+            labelText="Picture url"
+            value={picture_url}
+            onChange={(e) => setPicture_url(e.target.value)}
+            type="text"
+          />
           <div className="form-group ">
             <label htmlFor="ingredients">Ingredients</label>
             {ingredients.map((singleIngredient, index) => (
@@ -197,24 +185,12 @@ function UpdateForm() {
                     value={singleIngredient}
                     onChange={(e) => handleIngredientChange(e, index)}
                   />
-                  {ingredients.length > 1 && (
-                    <button
-                      type="button"
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleIngredientRemove(index)}
-                    >
-                      <span>X</span>
-                    </button>
-                  )}
-                  {ingredients.length - 1 === index && (
-                    <button
-                      type="button"
-                      className="btn btn-success btn-sm"
-                      onClick={handleIngredientsAdd}
-                    >
-                      <span>+</span>
-                    </button>
-                  )}
+                  <FormButtons
+                    condition1={ingredients}
+                    onClickRemove={() => handleIngredientRemove(index)}
+                    onClickAdd={handleIngredientsAdd}
+                    index={index}
+                  />
                 </div>
               </div>
             ))}
@@ -235,24 +211,12 @@ function UpdateForm() {
                       value={singleDirection.recipe_step}
                       onChange={(e) => handleDirectionChange(e, index)}
                     />
-                    {directions.length > 1 && (
-                      <button
-                        type="button"
-                        className="btn btn-danger btn-sm "
-                        onClick={() => handleDirectionRemove(index)}
-                      >
-                        <span>X</span>
-                      </button>
-                    )}
-                    {directions.length - 1 === index && (
-                      <button
-                        type="button"
-                        className="btn btn-success btn-sm"
-                        onClick={() => handleDirectionsAdd(index)}
-                      >
-                        <span>+</span>
-                      </button>
-                    )}
+                    <FormButtons
+                      condition1={directions}
+                      onClickRemove={() => handleDirectionRemove(index)}
+                      onClickAdd={() => handleDirectionsAdd(index)}
+                      index={index}
+                    />
                   </div>
                 </div>
               );
