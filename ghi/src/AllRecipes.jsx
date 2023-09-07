@@ -11,7 +11,9 @@ function AllRecipes() {
   const data = allRecipes.data;
   const filteredData = () => {
     if (searchCriteria)
-      return data.filter((recipe) => recipe.name.includes(searchCriteria));
+      return data.filter((recipe) =>
+        recipe.name.toLowerCase().includes(searchCriteria.toLowerCase())
+      );
     return data;
   };
   if (allRecipes.status === "fulfilled") {

@@ -116,7 +116,9 @@ function SingleRecipe() {
               {data.directions.map((d) => {
                 return (
                   <h5 className="lh-base" key={d.step_number}>
-                    Step {d.step_number}: {d.recipe_step}
+                    <span style={{ color: "orange", fontWeight: "bold" }}>
+                      Step {d.step_number}:{" "}
+                    </span>
                   </h5>
                 );
               })}
