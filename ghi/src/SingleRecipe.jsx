@@ -119,6 +119,7 @@ function SingleRecipe() {
                     <span style={{ color: "orange", fontWeight: "bold" }}>
                       Step {d.step_number}:{" "}
                     </span>
+                    {d.recipe_step}
                   </h5>
                 );
               })}
