@@ -4,6 +4,8 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Nav() {
+  const logo = process.env.PUBLIC_URL + "/favicon.ico";
+
   const { data: account } = useGetTokenQuery();
   const [logout, logoutResponse] = useLogoutMutation();
   const navigate = useNavigate();
@@ -15,7 +17,7 @@ function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <NavLink className="navbar-brand ml-5" to="/">
-        Home
+        <img className="icon" src={logo} />
       </NavLink>
       <button
         className="navbar-toggler"
