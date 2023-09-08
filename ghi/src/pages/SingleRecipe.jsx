@@ -48,7 +48,7 @@ function SingleRecipe() {
   const updateLink = `/recipes/update/${recipe_id}`;
   return (
     <>
-      {/* <Nutrition /> */}
+      <Nutrition />
       <main className="container px-5 my-5">
         <section className="main">
           <ul>

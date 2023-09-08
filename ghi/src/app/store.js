@@ -1,13 +1,17 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore } from "@reduxjs/toolkit";
 import { recipeApi } from "./apiSlice";
-import searchReducer from "./searchSlice"
-
+import searchReducer from "./searchSlice";
+import { nutritionApi } from "./nutritionApiSlice";
 
 export const store = configureStore({
   reducer: {
+    [nutritionApi.reducerPath]: nutritionApi.reducer,
     [recipeApi.reducerPath]: recipeApi.reducer,
-    search: searchReducer
+    search: searchReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(recipeApi.middleware),
-})
+    getDefaultMiddleware().concat(
+      recipeApi.middleware,
+      nutritionApi.middleware
+    ),
+});
