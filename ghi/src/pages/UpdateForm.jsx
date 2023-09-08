@@ -1,16 +1,22 @@
 import {
   useUpdateRecipeMutation,
   useGetSingleRecipeQuery,
+  useGetAllTagsQuery,
+  useGetTokenQuery,
 } from "../app/apiSlice";
 import Select from "react-select";
 import { useState, useEffect, React } from "react";
-import { useGetAllTagsQuery } from "../app/apiSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import FormButtons from "../components/FormButtons";
 
 function UpdateForm() {
   let { recipe_id } = useParams();
+  const {
+    data: recipeData,
+    isLoading,
+    isError,
+  } = useGetSingleRecipeQuery(recipe_id);
   const [name, setName] = useState("");
   const [prep_time, setPrep_time] = useState("");
   const [servings, setServings] = useState(0);
@@ -20,9 +26,18 @@ function UpdateForm() {
     { step_number: 0, recipe_step: "" },
   ]);
   const tagList = useGetAllTagsQuery();
+  const [updateRecipe, updateRecipeResponse] = useUpdateRecipeMutation();
+  const { data: account } = useGetTokenQuery();
   const navigate = useNavigate();
 
-  const [updateRecipe, updateRecipeResponse] = useUpdateRecipeMutation();
+  useEffect(() => {
+    if (account !== undefined && recipeData) {
+      if (account && account.id !== recipeData.account_id) {
+        navigate(`/recipes/${recipe_id}`);
+      }
+      if (!account) navigate("/login");
+    }
+  }, [account, recipeData]);
 
   const options = [];
   if (tagList.status === "fulfilled") {
@@ -110,12 +125,6 @@ function UpdateForm() {
     list[index] = newDir;
     setDirections(list);
   };
-
-  const {
-    data: recipeData,
-    isLoading,
-    isError,
-  } = useGetSingleRecipeQuery(recipe_id);
 
   useEffect(() => {
     if (recipeData) {

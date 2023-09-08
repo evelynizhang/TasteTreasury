@@ -25,9 +25,7 @@ function App() {
             <Route path="mine" element={<MyRecipes />} />
             <Route path="create" element={<RecipeForm />} />
             <Route path=":recipe_id" element={<SingleRecipe />} />
-          </Route>
-          <Route path="recipes/update">
-            <Route path=":recipe_id" element={<UpdateForm />} />
+            <Route path=":recipe_id/update" element={<UpdateForm />} />
           </Route>
         </Routes>
       </div>

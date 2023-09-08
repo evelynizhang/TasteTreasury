@@ -1,16 +1,22 @@
-import { useGetMyRecipesQuery } from "../app/apiSlice";
+import { useGetMyRecipesQuery, useGetTokenQuery } from "../app/apiSlice";
 import "../App";
 import "../css/AllRecipe.css";
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SearchBar from "../components/SearchBar";
 import Header from "../components/HeaderRecipePages";
 import RecipeCard from "../components/RecipeCard";
+import { useNavigate, useParams } from "react-router-dom";
 
 function MyRecipes() {
   const searchCriteria = useSelector((state) => state.search.value);
+  const { data, status } = useGetMyRecipesQuery();
+  const { data: account } = useGetTokenQuery();
+  const navigate = useNavigate();
 
-  const myRecipes = useGetMyRecipesQuery();
-  const data = myRecipes.data;
+  useEffect(() => {
+    if (!account) navigate("/login");
+  }, [account]);
 
   const filteredData = () => {
     if (searchCriteria)
@@ -18,7 +24,7 @@ function MyRecipes() {
     return data;
   };
 
-  if (myRecipes.status === "fulfilled") {
+  if (status === "fulfilled") {
     return (
       <>
         <Header h1Input="Personal Recipes" />

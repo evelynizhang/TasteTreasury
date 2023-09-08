@@ -1,5 +1,9 @@
 import { useState, useEffect, React } from "react";
-import { useCreateRecipeMutation, useGetAllTagsQuery } from "../app/apiSlice";
+import {
+  useCreateRecipeMutation,
+  useGetAllTagsQuery,
+  useGetTokenQuery,
+} from "../app/apiSlice";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import "../css/styles.css";
@@ -18,6 +22,11 @@ function RecipeForm() {
   const tagList = useGetAllTagsQuery();
   const [newRecipe, newRecipeResponse] = useCreateRecipeMutation();
   const navigate = useNavigate();
+  const { data: account } = useGetTokenQuery();
+
+  useEffect(() => {
+    if (!account) navigate("/login");
+  }, [account]);
 
   useEffect(() => {
     if (newRecipeResponse.isSuccess) navigate("/recipes");

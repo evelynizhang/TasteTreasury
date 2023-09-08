@@ -45,7 +45,7 @@ function SingleRecipe() {
   if (isLoading) return <h1>Page still Loading</h1>;
   if (data.detail === "Unable to match id to existing recipe")
     return <h1>No Recipes Found</h1>;
-  const updateLink = `/recipes/update/${recipe_id}`;
+  const updateLink = `/recipes/${recipe_id}/update`;
   return (
     <>
       <main className="container px-5 my-5">

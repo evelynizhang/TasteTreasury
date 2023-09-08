@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { useSignupMutation, useGetAccountsQuery } from "../app/apiSlice";
+import {
+  useSignupMutation,
+  useGetAccountsQuery,
+  useGetTokenQuery,
+} from "../app/apiSlice";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
 
@@ -10,9 +14,13 @@ function Signup() {
   const [password_confirmation, setPasswordConfirmation] = useState("");
   const [signup, signupResponse] = useSignupMutation();
   const [errorMessage, setErrorMessage] = useState("");
-
   const getAccounts = useGetAccountsQuery();
   const navigate = useNavigate();
+  const { data: account } = useGetTokenQuery();
+
+  useEffect(() => {
+    if (account) navigate("/recipes/mine");
+  }, [account]);
 
   useEffect(() => {
     if (signupResponse.isSuccess) navigate("/");

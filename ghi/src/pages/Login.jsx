@@ -1,5 +1,9 @@
 import { useState, useEffect } from "react";
-import { useLoginMutation, useGetAccountsQuery } from "../app/apiSlice";
+import {
+  useLoginMutation,
+  useGetAccountsQuery,
+  useGetTokenQuery,
+} from "../app/apiSlice";
 import { useNavigate } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import "../css/Login.css";
@@ -11,6 +15,11 @@ function Login() {
   const navigate = useNavigate();
   const [errorMessage, setErrorMessage] = useState("");
   const getAccounts = useGetAccountsQuery();
+  const { data: account } = useGetTokenQuery();
+
+  useEffect(() => {
+    if (account) navigate("/recipes/mine");
+  }, [account]);
 
   useEffect(() => {
     if (loginResponse.isSuccess) navigate("/recipes/mine");
