@@ -23,6 +23,18 @@ function Nutrition() {
   if (isLoading) return <h1>Page still Loading</h1>;
   if (data.detail === "Unable to match id to existing recipe")
     return <h1>No Recipes Found</h1>;
+  if (createNutritionDataResponse.status === "rejected") {
+    return (
+      <section className="performance-facts">
+        <div className="performance-facts__header">
+          <h1 className="performance-facts__title">Nutrition Facts</h1>
+          <p>
+            Recipe ingredients have insufficient quality to process correctly
+          </p>
+        </div>
+      </section>
+    );
+  }
 
   if (createNutritionDataResponse.data) {
     return (

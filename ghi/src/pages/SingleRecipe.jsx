@@ -48,7 +48,6 @@ function SingleRecipe() {
   const updateLink = `/recipes/update/${recipe_id}`;
   return (
     <>
-      <Nutrition />
       <main className="container px-5 my-5">
         <section className="main">
           <ul>
@@ -116,13 +115,15 @@ function SingleRecipe() {
         </section>
         <section className="main">
           <ul>
-            <li className="text-left">
-              <h4>Ingredients</h4>
-              {data.ingredients.map((i) => {
-                return <h5 key={i}>{i}</h5>;
-              })}
-            </li>
-
+            <div>
+              <li className="text-left">
+                <h4>Ingredients</h4>
+                {data.ingredients.map((i) => {
+                  return <h5 key={i}>{i}</h5>;
+                })}
+              </li>
+              <Nutrition className="text-left" />
+            </div>
             <li className="text-left">
               <h4>Directions</h4>
               {data.directions.map((d) => {
