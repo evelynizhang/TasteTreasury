@@ -14,7 +14,7 @@ function Nav() {
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <NavLink className="navbar-brand" to="/">
+      <NavLink className="navbar-brand ml-5" to="/">
         Home
       </NavLink>
       <button
@@ -28,7 +28,10 @@ function Nav() {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <div
+        className="collapse navbar-collapse mr-5 "
+        id="navbarSupportedContent"
+      >
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <NavLink className="nav-link" to="/recipes">
