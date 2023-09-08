@@ -9,6 +9,7 @@ import "../css/SingleRecipe.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link } from "react-router-dom";
+import Nutrition from "../components/NutritionTable";
 
 function SingleRecipe() {
   let { recipe_id } = useParams();
@@ -47,6 +48,7 @@ function SingleRecipe() {
   const updateLink = `/recipes/update/${recipe_id}`;
   return (
     <>
+      {/* <Nutrition /> */}
       <main className="container px-5 my-5">
         <section className="main">
           <ul>
@@ -120,6 +122,7 @@ function SingleRecipe() {
                 return <h5 key={i}>{i}</h5>;
               })}
             </li>
+
             <li className="text-left">
               <h4>Directions</h4>
               {data.directions.map((d) => {
