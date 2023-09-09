@@ -1,6 +1,6 @@
 from pydantic import BaseModel
 from jwtdown_fastapi.authentication import Token
-from typing import List
+from typing import List, Optional
 
 
 class DuplicateAccountError(ValueError):
@@ -63,7 +63,7 @@ class RecipeOut(BaseModel):
     prep_time: str
     servings: int
     picture_url: str
-    account_id: int
+    account_id: Optional[int]
     ingredients: List[str]
     directions: List[Direction]
     tags: List[str]
@@ -75,7 +75,7 @@ class RecipeCardOut(BaseModel):
     prep_time: str
     servings: int
     picture_url: str
-    account_id: int
+    account_id: Optional[int]
 
 
 class DeleteResponse(BaseModel):
