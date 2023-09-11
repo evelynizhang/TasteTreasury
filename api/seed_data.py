@@ -1,6 +1,6 @@
 import os
 from psycopg_pool import ConnectionPool
-from recipesSeedData import recipes
+from recipe_data import recipes
 from models import RecipeIn
 
 pool = ConnectionPool(conninfo=os.environ["DATABASE_URL"])

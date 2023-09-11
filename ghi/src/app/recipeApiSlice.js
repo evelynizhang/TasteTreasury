@@ -12,7 +12,7 @@ export const recipeApi = createApi({
         credentials: "include",
       }),
       transformResponse: (response) => response?.account || null,
-      providesTags: ["Account", { type: "Recipe", id: "MINE" }],
+      providesTags: ["Account"],
     }),
 
     logout: builder.mutation({
@@ -48,7 +48,7 @@ export const recipeApi = createApi({
           credentials: "include",
         };
       },
-      invalidatesTags: ["Account"],
+      invalidatesTags: ["Account", { type: "Recipe", id: "MINE" }],
     }),
 
     getAccounts: builder.query({

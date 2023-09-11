@@ -185,19 +185,15 @@ recipes = {
             "directions": [
                 {
                     "step_number": 1,
-                    "recipe_step": "Salt steak liberally on all surfaces. Let rest in the fridge for 1 hour or up to overnight.",
+                    "recipe_step": "Salt steak liberally on all surfaces. Let rest on countertop at room temp for 1 hour or up to overnight in the fridge.",
                 },
                 {
                     "step_number": 2,
-                    "recipe_step": "Take steak out of fridge and let rest at room temperature for 1 hour prior to cooking. Preheat oven to 250F.",
+                    "recipe_step": "Set oven to 250F. Once preheated, place steak on sheetpan in the oven and monitor internal temp. Pull at 110F - this should take 30-40 minutes. ",
                 },
                 {
                     "step_number": 3,
-                    "recipe_step": "Place steak on sheetpan in the oven and monitor internal temp. Pull at 110F - this should take 30-40 minutes.",
-                },
-                {
-                    "step_number": 4,
-                    "recipe_step": "Heat a cast iron skillet over medium-high flame. Add a small amount of high smoke point oil. Once oil is smoking, pat steak dry and add to pan. Flip every 15-30 seconds until internal temp reaches 120F. Add butter, garlic, and rosemary and baste steak until internal temp reaches 130F. Pull steak and let rest 10 minutes.",
+                    "recipe_step": "Heat a cast iron skillet over medium-high flame. Add a small amount of high smoke point oil. Once oil is smoking, pat steak dry and add to pan. Flip every 15-30 seconds until internal temp reaches 120F and crust is golden brown. Add butter, garlic, and rosemary and baste steak until internal temp reaches 130F. Pull steak and let rest 10 minutes.",
                 },
             ],
             "tags": ["Beef"],

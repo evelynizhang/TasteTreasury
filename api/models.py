@@ -49,32 +49,25 @@ class Direction(BaseModel):
 
 class RecipeIn(BaseModel):
     name: str
-    prep_time: str
-    servings: int
-    picture_url: str
+    prep_time: Optional[str]
+    servings: Optional[int]
+    picture_url: Optional[str]
     ingredients: List[str]
     directions: List[Direction]
     tags: List[str]
 
 
-class RecipeOut(BaseModel):
+class RecipeOut(RecipeIn):
     id: int
-    name: str
-    prep_time: str
-    servings: int
-    picture_url: str
     account_id: Optional[int]
-    ingredients: List[str]
-    directions: List[Direction]
-    tags: List[str]
 
 
 class RecipeCardOut(BaseModel):
     id: int
     name: str
-    prep_time: str
-    servings: int
-    picture_url: str
+    prep_time: Optional[str]
+    servings: Optional[int]
+    picture_url: Optional[str]
     account_id: Optional[int]
 
 

@@ -45,7 +45,7 @@ steps = [
         CREATE TABLE directions (
             id SERIAL PRIMARY KEY NOT NULL UNIQUE,
             recipe_step VARCHAR(1000) NOT NULL,
-            step_number SMALLINT,
+            step_number SMALLINT NOT NULL,
             recipe_id INT,
             CONSTRAINT FK_recipes
             FOREIGN KEY (recipe_id) REFERENCES recipes (id) ON DELETE CASCADE,

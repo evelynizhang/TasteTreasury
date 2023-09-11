@@ -7,15 +7,14 @@ import { useCreateNutritionMutation } from "../app/nutritionApiSlice";
 function Nutrition() {
   let { recipe_id } = useParams();
   const { data, isLoading, isError } = useGetSingleRecipeQuery(recipe_id);
-  const [createNutritionData, createNutritionDataResponse] =
-    useCreateNutritionMutation();
+  const [nutrition, nutritionResponse] = useCreateNutritionMutation();
 
   useEffect(() => {
     if (data) {
       const nutritionInput = {};
       nutritionInput["title"] = data.name;
       nutritionInput["ingr"] = data.ingredients;
-      createNutritionData(nutritionInput);
+      nutrition(nutritionInput);
     }
   }, [data]);
 
@@ -23,7 +22,7 @@ function Nutrition() {
   if (isLoading) return <h1>Page still Loading</h1>;
   if (data.detail === "Unable to match id to existing recipe")
     return <h1>No Recipes Found</h1>;
-  if (createNutritionDataResponse.status === "rejected") {
+  if (nutritionResponse.status === "rejected") {
     return (
       <section className="performance-facts">
         <div className="performance-facts__header">
@@ -36,7 +35,7 @@ function Nutrition() {
     );
   }
 
-  if (createNutritionDataResponse.data) {
+  if (nutritionResponse.data) {
     return (
       <div>
         <section className="performance-facts">
@@ -47,16 +46,12 @@ function Nutrition() {
             </p>
             <p>
               Calories Per Serving:{" "}
-              {Math.round(
-                createNutritionDataResponse.data.calories / data.servings
-              )}
+              {Math.round(nutritionResponse.data.calories / data.servings)}
             </p>
             <p>
               Total CO2 Emissions:{" "}
               {Math.round(
-                createNutritionDataResponse.data.totalCO2Emissions /
-                  data.servings /
-                  1000
+                nutritionResponse.data.totalCO2Emissions / data.servings / 1000
               )}
               kg
             </p>
@@ -71,10 +66,10 @@ function Nutrition() {
                 <td>
                   <b>
                     {Math.round(
-                      createNutritionDataResponse.data.totalNutrients.FAT
-                        .quantity / data.servings
+                      nutritionResponse.data.totalNutrients.FAT.quantity /
+                        data.servings
                     )}
-                    {createNutritionDataResponse.data.totalNutrients.FAT.unit}
+                    {nutritionResponse.data.totalNutrients.FAT.unit}
                   </b>
                 </td>
               </tr>
@@ -85,10 +80,10 @@ function Nutrition() {
                 <td>
                   <b>
                     {Math.round(
-                      createNutritionDataResponse.data.totalNutrients.CHOLE
-                        .quantity / data.servings
+                      nutritionResponse.data.totalNutrients.CHOLE.quantity /
+                        data.servings
                     )}
-                    {createNutritionDataResponse.data.totalNutrients.CHOLE.unit}
+                    {nutritionResponse.data.totalNutrients.CHOLE.unit}
                   </b>
                 </td>
               </tr>
@@ -99,10 +94,10 @@ function Nutrition() {
                 <td>
                   <b>
                     {Math.round(
-                      createNutritionDataResponse.data.totalNutrients.NA
-                        .quantity / data.servings
+                      nutritionResponse.data.totalNutrients.NA.quantity /
+                        data.servings
                     )}
-                    {createNutritionDataResponse.data.totalNutrients.NA.unit}
+                    {nutritionResponse.data.totalNutrients.NA.unit}
                   </b>
                 </td>
               </tr>
@@ -113,13 +108,10 @@ function Nutrition() {
                 <td>
                   <b>
                     {Math.round(
-                      createNutritionDataResponse.data.totalNutrients.CHOCDF
-                        .quantity / data.servings
+                      nutritionResponse.data.totalNutrients.CHOCDF.quantity /
+                        data.servings
                     )}
-                    {
-                      createNutritionDataResponse.data.totalNutrients.CHOCDF
-                        .unit
-                    }
+                    {nutritionResponse.data.totalNutrients.CHOCDF.unit}
                   </b>
                 </td>
               </tr>
@@ -130,13 +122,10 @@ function Nutrition() {
                 <td>
                   <b>
                     {Math.round(
-                      createNutritionDataResponse.data.totalNutrients.PROCNT
-                        .quantity / data.servings
+                      nutritionResponse.data.totalNutrients.PROCNT.quantity /
+                        data.servings
                     )}
-                    {
-                      createNutritionDataResponse.data.totalNutrients.PROCNT
-                        .unit
-                    }
+                    {nutritionResponse.data.totalNutrients.PROCNT.unit}
                   </b>
                 </td>
               </tr>
@@ -147,10 +136,10 @@ function Nutrition() {
                 <td>
                   <b>
                     {Math.round(
-                      createNutritionDataResponse.data.totalNutrients.SUGAR
-                        .quantity / data.servings
+                      nutritionResponse.data.totalNutrients.SUGAR.quantity /
+                        data.servings
                     )}
-                    {createNutritionDataResponse.data.totalNutrients.SUGAR.unit}
+                    {nutritionResponse.data.totalNutrients.SUGAR.unit}
                   </b>
                 </td>
               </tr>
