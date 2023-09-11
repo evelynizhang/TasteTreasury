@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 
 function Nav() {
   const logo = process.env.PUBLIC_URL + "/favicon.ico";
-
   const { data: account } = useGetTokenQuery();
   const [logout, logoutResponse] = useLogoutMutation();
   const navigate = useNavigate();
@@ -15,8 +14,8 @@ function Nav() {
   }, [logoutResponse]);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <NavLink className="navbar-brand ml-5" to="/">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light mx-3">
+      <NavLink className="navbar-brand" to="/">
         <img className="icon" src={logo} />
       </NavLink>
       <button
@@ -30,10 +29,7 @@ function Nav() {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-      <div
-        className="collapse navbar-collapse mr-5 "
-        id="navbarSupportedContent"
-      >
+      <div className="collapse navbar-collapse" id="navbarSupportedContent">
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <NavLink className="nav-link" to="/recipes">
@@ -56,10 +52,7 @@ function Nav() {
           )}
         </ul>
         {!account && (
-          <button
-            className="btn btn-outline-primary ml-2"
-            onClick={() => navigate("/login")}
-          >
+          <button className="btn ml-2" onClick={() => navigate("/login")}>
             Account
           </button>
         )}

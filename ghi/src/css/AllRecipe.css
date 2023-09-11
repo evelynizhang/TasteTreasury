@@ -4,3 +4,7 @@ img {
   height: 220px;
   object-fit: cover;
 }
+.icon {
+  height: 2.5rem;
+  width: 2.5rem;
+}

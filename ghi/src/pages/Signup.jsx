@@ -48,58 +48,80 @@ function Signup() {
     };
 
     return (
-      <>
-        <div className="col-md-6 offset-md-3">
-          <h1>Sign up form</h1>
-          {errorMessage && (
-            <div className="alert alert-danger" role="alert">
-              {errorMessage}
+      <div className="container">
+        <div className="body">
+          <div className="row gx-4 gx-lg-5 row-cols-1 row-cols-md-2">
+            <div className="col d-none d-md-block mt-2">
+              <img
+                src="https://s23209.pcdn.co/wp-content/uploads/2017/05/How-to-Make-an-Easy-Cheese-Board-in-10-MinutesIMG_0257edit.jpg"
+                alt="Login image"
+                className="img-thumbnail"
+                style={{ maxHeight: "700px" }}
+              />
             </div>
-          )}
-          <form onSubmit={handleSubmit}>
-            <FormInput
-              id="signup_username"
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              placeholder="Username"
-              labelText="Username"
-              maxLength="50"
-            />
-            <FormInput
-              id="signup_email"
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter email"
-              labelText="Email address"
-              aria-describedby="emailHelp"
-              maxLength="254"
-            />
-            <FormInput
-              id="signup_password"
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              placeholder="Password"
-              labelText="Password"
-              maxLength="50"
-            />
-            <FormInput
-              id="signup_password_confirmation"
-              type="password"
-              value={password_confirmation}
-              onChange={(e) => setPasswordConfirmation(e.target.value)}
-              placeholder="Password Confirmation"
-              labelText="Password confirmation"
-              maxLength="50"
-            />
-            <button type="submit" className="btn btn-primary">
-              Sign up
-            </button>
-          </form>
+            <div className="col mt-5">
+              <h2
+                className="align-content-center fw-normal mb-3 pb-3"
+                style={{ letterSpacing: 1 }}
+              >
+                Sign up
+              </h2>
+              {errorMessage && (
+                <div className="alert alert-danger" role="alert">
+                  {errorMessage}
+                </div>
+              )}
+              <form onSubmit={handleSubmit}>
+                <FormInput
+                  id="signup_username"
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Username"
+                  labelText="Username"
+                  maxLength="50"
+                />
+                <FormInput
+                  id="signup_email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Enter email"
+                  labelText="Email address"
+                  aria-describedby="emailHelp"
+                  maxLength="254"
+                />
+                <FormInput
+                  id="signup_password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="Password"
+                  labelText="Password"
+                  maxLength="50"
+                />
+                <FormInput
+                  id="signup_password_confirmation"
+                  type="password"
+                  value={password_confirmation}
+                  onChange={(e) => setPasswordConfirmation(e.target.value)}
+                  placeholder="Password Confirmation"
+                  labelText="Password confirmation"
+                  maxLength="50"
+                />
+                <div className="pt-1 mb-4">
+                  <button
+                    className="btn btn-primary btn-lg btn-block"
+                    type="submit"
+                  >
+                    Sign up
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
         </div>
-      </>
+      </div>
     );
   }
 }
