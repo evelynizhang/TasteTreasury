@@ -3,7 +3,7 @@ import {
   useGetSingleRecipeQuery,
   useGetAllTagsQuery,
   useGetTokenQuery,
-} from "../app/apiSlice";
+} from "../app/recipeApiSlice";
 import Select from "react-select";
 import { useState, useEffect, React } from "react";
 import { useNavigate, useParams } from "react-router-dom";

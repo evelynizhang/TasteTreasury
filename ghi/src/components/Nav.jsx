@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useGetTokenQuery, useLogoutMutation } from "../app/apiSlice";
+import { useGetTokenQuery, useLogoutMutation } from "../app/recipeApiSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

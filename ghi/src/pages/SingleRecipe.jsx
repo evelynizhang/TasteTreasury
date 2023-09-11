@@ -4,12 +4,14 @@ import {
   useGetSingleRecipeQuery,
   useDeleteRecipeMutation,
   useGetTokenQuery,
-} from "../app/apiSlice";
+} from "../app/recipeApiSlice";
 import "../css/SingleRecipe.css";
 import { confirmAlert } from "react-confirm-alert";
 import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link } from "react-router-dom";
 import Nutrition from "../components/NutritionTable";
+
+console.log(process.env.SIGNING_KEY);
 
 function SingleRecipe() {
   let { recipe_id } = useParams();

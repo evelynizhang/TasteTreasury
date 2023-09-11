@@ -12,7 +12,7 @@ export const recipeApi = createApi({
         credentials: "include",
       }),
       transformResponse: (response) => response?.account || null,
-      providesTags: ["Account"],
+      providesTags: ["Account", { type: "Recipe", id: "MINE" }],
     }),
 
     logout: builder.mutation({
@@ -21,7 +21,7 @@ export const recipeApi = createApi({
         method: "DELETE",
         credentials: "include",
       }),
-      invalidatesTags: ["Account", "Recipe"],
+      invalidatesTags: ["Account", { type: "Recipe", id: "MINE" }],
     }),
 
     login: builder.mutation({
@@ -36,7 +36,7 @@ export const recipeApi = createApi({
           credentials: "include",
         };
       },
-      invalidatesTags: ["Account"],
+      invalidatesTags: ["Account", { type: "Recipe", id: "MINE" }],
     }),
 
     signup: builder.mutation({
@@ -94,7 +94,10 @@ export const recipeApi = createApi({
         body,
         credentials: "include",
       }),
-      invalidatesTags: ["Recipe"],
+      invalidatesTags: [
+        { type: "Recipe", id: "ALL" },
+        { type: "Recipe", id: "MINE" },
+      ],
     }),
 
     getSingleRecipe: builder.query({
@@ -103,8 +106,8 @@ export const recipeApi = createApi({
         method: "GET",
         credentials: "include",
       }),
-      providesTags: (response, error, arg) => {
-        return ["Recipe"];
+      providesTags: (arg) => {
+        return [{ type: "Recipe", id: arg }];
       },
     }),
 

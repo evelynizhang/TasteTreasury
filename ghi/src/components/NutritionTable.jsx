@@ -1,7 +1,7 @@
 import "../css/SingleRecipe.css";
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useGetSingleRecipeQuery } from "../app/apiSlice";
+import { useGetSingleRecipeQuery } from "../app/recipeApiSlice";
 import { useCreateNutritionMutation } from "../app/nutritionApiSlice";
 
 function Nutrition() {

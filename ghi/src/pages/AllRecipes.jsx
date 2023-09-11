@@ -1,4 +1,4 @@
-import { useGetAllRecipesQuery } from "../app/apiSlice";
+import { useGetAllRecipesQuery } from "../app/recipeApiSlice";
 import "../App";
 import "../css/AllRecipe.css";
 import { useSelector } from "react-redux";

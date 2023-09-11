@@ -12,7 +12,6 @@ export const nutritionApi = createApi({
   endpoints: (builder) => ({
     createNutrition: builder.mutation({
       query: (body) => ({
-        // url: "",
         method: "POST",
         body,
       }),

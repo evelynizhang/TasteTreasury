@@ -1,4 +1,4 @@
-import { useGetMyRecipesQuery, useGetTokenQuery } from "../app/apiSlice";
+import { useGetMyRecipesQuery, useGetTokenQuery } from "../app/recipeApiSlice";
 import "../App";
 import "../css/AllRecipe.css";
 import { useEffect } from "react";

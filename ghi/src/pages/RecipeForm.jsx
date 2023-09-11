@@ -3,7 +3,7 @@ import {
   useCreateRecipeMutation,
   useGetAllTagsQuery,
   useGetTokenQuery,
-} from "../app/apiSlice";
+} from "../app/recipeApiSlice";
 import { useNavigate } from "react-router-dom";
 import Select from "react-select";
 import "../css/styles.css";

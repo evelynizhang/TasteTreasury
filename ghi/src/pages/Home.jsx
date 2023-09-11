@@ -1,6 +1,6 @@
 import "../css/Home.css";
 import { Link } from "react-router-dom";
-import { useGetTokenQuery } from "../app/apiSlice";
+import { useGetTokenQuery } from "../app/recipeApiSlice";
 import HomeIcon from "../components/HomeIcon";
 
 function Home() {
