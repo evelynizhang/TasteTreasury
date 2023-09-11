@@ -65,6 +65,3 @@ To use this application on your local machine, please make sure to follow these 
 3. Run `docker volume create pg-admin` and `docker  volume create recipe-data`
 4. Run `docker compose build`
 5. Run `docker compose up`
-6. Run `docker exec -it module3-project-gamma-fastapi-1 bash`
-7. Run `python seed_data.py`
-8. Exit the container
