@@ -1,3 +1,5 @@
+# Taste Treasury
+
 ## Built With
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
@@ -11,16 +13,14 @@
 ![HTML5](https://img.shields.io/badge/html5-%23E34F26.svg?style=for-the-badge&logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/css3-%231572B6.svg?style=for-the-badge&logo=css3&logoColor=white)
 
-##
-
-# Tasty Treasures
+## Development Team
 
 - John Rangel
 - Evelyn Zhang
 - Jonah Heskje
 - Erick Conners
 
-Tasty Teasures:
+Taste Teasury:
 Bringing you all the recipes you want.
 Adding or choosing recipes you need.
 Never losing the one's you love.
@@ -32,6 +32,7 @@ Never losing the one's you love.
 - [Fast API](docs/apis.md)
 - [Data Model](docs/data.model.md)
 - [GHI](docs/ghi.md)
+- [Integrations](docs/integrations.md)
 
 ##
 
