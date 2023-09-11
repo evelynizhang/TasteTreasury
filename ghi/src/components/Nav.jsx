@@ -52,7 +52,10 @@ function Nav() {
           )}
         </ul>
         {!account && (
-          <button className="btn ml-2" onClick={() => navigate("/login")}>
+          <button
+            className="btn ml-2 btn-outline-primary"
+            onClick={() => navigate("/login")}
+          >
             Account
           </button>
         )}
