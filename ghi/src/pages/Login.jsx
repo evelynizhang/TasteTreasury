@@ -7,7 +7,6 @@ import {
 import { useNavigate, Link } from "react-router-dom";
 import FormInput from "../components/FormInput";
 import "../css/Login.css";
-import { Link } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");

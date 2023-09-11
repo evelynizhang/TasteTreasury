@@ -11,22 +11,38 @@ function Footer() {
 
         <div className="row justify-content-md-center">
           <div className="col-md-auto">
-            <Link to="https://www.linkedin.com/in/jonah-heskje/">
+            <Link
+              to="https://www.linkedin.com/in/jonah-heskje/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Jonah Heskje
             </Link>
           </div>
           <div className="col-md-auto">
-            <Link to="https://www.linkedin.com/in/ni-evelyn-zhang/">
+            <Link
+              to="https://www.linkedin.com/in/ni-evelyn-zhang/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Evelyn Zhang
             </Link>
           </div>
           <div className="col-md-auto">
-            <Link to="https://www.linkedin.com/in/erick-conners-b5a095276">
+            <Link
+              to="https://www.linkedin.com/in/erick-conners-b5a095276"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               Eric Conners
             </Link>
           </div>
           <div className="col-md-auto">
-            <Link to="https://www.linkedin.com/in/john-rangel-10027a18b/">
+            <Link
+              to="https://www.linkedin.com/in/john-rangel-10027a18b/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
               John Rangel
             </Link>
           </div>
