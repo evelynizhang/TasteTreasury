@@ -94,7 +94,7 @@ function SingleRecipe() {
                   }}
                 />
                 <figcaption className="d-flex justify-content-start">
-                  <h3>Prep: {data.prep_time}</h3>
+                  <h3>Prep Time: {data.prep_time}</h3>
                   <div className="m-3" />
                   <h3>Servings: {data.servings}</h3>
                 </figcaption>

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Nav() {
+  const logo = process.env.PUBLIC_URL + "/favicon.ico";
   const { data: account } = useGetTokenQuery();
   const [logout, logoutResponse] = useLogoutMutation();
   const navigate = useNavigate();
@@ -13,9 +14,9 @@ function Nav() {
   }, [logoutResponse]);
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light mx-3">
       <NavLink className="navbar-brand" to="/">
-        Home
+        <img className="icon" src={logo} />
       </NavLink>
       <button
         className="navbar-toggler"
@@ -52,7 +53,7 @@ function Nav() {
         </ul>
         {!account && (
           <button
-            className="btn btn-outline-primary ml-2"
+            className="btn ml-2 btn-outline-primary"
             onClick={() => navigate("/login")}
           >
             Account
