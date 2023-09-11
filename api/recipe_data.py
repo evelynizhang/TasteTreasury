@@ -146,9 +146,9 @@ recipes = {
                 "6oz heavy cream",
                 "4 cloves garlic",
                 "2oz parmigiano reggiano",
-                "Red pepper flakes",
-                "Fresh ground black pepper",
-                "Fresh basil",
+                "1/2 teaspoon red pepper flakes",
+                "1/2 teaspoon fresh ground black pepper",
+                "30g fresh basil",
             ],
             "directions": [
                 {
