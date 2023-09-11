@@ -6,23 +6,29 @@ function Footer() {
     <div className="footer-container">
       <div className="footer-link-items">
         <p>
-          Development Team <i class="bi bi-linkedin"></i>
+          Development Team <i className="bi bi-linkedin"></i>
         </p>
 
-        <div class="row justify-content-md-center">
-          <div class="col-md-auto">
-            <Link to="/about">Jonah Heskje</Link>
+        <div className="row justify-content-md-center">
+          <div className="col-md-auto">
+            <Link to="https://www.linkedin.com/in/jonah-heskje/">
+              Jonah Heskje
+            </Link>
           </div>
-          <div class="col-md-auto">
+          <div className="col-md-auto">
             <Link to="https://www.linkedin.com/in/ni-evelyn-zhang/">
               Evelyn Zhang
             </Link>
           </div>
-          <div class="col-md-auto">
-            <Link to="/book">Eric Conners</Link>
+          <div className="col-md-auto">
+            <Link to="https://www.linkedin.com/in/erick-conners-b5a095276">
+              Eric Conners
+            </Link>
           </div>
-          <div class="col-md-auto">
-            <Link to="/contact-us">John Rangel</Link>{" "}
+          <div className="col-md-auto">
+            <Link to="https://www.linkedin.com/in/john-rangel-10027a18b/">
+              John Rangel
+            </Link>
           </div>
         </div>
       </div>

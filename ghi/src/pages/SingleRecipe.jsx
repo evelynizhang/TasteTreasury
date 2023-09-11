@@ -11,8 +11,6 @@ import "react-confirm-alert/src/react-confirm-alert.css";
 import { Link } from "react-router-dom";
 import Nutrition from "../components/NutritionTable";
 
-console.log(process.env.SIGNING_KEY);
-
 function SingleRecipe() {
   let { recipe_id } = useParams();
   const [deleteRecipe, deleteRecipeResponse] = useDeleteRecipeMutation();
@@ -119,7 +117,9 @@ function SingleRecipe() {
           <ul>
             <div>
               <li className="text-left">
-                <h4>Ingredients</h4>
+                <h4>
+                  <span style={{ fontWeight: "bold" }}>Ingredients</span>
+                </h4>
                 {data.ingredients.map((i) => {
                   return <h5 key={i}>{i}</h5>;
                 })}
@@ -127,7 +127,9 @@ function SingleRecipe() {
               <Nutrition className="text-left" />
             </div>
             <li className="text-left">
-              <h4>Directions</h4>
+              <h4>
+                <span style={{ fontWeight: "bold" }}>Directions</span>
+              </h4>
               {data.directions.map((d) => {
                 return (
                   <h5 className="lh-base" key={d.step_number}>
