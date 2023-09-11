@@ -8,6 +8,10 @@ COPY authenticator.py authenticator.py
 COPY requirements.txt requirements.txt
 COPY models.py models.py
 COPY main.py main.py
+COPY recipe_data.py recipe_data.py
+COPY seed_data.py seed_data.py
+
+
 
 # Copy all of the subdirectories in your service's directory
 # Modify these instructions to do that

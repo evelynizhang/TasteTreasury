@@ -4,9 +4,7 @@ recipes = {
             "name": "Shrimp and basil stir fry",
             "prep_time": "30 minutes",
             "servings": 4,
-            "picture_url": """https://assets.bonappetit.com/photos/
-            5b5f4ef5f0d81b2ba0f73460/1:1/w_1920,c_limit/farmers-market
-            -wide-shrimp.jpg""",
+            "picture_url": """https://assets.bonappetit.com/photos/5b5f4ef5f0d81b2ba0f73460/1:1/w_1920,c_limit/farmers-market-wide-shrimp.jpg""",
             "ingredients": [
                 "3 fresno chiles",
                 "6 cloves garlic",
@@ -49,9 +47,7 @@ recipes = {
             "name": "Chile Colorado",
             "prep_time": "3 hours 30 minutes",
             "servings": 8,
-            "picture_url": """https://assets.bonappetit.
-            57d6ceabbd794aa913263a21/16:9/w_2240,c_limit
-            /COLORADO-CHILI-1-of-1.jpg""",
+            "picture_url": """https://cdn.apartmenttherapy.info/image/upload/f_jpg,q_auto:eco,c_fill,g_auto,w_1500,ar_1:1/k%2FPhoto%2FRecipes%2F2023-09-chile-colorado%2Fchile-colorado-897""",
             "ingredients": [
                 "5 ancho chiles",
                 "2 pasilla chiles",
@@ -107,11 +103,7 @@ recipes = {
             "name": "Kimchi fried rice",
             "prep_time": "20min",
             "servings": 4,
-            "picture_url": """https://video-images.vice.com/
-            articles/58ad904887fb2cbe
-            2e5ec084/lede/1544895558742-bacon-kimchi-fried-
-            rice.jpeg?crop=1xw:0.84375
-            xh;center,center&resize=1000:*""",
+            "picture_url": """https://video-images.vice.com/articles/58ad904887fb2cbe2e5ec084/lede/1544895558742-bacon-kimchi-fried-rice.jpeg?crop=1xw:0.84375xh;center,center&resize=1000:*""",
             "ingredients": [
                 "2 pints white rice",
                 "1 pound bacon",
@@ -163,10 +155,7 @@ recipes = {
             "name": "Banana pudding",
             "prep_time": "30 minutes + overnight",
             "servings": 12,
-            "picture_url": """https://magnolia.com/images/
-            imgstore.sndimg.com/w_1250,
-            f_auto/magnolia/images/95c55b89-c950-408f-9e64
-            -e5ecf24b260c.jpg""",
+            "picture_url": """https://magnolia.com/images/imgstore.sndimg.com/w_1250,f_auto/magnolia/images/95c55b89-c950-408f-9e64-e5ecf24b260c.jpg""",
             "ingredients": [
                 "14 ounce can sweetened condensed milk",
                 "1.5 cups ice water",
@@ -225,9 +214,7 @@ recipes = {
             "name": "Rigatoni alla Vodka",
             "prep_time": "30min",
             "servings": 4,
-            "picture_url": """https://assets.bonappetit.
-            com/photos/5a8da4996497380283798c16/
-            1:1/w_1600,c_limit/rigatoni-with-vodka-sauce.jpg""",
+            "picture_url": """https://assets.bonappetit.com/photos/5a8da4996497380283798c16/1:1/w_1600,c_limit/rigatoni-with-vodka-sauce.jpg""",
             "ingredients": [
                 "1lb rigatoni",
                 "4.5oz tomato paste",
@@ -283,12 +270,7 @@ recipes = {
             "name": "Big Steak",
             "prep_time": "2 hours - up to overnight",
             "servings": 1,
-            "picture_url": """https://www.seriouseats.com/
-            thmb/LYeu4I8pX0ZLyOofu_8i61FwfJ
-            c=/750x0/filters:no_upscale():max_bytes(150000)
-            :strip_icc():format(webp)/
-            perfect-pan-seared-steaks-recipe-step-beauty-
-            c7a9ca69ad9e4d4cb783f845fd429251.JPG""",
+            "picture_url": """https://www.seriouseats.com/thmb/LYeu4I8pX0ZLyOofu_8i61FwfJc=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/perfect-pan-seared-steaks-recipe-step-beauty-c7a9ca69ad9e4d4cb783f845fd429251.JPG""",
             "ingredients": [
                 "16oz ribeye",
                 "Diamond kosher salt",
