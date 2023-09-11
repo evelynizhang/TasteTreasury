@@ -29,7 +29,8 @@ function RecipeForm() {
   }, [account]);
 
   useEffect(() => {
-    if (newRecipeResponse.isSuccess) navigate("/recipes");
+    if (newRecipeResponse.isSuccess)
+      navigate(`/recipes/${newRecipeResponse.data.id}`);
   }, [newRecipeResponse]);
 
   const options = [];
