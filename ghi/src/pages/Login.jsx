@@ -11,11 +11,11 @@ import "../css/Login.css";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const { data: account } = useGetTokenQuery();
+  const getAccounts = useGetAccountsQuery();
   const [login, loginResponse] = useLoginMutation();
   const navigate = useNavigate();
-  const [errorMessage, setErrorMessage] = useState("");
-  const getAccounts = useGetAccountsQuery();
-  const { data: account } = useGetTokenQuery();
 
   useEffect(() => {
     if (account) navigate("/recipes/mine");

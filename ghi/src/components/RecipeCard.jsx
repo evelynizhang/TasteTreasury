@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function RecipeCard(props) {
-  const { imgSrc, h3Input, biAlarmInput, biPeopleInput, pathInput } = props;
+  const { imgSrc, name, prep_time, servings, pathInput } = props;
 
   return (
     <>
@@ -19,15 +19,15 @@ function RecipeCard(props) {
       />
       <div className="card-body py-3 card-text-container">
         <div className="text-center">
-          <h3 className="fw-medium">{h3Input}</h3>
+          <h3 className="fw-medium">{name}</h3>
           <div className="d-flex justify-content-around mt-3">
             <h6 className="m-0">
               <i className="bi bi-alarm"> </i>
-              {biAlarmInput}
+              {prep_time}
             </h6>
             <h6 className="m-0">
               <i className="bi bi-people"> </i>
-              {biPeopleInput} Servings
+              {servings} Servings
             </h6>
           </div>
         </div>

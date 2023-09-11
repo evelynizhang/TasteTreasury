@@ -21,8 +21,8 @@ function RecipeForm() {
   ]);
   const tagList = useGetAllTagsQuery();
   const [newRecipe, newRecipeResponse] = useCreateRecipeMutation();
-  const navigate = useNavigate();
   const { data: account } = useGetTokenQuery();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!account) navigate("/login");
@@ -81,11 +81,6 @@ function RecipeForm() {
     setIngredients(list);
   };
 
-  const handleServing = (e) => {
-    const { value } = e.target;
-    setServings(Number(value));
-  };
-
   const handleDirectionsAdd = () => {
     setDirections([...directions, {}]);
   };
@@ -115,6 +110,7 @@ function RecipeForm() {
               placeholder="Enter Recipe Name"
               labelText="Name"
               value={name}
+              maxLength="100"
               onChange={(e) => setName(e.target.value)}
               type="text"
             />
@@ -123,6 +119,7 @@ function RecipeForm() {
               placeholder="Enter Preparation Time"
               labelText="Prep time"
               value={prep_time}
+              maxLength="100"
               onChange={(e) => setPrep_time(e.target.value)}
               type="text"
             />
@@ -131,7 +128,7 @@ function RecipeForm() {
               placeholder="Enter Servings"
               labelText="Servings"
               value={servings}
-              onChange={(e) => handleServing(e)}
+              onChange={(e) => setServings(Number(e.target.value))}
               type="number"
             />
             <FormInput
@@ -139,6 +136,7 @@ function RecipeForm() {
               placeholder="Enter Picture URL"
               labelText="Picture url"
               value={picture_url}
+              maxLength="1000"
               onChange={(e) => setPicture_url(e.target.value)}
               type="text"
             />
@@ -153,6 +151,7 @@ function RecipeForm() {
                       id="ingredients"
                       placeholder="Enter Ingredients"
                       value={singleIngredient}
+                      maxLength="100"
                       onChange={(e) => handleIngredientChange(e, index)}
                     />
                     <FormButtons
@@ -178,6 +177,7 @@ function RecipeForm() {
                         className="form-control"
                         id="Recipe Step"
                         placeholder={placeholderValue}
+                        maxLength="1000"
                         onChange={(e) => handleDirectionChange(e, index)}
                       />
                       <FormButtons
@@ -191,12 +191,10 @@ function RecipeForm() {
                 );
               })}
             </div>
-
             <div className="form-group">
               <label htmlFor="tags">Tags</label>
               <Select isMulti onChange={handleChange} options={options} />
             </div>
-
             <button type="submit" className="btn btn-primary">
               Add Recipe
             </button>

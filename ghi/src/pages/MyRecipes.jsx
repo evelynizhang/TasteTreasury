@@ -4,14 +4,14 @@ import "../css/AllRecipe.css";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import SearchBar from "../components/SearchBar";
-import Header from "../components/HeaderRecipePages";
+import Header from "../components/Banner";
 import RecipeCard from "../components/RecipeCard";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 function MyRecipes() {
   const searchCriteria = useSelector((state) => state.search.value);
-  const { data, status } = useGetMyRecipesQuery();
   const { data: account } = useGetTokenQuery();
+  const { data: myRecipes, status } = useGetMyRecipesQuery();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -20,8 +20,8 @@ function MyRecipes() {
 
   const filteredData = () => {
     if (searchCriteria)
-      return data.filter((recipe) => recipe.name.includes(searchCriteria));
-    return data;
+      return myRecipes.filter((recipe) => recipe.name.includes(searchCriteria));
+    return myRecipes;
   };
 
   if (status === "fulfilled") {
@@ -39,9 +39,9 @@ function MyRecipes() {
                     <div className="card pb-3 shadow mb-5 bg-body-tertiary rounded">
                       <RecipeCard
                         imgSrc={recipe.picture_url}
-                        h3Input={recipe.name}
-                        biAlarmInput={recipe.prep_time}
-                        biPeopleInput={recipe.servings}
+                        name={recipe.name}
+                        prep_time={recipe.prep_time}
+                        servings={recipe.servings}
                         pathInput={path}
                       />
                     </div>

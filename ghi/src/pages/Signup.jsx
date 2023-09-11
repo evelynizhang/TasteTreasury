@@ -12,11 +12,11 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password_confirmation, setPasswordConfirmation] = useState("");
-  const [signup, signupResponse] = useSignupMutation();
   const [errorMessage, setErrorMessage] = useState("");
-  const getAccounts = useGetAccountsQuery();
-  const navigate = useNavigate();
   const { data: account } = useGetTokenQuery();
+  const getAccounts = useGetAccountsQuery();
+  const [signup, signupResponse] = useSignupMutation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (account) navigate("/recipes/mine");

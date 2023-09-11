@@ -154,6 +154,7 @@ function UpdateForm() {
             placeholder="Enter Recipe Name"
             labelText="Name"
             value={name}
+            maxLength="100"
             onChange={(e) => setName(e.target.value)}
             type="text"
           />
@@ -162,6 +163,7 @@ function UpdateForm() {
             placeholder="Enter Preparation Time"
             labelText="Prep time"
             value={prep_time}
+            maxLength="100"
             onChange={(e) => setPrep_time(e.target.value)}
             type="text"
           />
@@ -178,6 +180,7 @@ function UpdateForm() {
             placeholder="Enter Picture URL"
             labelText="Picture url"
             value={picture_url}
+            maxLength="1000"
             onChange={(e) => setPicture_url(e.target.value)}
             type="text"
           />
@@ -192,6 +195,7 @@ function UpdateForm() {
                     id="ingredients"
                     placeholder="Enter Ingredients"
                     value={singleIngredient}
+                    maxLength="100"
                     onChange={(e) => handleIngredientChange(e, index)}
                   />
                   <FormButtons
@@ -218,6 +222,7 @@ function UpdateForm() {
                       id="Recipe Step"
                       placeholder={placeholderValue}
                       value={singleDirection.recipe_step}
+                      maxLength="1000"
                       onChange={(e) => handleDirectionChange(e, index)}
                     />
                     <FormButtons

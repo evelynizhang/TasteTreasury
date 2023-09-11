@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useGetSingleRecipeQuery } from "../app/recipeApiSlice";
 import { useCreateNutritionMutation } from "../app/nutritionApiSlice";
+import NutritionTableRow from "./NutritionTableRow";
 
 function Nutrition() {
   let { recipe_id } = useParams();
@@ -59,90 +60,54 @@ function Nutrition() {
           <table className="performance-facts__table">
             <tbody>
               <tr className="thick-row"></tr>
-              <tr>
-                <th colSpan="2">
-                  <b>Total Fat</b>
-                </th>
-                <td>
-                  <b>
-                    {Math.round(
-                      nutritionResponse.data.totalNutrients.FAT.quantity /
-                        data.servings
-                    )}
-                    {nutritionResponse.data.totalNutrients.FAT.unit}
-                  </b>
-                </td>
-              </tr>
-              <tr>
-                <th colSpan="2">
-                  <b>Cholesterol</b>
-                </th>
-                <td>
-                  <b>
-                    {Math.round(
-                      nutritionResponse.data.totalNutrients.CHOLE.quantity /
-                        data.servings
-                    )}
-                    {nutritionResponse.data.totalNutrients.CHOLE.unit}
-                  </b>
-                </td>
-              </tr>
-              <tr>
-                <th colSpan="2">
-                  <b>Sodium</b>
-                </th>
-                <td>
-                  <b>
-                    {Math.round(
-                      nutritionResponse.data.totalNutrients.NA.quantity /
-                        data.servings
-                    )}
-                    {nutritionResponse.data.totalNutrients.NA.unit}
-                  </b>
-                </td>
-              </tr>
-              <tr>
-                <th colSpan="2">
-                  <b>Total Carbohydrate</b>
-                </th>
-                <td>
-                  <b>
-                    {Math.round(
-                      nutritionResponse.data.totalNutrients.CHOCDF.quantity /
-                        data.servings
-                    )}
-                    {nutritionResponse.data.totalNutrients.CHOCDF.unit}
-                  </b>
-                </td>
-              </tr>
-              <tr>
-                <th colSpan="2">
-                  <b>Protein</b>
-                </th>
-                <td>
-                  <b>
-                    {Math.round(
-                      nutritionResponse.data.totalNutrients.PROCNT.quantity /
-                        data.servings
-                    )}
-                    {nutritionResponse.data.totalNutrients.PROCNT.unit}
-                  </b>
-                </td>
-              </tr>
-              <tr>
-                <th colSpan="2">
-                  <b>Sugar</b>
-                </th>
-                <td>
-                  <b>
-                    {Math.round(
-                      nutritionResponse.data.totalNutrients.SUGAR.quantity /
-                        data.servings
-                    )}
-                    {nutritionResponse.data.totalNutrients.SUGAR.unit}
-                  </b>
-                </td>
-              </tr>
+              <NutritionTableRow
+                type="Total Fat"
+                amount={Math.round(
+                  nutritionResponse.data.totalNutrients.FAT.quantity /
+                    data.servings
+                )}
+                unit={nutritionResponse.data.totalNutrients.FAT.unit}
+              />
+              <NutritionTableRow
+                type="Cholesterol"
+                amount={Math.round(
+                  nutritionResponse.data.totalNutrients.CHOLE.quantity /
+                    data.servings
+                )}
+                unit={nutritionResponse.data.totalNutrients.CHOLE.unit}
+              />
+              <NutritionTableRow
+                type="Sodium"
+                amount={Math.round(
+                  nutritionResponse.data.totalNutrients.NA.quantity /
+                    data.servings
+                )}
+                unit={nutritionResponse.data.totalNutrients.NA.unit}
+              />
+              <NutritionTableRow
+                type="Total Carbohydrate"
+                amount={Math.round(
+                  nutritionResponse.data.totalNutrients.CHOCDF.quantity /
+                    data.servings
+                )}
+                unit={nutritionResponse.data.totalNutrients.CHOCDF.unit}
+              />
+              <NutritionTableRow
+                type="Protein"
+                amount={Math.round(
+                  nutritionResponse.data.totalNutrients.PROCNT.quantity /
+                    data.servings
+                )}
+                unit={nutritionResponse.data.totalNutrients.PROCNT.unit}
+              />
+              <NutritionTableRow
+                type="Sugar"
+                amount={Math.round(
+                  nutritionResponse.data.totalNutrients.SUGAR.quantity /
+                    data.servings
+                )}
+                unit={nutritionResponse.data.totalNutrients.SUGAR.unit}
+              />
             </tbody>
           </table>
         </section>
