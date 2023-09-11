@@ -31,6 +31,8 @@ services:
       HOST: "0.0.0.0"
       PUBLIC_URL: http://localhost:3000
       REACT_APP_API_HOST: ${REACT_APP_API_HOST}
+      REACT_APP_NUTRITION_APP_ID: ${REACT_APP_NUTRITION_APP_ID}
+      REACT_APP_NUTRITION_APP_KEY: ${REACT_APP_NUTRITION_APP_KEY}
   db:
     image: postgres:14.5-bullseye
     environment:
