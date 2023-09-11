@@ -34,7 +34,7 @@ function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Eric Conners
+              Erick Conners
             </Link>
           </div>
           <div className="col-md-auto">
