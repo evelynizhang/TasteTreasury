@@ -30,7 +30,6 @@ class AccountQueries:
                     record = {}
                     for i, column in enumerate(cur.description):
                         record[column.name] = row[i]
-                print(record)
                 return AccountOutHashedPassword(**record)
 
     def get_all(self):

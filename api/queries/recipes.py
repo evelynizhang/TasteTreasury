@@ -1,5 +1,6 @@
 from models import RecipeIn, RecipeOut, Direction, HttpError
 from queries.pool import pool
+from fastapi import HTTPException
 
 
 class RecipeQueries:
@@ -19,9 +20,7 @@ class RecipeQueries:
                 # tuple containing specified values from recipe table
                 recipe = recipe_data.fetchone()
                 if recipe is None:
-                    return HttpError(
-                        detail="Unable to match id to existing recipe"
-                    )
+                    raise HTTPException(status_code=400, detail="Unable to match id to existing recipe")
                 ingredients_data = cur.execute(
                     """
                     SELECT item
@@ -45,11 +44,7 @@ class RecipeQueries:
                 # convert from list of tuples to list of Direction objects
                 directions = []
                 for direction in directions_data.fetchall():
-                    directions.append(
-                        Direction(
-                            step_number=direction[1], recipe_step=direction[0]
-                        )
-                    )
+                    directions.append(Direction(step_number=direction[1], recipe_step=direction[0]))
                 tags_data = cur.execute(
                     """
                     SELECT tag_name
@@ -135,7 +130,6 @@ class RecipeQueries:
                     ],
                 )
                 id = result.fetchone()[0]
-
                 for ingredient in info.ingredients:
                     cur.execute(
                         """
@@ -163,26 +157,25 @@ class RecipeQueries:
                         """,
                         [id, tag],
                     )
-
                 return RecipeOut(id=id, **info.dict(), account_id=account_id)
 
-    def delete(self, recipe_id: int):
+    def delete(self, recipe_id: int, account_id: int):
         # connect the db
         with pool.connection() as conn:
             # get a cursor to run SQL
             with conn.cursor() as cur:
-                exists = cur.execute(
+                recipe = cur.execute(
                     """
-                    SELECT id
+                    SELECT id, account_id
                     FROM recipes
                     WHERE id = %s
+                    AND account_id = %s
                     """,
-                    [recipe_id],
+                    [recipe_id, account_id],
                 )
-                if exists.fetchone() is None:
-                    return {
-                        "is_deleted": "unable to locate the recipe by given id"
-                    }
+                result = recipe.fetchone()
+                if result is None:
+                    raise HTTPException(status_code=400, detail="recipe does not exist/user lacks auth to update")
                 cur.execute(
                     """
                     DELETE FROM recipes
@@ -197,6 +190,19 @@ class RecipeQueries:
         with pool.connection() as conn:
             # get a cursor to run SQL
             with conn.cursor() as cur:
+                recipe = cur.execute(
+                    """
+                    SELECT id, account_id
+                    FROM recipes
+                    WHERE id = %s
+                    AND account_id = %s
+                    """,
+                    [recipe_id, account_id],
+                )
+                result = recipe.fetchone()
+                print(result)
+                if result is None:
+                    raise HTTPException(status_code=400, detail="recipe does not exist/user lacks auth to update")
                 cur.execute(
                     """
                     UPDATE recipes
@@ -266,6 +272,4 @@ class RecipeQueries:
                         """,
                         [recipe_id, tag],
                     )
-                return RecipeOut(
-                    id=recipe_id, **info.dict(), account_id=account_id
-                )
+                return RecipeOut(id=recipe_id, **info.dict(), account_id=account_id)

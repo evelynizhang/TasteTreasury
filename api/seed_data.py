@@ -36,9 +36,9 @@ def create_tags():
                 existing_tag = cur.fetchone()
                 if not existing_tag:
                     cur.execute("INSERT INTO tags (name) VALUES (%s)", (tag,))
-                    print("{tag} inserted")
+                    print("{tag} tag inserted")
                 else:
-                    print("{tag} already exists")
+                    print("{tag} tag already exists")
             conn.commit()
 
 
