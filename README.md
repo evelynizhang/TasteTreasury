@@ -20,7 +20,7 @@
 - Jonah Heskje
 - Erick Conners
 
-Taste Teasury:
+Taste Treasury:
 Bringing you all the recipes you want.
 Adding or choosing recipes you need.
 Never losing the one's you love.
