@@ -82,21 +82,30 @@ function RecipeForm() {
     setIngredients(list);
   };
 
-  const handleDirectionsAdd = () => {
-    setDirections([...directions, {}]);
+  const handleDirectionsAdd = (index) => {
+    setDirections([...directions, { step_number: index + 2, recipe_step: "" }]);
   };
 
   const handleDirectionRemove = (index) => {
     const list = [...directions];
     list.splice(index, 1);
-    setDirections(list);
+    const newList = [];
+    let idx = 1;
+    for (let each of list) {
+      let dir = { step_number: idx, recipe_step: each["recipe_step"] };
+      newList.push(dir);
+      idx++;
+    }
+    setDirections(newList);
   };
 
   const handleDirectionChange = (e, index) => {
     const { value } = e.target;
-    const list = [...directions];
-    list[index]["step_number"] = index + 1;
-    list[index]["recipe_step"] = value;
+    let list = [...directions];
+    const newDir = {};
+    newDir["step_number"] = index + 1;
+    newDir["recipe_step"] = value;
+    list[index] = newDir;
     setDirections(list);
   };
 
@@ -178,13 +187,14 @@ function RecipeForm() {
                         className="form-control"
                         id="Recipe Step"
                         placeholder={placeholderValue}
+                        value={singleDirection.recipe_step}
                         maxLength="1000"
                         onChange={(e) => handleDirectionChange(e, index)}
                       />
                       <FormButtons
                         condition1={directions}
                         onClickRemove={() => handleDirectionRemove(index)}
-                        onClickAdd={handleDirectionsAdd}
+                        onClickAdd={() => handleDirectionsAdd(index)}
                         index={index}
                       />
                     </div>
