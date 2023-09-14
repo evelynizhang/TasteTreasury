@@ -2,7 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { recipeApi } from "./recipeApiSlice";
 import searchReducer from "./searchSlice";
 import { nutritionApi } from "./nutritionApiSlice";
-import filterTagsReducer from "./tagsSlice";
+import filterTagsReducer from "./filterTagsSlice";
 
 export const store = configureStore({
   reducer: {

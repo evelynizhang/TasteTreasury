@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useGetAllTagsQuery } from "../app/recipeApiSlice";
-import { reset, add, remove } from "../app/tagsSlice";
+import { reset, add, remove } from "../app/filterTagsSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function TagsFilter() {
