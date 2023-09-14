@@ -5,12 +5,11 @@ import { useSelector } from "react-redux";
 import SearchBar from "../components/SearchBar";
 import Banner from "../components/Banner";
 import RecipeCard from "../components/RecipeCard";
-import TagsDropdown from "../components/TagsDropdown";
-import { useEffect } from "react";
+import TagsFilter from "../components/TagsFilter";
 
 function AllRecipes() {
   const searchCriteria = useSelector((state) => state.search.value);
-  const tagsFilterCriteria = useSelector((state) => state.recipeTags.value);
+  const tagsFilterCriteria = useSelector((state) => state.filterTags.value);
   const { data: recipeData, status: recipeStatus } = useGetAllRecipesQuery();
 
   const filteredData = () => {
@@ -31,14 +30,11 @@ function AllRecipes() {
     }
   };
 
-  // filtering on tags
-  // recipeData.filter((recipe) => recipe.tags.includes(chosenTags));
-
   if (recipeStatus === "fulfilled") {
     return (
       <>
         <Banner page_name="All Recipes" />
-        <TagsDropdown />
+        <TagsFilter />
         <SearchBar />
         <section className="py-5 ">
           <div className="container px-4 mt-3">

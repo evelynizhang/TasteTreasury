@@ -4,8 +4,8 @@ const initialState = {
   value: [],
 };
 
-export const recipeTagsSlice = createSlice({
-  name: "recipeTags",
+export const filterTagsSlice = createSlice({
+  name: "filterTags",
   initialState,
   reducers: {
     reset: (state) => {
@@ -17,10 +17,10 @@ export const recipeTagsSlice = createSlice({
     },
     // passing a new list minus one tag in payload
     remove: (state, action) => {
-      state.value = action.payload;
+      state.value.splice(action.payload, 1);
     },
   },
 });
 
-export const { reset, add, remove } = recipeTagsSlice.actions;
-export default recipeTagsSlice.reducer;
+export const { reset, add, remove } = filterTagsSlice.actions;
+export default filterTagsSlice.reducer;

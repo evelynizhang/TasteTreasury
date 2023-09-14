@@ -1,17 +1,13 @@
 import { useState, useEffect } from "react";
 import { useGetAllTagsQuery } from "../app/recipeApiSlice";
 import { reset, add, remove } from "../app/tagsSlice";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-function TagsDropdown() {
+function TagsFilter() {
   const tagsData = useGetAllTagsQuery();
   const [tagOptions, setTagOptions] = useState([""]);
-  const [selectedTags, setSelectedTags] = useState([]);
+  const selectedTags = useSelector((state) => state.filterTags.value);
   const dispatch = useDispatch();
-
-  useEffect(() => {
-    console.log("component log: ", selectedTags);
-  }, [selectedTags]);
 
   useEffect(() => {
     dispatch(reset());
@@ -23,20 +19,19 @@ function TagsDropdown() {
     }
   }, [tagsData, setTagOptions]);
 
+  const filteredOptions = () => {
+    if (tagOptions && selectedTags) {
+      return tagOptions.filter((tag) => !selectedTags.includes(tag));
+    }
+    return tagOptions;
+  };
+
   const handleTagSelect = (e) => {
-    let options = [...tagOptions];
-    let selected = options.splice(e.target.value, 1)[0];
-    setTagOptions(options);
-    setSelectedTags([...selectedTags, selected]);
-    dispatch(add(selected));
+    dispatch(add(e.target.value));
   };
 
   const handleTagRemove = (e) => {
-    let oneLessTag = [...selectedTags];
-    let deselected = oneLessTag.splice(e.target.value, 1)[0];
-    setTagOptions([...tagOptions, deselected]);
-    setSelectedTags(oneLessTag);
-    dispatch(remove(oneLessTag));
+    dispatch(remove(e.target.value));
   };
 
   return (
@@ -51,9 +46,9 @@ function TagsDropdown() {
             className="form-select "
           >
             <option value="">Filter by tags</option>
-            {tagOptions.map((tag, index) => {
+            {filteredOptions().map((tag) => {
               return (
-                <option key={tag} value={index}>
+                <option key={tag} value={tag}>
                   {tag}
                 </option>
               );
@@ -73,12 +68,12 @@ function TagsDropdown() {
             );
           })}
         </div>
-        {/* <button className="btn btn-secondary" onClick={dispatch(reset)}>
-                Reset
-              </button> */}
+        {/* <button className="btn btn-secondary" onClick={dispatch(reset())}>
+          Reset
+        </button> */}
       </div>
     </>
   );
 }
 
-export default TagsDropdown;
+export default TagsFilter;
