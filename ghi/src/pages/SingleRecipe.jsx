@@ -85,11 +85,7 @@ function SingleRecipe() {
                     "https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTB8fHxlbnwwfHx8fHw%3D&w=1000&q=80"
                   }
                   alt={data.name}
-                  style={{
-                    maxHeight: "800px",
-                    position: "relative",
-                    top: "20%",
-                  }}
+                  className="s-recipe-img"
                 />
                 <figcaption className="d-flex justify-content-start">
                   <h3>Prep Time: {data.prep_time}</h3>
