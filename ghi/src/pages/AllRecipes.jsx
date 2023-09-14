@@ -6,28 +6,27 @@ import SearchBar from "../components/SearchBar";
 import Banner from "../components/Banner";
 import RecipeCard from "../components/RecipeCard";
 import TagsDropdown from "../components/TagsDropdown";
+import { useEffect } from "react";
 
 function AllRecipes() {
   const searchCriteria = useSelector((state) => state.search.value);
   const tagsFilterCriteria = useSelector((state) => state.recipeTags.value);
   const { data: recipeData, status: recipeStatus } = useGetAllRecipesQuery();
 
-  console.log(recipeData);
-
   const filteredData = () => {
-    if (recipeData !== undefined) {
+    if (recipeData) {
       if (searchCriteria) {
         return recipeData.filter((recipe) =>
           recipe.name.toLowerCase().includes(searchCriteria.toLowerCase())
         );
       }
-      // if (tagsFilterCriteria) {
-      //   return recipeData.filter((recipe) => {
-      //     return tagsFilterCriteria.every((el) => {
-      //       return recipe.tags.includes(el);
-      //     });
-      //   });
-      // }
+      if (tagsFilterCriteria) {
+        return recipeData.filter((recipe) => {
+          return tagsFilterCriteria.every((tag) => {
+            return recipe.tags.includes(tag);
+          });
+        });
+      }
       return recipeData;
     }
   };

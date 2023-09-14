@@ -10,6 +10,10 @@ function TagsDropdown() {
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("component log: ", selectedTags);
+  }, [selectedTags]);
+
+  useEffect(() => {
     dispatch(reset());
   }, []);
 
@@ -37,50 +41,44 @@ function TagsDropdown() {
 
   return (
     <>
-      <div className="row">
-        <div className="offset-3 col-6">
-          <div className="shadow p-4 mt-4">
-            <h1>Select your tags</h1>
-            <form
-              //  onSubmit={handleSubmit}
-              id="select-tags-form"
+      <div className="row float-left">
+        <div className="col-2">
+          <div className="mb-3">
+            <select
+              onChange={handleTagSelect}
+              required
+              name="customer"
+              id="customer"
+              className="form-select"
             >
-              <div className="mb-3">
-                <select
-                  onChange={handleTagSelect}
-                  required
-                  name="customer"
-                  id="customer"
-                  className="form-select"
-                >
-                  <option value="">Choose a tag...</option>
-                  {tagOptions.map((tag, index) => {
-                    return (
-                      <option key={tag} value={index}>
-                        {tag}
-                      </option>
-                    );
-                  })}
-                </select>
-              </div>
-              <div>
-                {selectedTags.map((tag, index) => {
-                  return (
-                    <button
-                      key={tag}
-                      value={index}
-                      type="button"
-                      className="btn btn-danger mb-1 mr-1"
-                      onClick={handleTagRemove}
-                    >
-                      {tag}
-                    </button>
-                  );
-                })}
-              </div>
-              <button className="btn btn-primary">Submit</button>
-            </form>
+              <option value="">Filter by tags</option>
+              {tagOptions.map((tag, index) => {
+                return (
+                  <option key={tag} value={index}>
+                    {tag}
+                  </option>
+                );
+              })}
+            </select>
           </div>
+          <div>
+            {selectedTags.map((tag, index) => {
+              return (
+                <button
+                  key={tag}
+                  value={index}
+                  type="button"
+                  className="btn btn-danger mb-1 mr-1"
+                  onClick={handleTagRemove}
+                >
+                  {tag}
+                </button>
+              );
+            })}
+          </div>
+          {/* <button className="btn btn-secondary" onClick={dispatch(reset)}>
+                Reset
+              </button> */}
         </div>
       </div>
     </>

@@ -69,6 +69,7 @@ class RecipeCardOut(BaseModel):
     servings: Optional[int]
     picture_url: Optional[str]
     account_id: Optional[int]
+    tags: List[str]
 
 
 class DeleteResponse(BaseModel):

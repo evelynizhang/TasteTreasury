@@ -80,13 +80,26 @@ class RecipeQueries:
                     FROM recipes
                     """
                 )
-                result = []
+                recipes = []
                 for row in cur.fetchall():
-                    record = {}
+                    recipe = {}
                     for i, column in enumerate(cur.description):
-                        record[column.name] = row[i]
-                    result.append(record)
-                return result
+                        recipe[column.name] = row[i]
+                    recipes.append(recipe)
+                for i, recipe in enumerate(recipes):
+                    tags_tuple = cur.execute(
+                        """
+                        SELECT tag_name
+                        FROM recipe_tags
+                        WHERE recipe_id = %s
+                        """,
+                        [recipe["id"]],
+                    )
+                    tags = []
+                    for tag in tags_tuple.fetchall():
+                        tags.append(tag[0])
+                    recipes[i]["tags"] = tags
+                return recipes
 
     def get_mine(self, account_id: int):
         # connect the db
@@ -101,13 +114,26 @@ class RecipeQueries:
                     """,
                     [account_id],
                 )
-                result = []
+                recipes = []
                 for row in cur.fetchall():
-                    record = {}
+                    recipe = {}
                     for i, column in enumerate(cur.description):
-                        record[column.name] = row[i]
-                    result.append(record)
-                return result
+                        recipe[column.name] = row[i]
+                    recipes.append(recipe)
+                for i, recipe in enumerate(recipes):
+                    tags_tuple = cur.execute(
+                        """
+                        SELECT tag_name
+                        FROM recipe_tags
+                        WHERE recipe_id = %s
+                        """,
+                        [recipe["id"]],
+                    )
+                    tags = []
+                    for tag in tags_tuple.fetchall():
+                        tags.append(tag[0])
+                    recipes[i]["tags"] = tags
+                return recipes
 
     def create(self, info: RecipeIn, account_id: int):
         # connect the db

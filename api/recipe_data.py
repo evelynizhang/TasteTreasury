@@ -41,7 +41,7 @@ recipes = {
                     lime wedges alongside.""",
                 },
             ],
-            "tags": ["Pork"],
+            "tags": ["Seafood"],
         },
         {
             "name": "Chile Colorado",
@@ -208,7 +208,7 @@ recipes = {
                     - see Notes for tips on preventing browning).""",
                 },
             ],
-            "tags": ["Pork"],
+            "tags": ["Dessert"],
         },
         {
             "name": "Rigatoni alla Vodka",
@@ -264,7 +264,7 @@ recipes = {
                     of olive oil, shaved parm, and freshly torn basil.""",
                 },
             ],
-            "tags": ["Vegetarian"],
+            "tags": ["Vegetarian", "Dairy"],
         },
         {
             "name": "Big Steak",
