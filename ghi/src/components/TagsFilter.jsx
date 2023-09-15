@@ -36,7 +36,7 @@ function TagsFilter() {
 
   return (
     <>
-      <div class="input-group mt-4">
+      <div className="input-group mt-4">
         <div className="mb-3 ml-5">
           <select
             onChange={handleTagSelect}
