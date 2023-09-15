@@ -40,41 +40,45 @@ function TagsFilter() {
 
   return (
     <>
-      <div className="input-group mt-4">
-        <div className="mb-3 ml-5">
-          <select
-            onChange={handleTagSelect}
-            required
-            name="customer"
-            id="customer"
-            className="form-select "
-          >
-            <option value="">Filter by tags</option>
-            {filteredOptions().map((tag) => {
-              return (
-                <option key={tag} value={tag}>
-                  {tag}
-                </option>
-              );
-            })}
-          </select>
-          {selectedTags.map((tag, index) => {
+      <div className="input-group mt-4 mb-3 ml-5 col-3">
+        <select
+          onChange={handleTagSelect}
+          required
+          name="customer"
+          id="customer"
+          className="form-control"
+        >
+          <option value="">Filter by tags</option>
+          {filteredOptions().map((tag) => {
             return (
-              <button
-                key={tag}
-                value={index}
-                type="button"
-                className="btn btn-primary mb-1 mr-1 input-group-btn mt-2 btn-sm"
-                onClick={handleTagRemove}
-              >
+              <option key={tag} value={tag}>
                 {tag}
-              </button>
+              </option>
             );
           })}
-        </div>
-        <button className="btn btn-secondary" onClick={handleReset}>
+        </select>
+
+        <button
+          className="btn btn-secondary btn-sm input-group-btn"
+          onClick={handleReset}
+        >
           Reset
         </button>
+      </div>
+      <div class="button-group">
+        {selectedTags.map((tag, index) => {
+          return (
+            <button
+              key={tag}
+              value={index}
+              type="button"
+              className="btn btn-primary ml-2 mb-1 mr-1 mt-2 btn-sm"
+              onClick={handleTagRemove}
+            >
+              {tag}
+            </button>
+          );
+        })}
       </div>
     </>
   );
