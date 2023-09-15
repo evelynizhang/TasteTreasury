@@ -34,6 +34,10 @@ function TagsFilter() {
     dispatch(remove(e.target.value));
   };
 
+  const handleReset = () => {
+    dispatch(reset());
+  };
+
   return (
     <>
       <div className="input-group mt-4">
@@ -68,9 +72,9 @@ function TagsFilter() {
             );
           })}
         </div>
-        {/* <button className="btn btn-secondary" onClick={dispatch(reset())}>
+        <button className="btn btn-secondary" onClick={handleReset}>
           Reset
-        </button> */}
+        </button>
       </div>
     </>
   );
