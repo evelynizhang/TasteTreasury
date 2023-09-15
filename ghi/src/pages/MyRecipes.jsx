@@ -47,7 +47,7 @@ function MyRecipes() {
     }
     return (
       <>
-        <Header h1Input="Personal Recipes" />
+        <Header page_name="Personal Recipes" />
         <TagsFilter />
         <SearchBar />
         <section className="py-5">
