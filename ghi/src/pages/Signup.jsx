@@ -54,7 +54,7 @@ function Signup() {
             <div className="col d-none d-md-block mt-2">
               <img
                 src="https://s23209.pcdn.co/wp-content/uploads/2017/05/How-to-Make-an-Easy-Cheese-Board-in-10-MinutesIMG_0257edit.jpg"
-                alt="Login image"
+                alt="Login"
                 className="img-thumbnail"
                 style={{ maxHeight: "700px" }}
               />

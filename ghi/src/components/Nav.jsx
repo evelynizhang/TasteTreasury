@@ -16,7 +16,7 @@ function Nav() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mx-3">
       <NavLink className="navbar-brand" to="/">
-        <img className="icon" src={logo} />
+        <img className="icon" src={logo} alt="pic" />
       </NavLink>
       <button
         className="navbar-toggler"
