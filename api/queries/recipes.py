@@ -210,7 +210,8 @@ class RecipeQueries:
                 if result is None:
                     raise HTTPException(
                         status_code=400,
-                        detail="recipe does not exist/user lacks auth to update",
+                        detail="""recipe does
+                        not exist/user lacks auth to update""",
                     )
                 cur.execute(
                     """
@@ -240,7 +241,8 @@ class RecipeQueries:
                 if result is None:
                     raise HTTPException(
                         status_code=400,
-                        detail="recipe does not exist/user lacks auth to update",
+                        detail="""recipe does not
+                        exist/user lacks auth to update""",
                     )
                 cur.execute(
                     """
