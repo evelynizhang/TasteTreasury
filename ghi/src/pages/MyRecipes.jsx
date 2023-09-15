@@ -9,6 +9,7 @@ import RecipeCard from "../components/RecipeCard";
 import { useNavigate } from "react-router-dom";
 import TagsFilter from "../components/TagsFilter";
 import NoRecipes from "../components/NoRecipes";
+import { Link } from "react-router-dom";
 
 function MyRecipes() {
   const searchCriteria = useSelector((state) => state.search.value);
@@ -41,7 +42,9 @@ function MyRecipes() {
           <Header h1Input="Personal Recipes" />
           <TagsFilter />
           <SearchBar />
-          <NoRecipes message="There are no recipes" />
+          <Link to="/recipes/create">
+            <NoRecipes message="There are no recipes, add one now!" />
+          </Link>
         </>
       );
     }

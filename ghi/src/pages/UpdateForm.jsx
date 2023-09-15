@@ -147,8 +147,8 @@ function UpdateForm() {
   return (
     <>
       <div className="col-md-6 offset-md-3">
-        <h1>Update {name} Recipe</h1>
-        <form onSubmit={handleUpdate}>
+        <h1>Update {name}</h1>
+        <form onSubmit={handleUpdate} className="card p-3 bg-white">
           <FormInput
             id="name"
             placeholder="Enter Recipe Name"

@@ -113,8 +113,8 @@ function RecipeForm() {
     <>
       <div className="body">
         <div className="col-md-6 offset-md-3">
-          <h1>Add Your Favorite Recipe</h1>
-          <form onSubmit={handleSubmit}>
+          <h1>Add a Recipe</h1>
+          <form onSubmit={handleSubmit} className="card p-3 bg-white">
             <FormInput
               id="name"
               placeholder="Enter Recipe Name"
