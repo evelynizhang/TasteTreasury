@@ -65,7 +65,7 @@ function TagsFilter() {
           Reset
         </button>
       </div>
-      <div class="button-group">
+      <div className="button-group">
         {selectedTags.map((tag, index) => {
           return (
             <button

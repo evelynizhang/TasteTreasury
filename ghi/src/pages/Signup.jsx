@@ -23,7 +23,7 @@ function Signup() {
   }, [account]);
 
   useEffect(() => {
-    if (signupResponse.isSuccess) navigate("/");
+    if (signupResponse.isSuccess) navigate("/recipes/mine");
   }, [signupResponse]);
 
   if (getAccounts.status === "fulfilled") {

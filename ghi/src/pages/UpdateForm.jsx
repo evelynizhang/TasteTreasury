@@ -147,7 +147,7 @@ function UpdateForm() {
   return (
     <>
       <div className="col-md-6 offset-md-3">
-        <h1>Update Recipe form</h1>
+        <h1>Update {name} Recipe</h1>
         <form onSubmit={handleUpdate}>
           <FormInput
             id="name"

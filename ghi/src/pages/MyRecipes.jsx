@@ -7,9 +7,12 @@ import SearchBar from "../components/SearchBar";
 import Header from "../components/Banner";
 import RecipeCard from "../components/RecipeCard";
 import { useNavigate } from "react-router-dom";
+import TagsFilter from "../components/TagsFilter";
+import NoRecipes from "../components/NoRecipes";
 
 function MyRecipes() {
   const searchCriteria = useSelector((state) => state.search.value);
+  const tagsFilterCriteria = useSelector((state) => state.filterTags.value);
   const { data: account } = useGetTokenQuery();
   const { data: myRecipes, status } = useGetMyRecipesQuery();
   const navigate = useNavigate();
@@ -21,13 +24,31 @@ function MyRecipes() {
   const filteredData = () => {
     if (searchCriteria)
       return myRecipes.filter((recipe) => recipe.name.includes(searchCriteria));
+    if (tagsFilterCriteria) {
+      return myRecipes.filter((recipe) => {
+        return tagsFilterCriteria.every((tag) => {
+          return recipe.tags.includes(tag);
+        });
+      });
+    }
     return myRecipes;
   };
 
   if (status === "fulfilled") {
+    if (filteredData().length === 0) {
+      return (
+        <>
+          <Header h1Input="Personal Recipes" />
+          <TagsFilter />
+          <SearchBar />
+          <NoRecipes message="There are no recipes" />
+        </>
+      );
+    }
     return (
       <>
         <Header h1Input="Personal Recipes" />
+        <TagsFilter />
         <SearchBar />
         <section className="py-5">
           <div className="container px-4 mt-3">
