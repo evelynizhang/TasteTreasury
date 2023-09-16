@@ -22,7 +22,7 @@ function SingleRecipe() {
 
   useEffect(() => {
     if (deleteRecipeResponse.isSuccess) navigate("/recipes/mine");
-  }, [deleteRecipeResponse, navigate]);
+  }, [deleteRecipeResponse]);
 
   const handleSubmit = () => {
     confirmAlert({

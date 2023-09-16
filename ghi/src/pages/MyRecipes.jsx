@@ -19,8 +19,8 @@ function MyRecipes() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!account) navigate("/login");
-  }, [account]);
+    if (!account) navigate("/");
+  }, [account, navigate]);
 
   const filteredData = () => {
     if (searchCriteria)

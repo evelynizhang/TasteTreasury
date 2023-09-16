@@ -13,6 +13,10 @@ function Nav() {
     if (logoutResponse.isSuccess) navigate("/");
   }, [logoutResponse]);
 
+  const handleLogout = () => {
+    logout();
+  };
+
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mx-3">
       <NavLink className="navbar-brand" to="/">
@@ -62,7 +66,7 @@ function Nav() {
         {account && (
           <button
             className="btn btn-outline-danger ml-2"
-            onClick={() => logout()}
+            onClick={handleLogout}
           >
             Logout
           </button>

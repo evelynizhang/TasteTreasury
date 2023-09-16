@@ -19,14 +19,14 @@ function Login() {
 
   useEffect(() => {
     if (account) navigate("/recipes/mine");
-  }, [account, navigate]);
+  }, [account]);
 
   useEffect(() => {
     if (loginResponse.isSuccess) navigate("/recipes/mine");
     if (loginResponse.status === "rejected") {
       setErrorMessage("incorrect password");
     }
-  }, [loginResponse, navigate]);
+  }, [loginResponse]);
 
   if (getAccounts.status === "fulfilled") {
     const allUsername = getAccounts.data.map((each) => each.username);
@@ -57,9 +57,6 @@ function Login() {
                     {errorMessage}
                   </div>
                 )}
-                {/* <label className="form-label mb-0" htmlFor="Username">
-                  Username
-                </label> */}
                 <FormInput
                   type="text"
                   id="Login_username"
@@ -69,9 +66,6 @@ function Login() {
                   maxLength="50"
                   labelText="Username"
                 />
-                {/* <label className="form-label mb-0" htmlFor="Password">
-                  Password
-                </label> */}
                 <FormInput
                   id="Login_password"
                   type="password"
