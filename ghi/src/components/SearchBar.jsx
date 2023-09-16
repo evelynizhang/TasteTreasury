@@ -8,7 +8,7 @@ const SearchBar = () => {
 
   useEffect(() => {
     dispatch(reset());
-  }, []);
+  }, [dispatch]);
 
   const handleSubmit = (e) => {
     e.preventDefault();

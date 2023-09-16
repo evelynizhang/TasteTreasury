@@ -37,7 +37,7 @@ function UpdateForm() {
       }
       if (!account) navigate("/login");
     }
-  }, [account, recipeData]);
+  }, [account, recipeData, navigate, recipe_id]);
 
   const options = [];
   if (tagList.status === "fulfilled") {
@@ -75,7 +75,7 @@ function UpdateForm() {
 
   useEffect(() => {
     if (updateRecipeResponse.isSuccess) navigate(`/recipes/${recipe_id}`);
-  }, [updateRecipeResponse]);
+  }, [updateRecipeResponse, navigate, recipe_id]);
 
   const handleIngredientsAdd = () => {
     setIngredients([...ingredients, ""]);

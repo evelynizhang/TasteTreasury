@@ -26,12 +26,12 @@ function RecipeForm() {
 
   useEffect(() => {
     if (!account) navigate("/login");
-  }, [account]);
+  }, [account, navigate]);
 
   useEffect(() => {
     if (newRecipeResponse.isSuccess)
       navigate(`/recipes/${newRecipeResponse.data.id}`);
-  }, [newRecipeResponse]);
+  }, [newRecipeResponse, navigate]);
 
   const options = [];
   if (tagList.status === "fulfilled") {
