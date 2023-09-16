@@ -1,4 +1,4 @@
-from models import RecipeIn, RecipeOut, Direction, HttpError
+from models import RecipeIn, RecipeOut, Direction
 from queries.pool import pool
 from fastapi import HTTPException
 
@@ -20,7 +20,10 @@ class RecipeQueries:
                 # tuple containing specified values from recipe table
                 recipe = recipe_data.fetchone()
                 if recipe is None:
-                    raise HTTPException(status_code=400, detail="Unable to match id to existing recipe")
+                    raise HTTPException(
+                        status_code=400,
+                        detail="Unable to match id to existing recipe",
+                    )
                 ingredients_data = cur.execute(
                     """
                     SELECT item
@@ -44,7 +47,11 @@ class RecipeQueries:
                 # convert from list of tuples to list of Direction objects
                 directions = []
                 for direction in directions_data.fetchall():
-                    directions.append(Direction(step_number=direction[1], recipe_step=direction[0]))
+                    directions.append(
+                        Direction(
+                            step_number=direction[1], recipe_step=direction[0]
+                        )
+                    )
                 tags_data = cur.execute(
                     """
                     SELECT tag_name
@@ -201,7 +208,13 @@ class RecipeQueries:
                 )
                 result = recipe.fetchone()
                 if result is None:
-                    raise HTTPException(status_code=400, detail="recipe does not exist/user lacks auth to update")
+                    raise HTTPException(
+                        status_code=400,
+                        detail="""
+                        recipe does not
+                        exist/user lacks
+                        auth to update""",
+                    )
                 cur.execute(
                     """
                     DELETE FROM recipes
@@ -228,7 +241,13 @@ class RecipeQueries:
                 result = recipe.fetchone()
                 print(result)
                 if result is None:
-                    raise HTTPException(status_code=400, detail="recipe does not exist/user lacks auth to update")
+                    raise HTTPException(
+                        status_code=400,
+                        detail="""
+                        recipe does not
+                        exist/user lacks
+                        auth to update""",
+                    )
                 cur.execute(
                     """
                     UPDATE recipes
@@ -298,4 +317,6 @@ class RecipeQueries:
                         """,
                         [recipe_id, tag],
                     )
-                return RecipeOut(id=recipe_id, **info.dict(), account_id=account_id)
+                return RecipeOut(
+                    id=recipe_id, **info.dict(), account_id=account_id
+                )

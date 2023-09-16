@@ -16,21 +16,51 @@ router = APIRouter()
 
 def data_validation(info: RecipeIn):
     if len(info.name) > 100:
-        raise HTTPException(status_code=422, detail="Recipe name must be no greater than 100 characters")
+        raise HTTPException(
+            status_code=422,
+            detail="""
+                            Recipe name must be no
+                            greater than 100 characters""",
+        )
     if len(info.prep_time) > 100:
-        raise HTTPException(status_code=422, detail="prep_time must be no greater than 100 characters")
+        raise HTTPException(
+            status_code=422,
+            detail="""
+                            prep_time must be no
+                            greater than 100 characters""",
+        )
     if info.servings < 0 or info.servings > 32767:
         raise HTTPException(
-            status_code=422, detail="servings must be a non-negative integer value no greater than 32767"
+            status_code=422,
+            detail="""
+            servings must be a non-negative
+            integer value no greater than 32767""",
         )
     if len(info.picture_url) > 1000:
-        raise HTTPException(status_code=422, detail="picture_url must be no greater than 1000 characters")
+        raise HTTPException(
+            status_code=422,
+            detail="""
+                            picture_url must be no
+                            greater than 1000 characters""",
+        )
     for ingredient in info.ingredients:
         if len(ingredient) > 100:
-            raise HTTPException(status_code=422, detail="Each ingredient must be no greater than 100 characters")
+            raise HTTPException(
+                status_code=422,
+                detail="""
+                                Each ingredient
+                                must be no greater
+                                than 100 characters""",
+            )
     for direction in info.directions:
         if len(direction.recipe_step) > 1000:
-            raise HTTPException(status_code=422, detail="Each recipe_step must be no greater than 1000 characters")
+            raise HTTPException(
+                status_code=422,
+                detail="""
+                                Each recipe_step must
+                                be no greater than 1000
+                                characters""",
+            )
 
 
 @router.post("/api/recipes", response_model=RecipeOut)
