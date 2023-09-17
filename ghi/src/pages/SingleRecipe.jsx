@@ -18,11 +18,11 @@ function SingleRecipe() {
     Number(recipe_id)
   );
   const getToken = useGetTokenQuery();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
-  useEffect(() => {
-    if (deleteRecipeResponse.isSuccess) navigate("/recipes/mine");
-  }, [deleteRecipeResponse]);
+  // useEffect(() => {
+  //   if (deleteRecipeResponse.isSuccess) navigate("/recipes/mine");
+  // }, [deleteRecipeResponse, navigate]);
 
   const handleSubmit = () => {
     confirmAlert({
@@ -31,7 +31,10 @@ function SingleRecipe() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => deleteRecipe(Number(recipe_id)),
+          onClick: () => {
+            deleteRecipe(Number(recipe_id));
+            window.location.href = "/recipes/mine";
+          },
         },
         {
           label: "No",

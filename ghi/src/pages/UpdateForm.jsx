@@ -37,7 +37,7 @@ function UpdateForm() {
       }
       if (!account) navigate("/login");
     }
-  }, [account, recipeData]);
+  }, [account, recipeData, navigate, recipe_id]);
 
   const options = [];
   if (tagList.status === "fulfilled") {

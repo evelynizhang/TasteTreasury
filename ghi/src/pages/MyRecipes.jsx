@@ -20,7 +20,7 @@ function MyRecipes() {
 
   useEffect(() => {
     if (!account) navigate("/login");
-  }, [account]);
+  }, [account, navigate]);
 
   const filteredData = () => {
     if (searchCriteria)

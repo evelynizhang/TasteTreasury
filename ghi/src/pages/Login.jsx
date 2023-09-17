@@ -19,14 +19,14 @@ function Login() {
 
   useEffect(() => {
     if (account) navigate("/recipes/mine");
-  }, [account]);
+  }, [account, navigate]);
 
   useEffect(() => {
     if (loginResponse.isSuccess) navigate("/recipes/mine");
     if (loginResponse.status === "rejected") {
       setErrorMessage("incorrect password");
     }
-  }, [loginResponse]);
+  }, [loginResponse, navigate]);
 
   if (getAccounts.status === "fulfilled") {
     const allUsername = getAccounts.data.map((each) => each.username);
@@ -57,9 +57,6 @@ function Login() {
                     {errorMessage}
                   </div>
                 )}
-                {/* <label className="form-label mb-0" htmlFor="Username">
-                  Username
-                </label> */}
                 <FormInput
                   type="text"
                   id="Login_username"
@@ -69,9 +66,6 @@ function Login() {
                   maxLength="50"
                   labelText="Username"
                 />
-                {/* <label className="form-label mb-0" htmlFor="Password">
-                  Password
-                </label> */}
                 <FormInput
                   id="Login_password"
                   type="password"
@@ -102,7 +96,7 @@ function Login() {
             <div className="col d-none d-md-block mt-2">
               <img
                 src="https://images.unsplash.com/photo-1506280754576-f6fa8a873550?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80"
-                alt="Login image"
+                alt="Login"
                 className="img-thumbnail"
                 style={{ maxHeight: "700px" }}
               />

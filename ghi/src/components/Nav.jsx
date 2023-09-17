@@ -1,6 +1,6 @@
 import { NavLink } from "react-router-dom";
 import { useGetTokenQuery, useLogoutMutation } from "../app/recipeApiSlice";
-import { useEffect } from "react";
+// import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function Nav() {
@@ -9,14 +9,19 @@ function Nav() {
   const [logout, logoutResponse] = useLogoutMutation();
   const navigate = useNavigate();
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (logoutResponse.isSuccess) navigate("/");
+  // }, [logoutResponse]);
+
+  const handleLogout = () => {
+    logout();
     if (logoutResponse.isSuccess) navigate("/");
-  }, [logoutResponse]);
+  };
 
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light mx-3">
       <NavLink className="navbar-brand" to="/">
-        <img className="icon" src={logo} />
+        <img className="icon" src={logo} alt="homeIcon" />
       </NavLink>
       <button
         className="navbar-toggler"
@@ -62,7 +67,7 @@ function Nav() {
         {account && (
           <button
             className="btn btn-outline-danger ml-2"
-            onClick={() => logout()}
+            onClick={handleLogout}
           >
             Logout
           </button>

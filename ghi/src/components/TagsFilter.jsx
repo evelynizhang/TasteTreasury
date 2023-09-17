@@ -11,7 +11,7 @@ function TagsFilter() {
 
   useEffect(() => {
     dispatch(reset());
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     if (tagsData.isSuccess) {
