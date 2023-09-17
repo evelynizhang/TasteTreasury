@@ -1,5 +1,5 @@
-import { React, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { React } from "react";
+import { useParams } from "react-router-dom";
 import {
   useGetSingleRecipeQuery,
   useDeleteRecipeMutation,
@@ -13,7 +13,7 @@ import Nutrition from "../components/NutritionTable";
 
 function SingleRecipe() {
   let { recipe_id } = useParams();
-  const [deleteRecipe, deleteRecipeResponse] = useDeleteRecipeMutation();
+  const [deleteRecipe] = useDeleteRecipeMutation();
   const { data, isLoading, isError } = useGetSingleRecipeQuery(
     Number(recipe_id)
   );

@@ -75,7 +75,7 @@ function UpdateForm() {
 
   useEffect(() => {
     if (updateRecipeResponse.isSuccess) navigate(`/recipes/${recipe_id}`);
-  }, [updateRecipeResponse]);
+  }, [updateRecipeResponse, navigate, recipe_id]);
 
   const handleIngredientsAdd = () => {
     setIngredients([...ingredients, ""]);
