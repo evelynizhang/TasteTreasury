@@ -1,2 +1,2 @@
 [flake8]
-exclude = ghi,docs,journals,api/migrations,api/recipe_data
+exclude = ghi,docs,journals,api/migrations,api/recipe_data.py

@@ -25,7 +25,7 @@ function Footer() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              Evelyn Zhang
+              Ni (Evelyn) Zhang
             </Link>
           </div>
           <div className="col-md-auto">

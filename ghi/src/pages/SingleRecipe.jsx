@@ -1,5 +1,5 @@
-import { React, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { React } from "react";
+import { useParams } from "react-router-dom";
 import {
   useGetSingleRecipeQuery,
   useDeleteRecipeMutation,
@@ -13,16 +13,11 @@ import Nutrition from "../components/NutritionTable";
 
 function SingleRecipe() {
   let { recipe_id } = useParams();
-  const [deleteRecipe, deleteRecipeResponse] = useDeleteRecipeMutation();
+  const [deleteRecipe] = useDeleteRecipeMutation();
   const { data, isLoading, isError } = useGetSingleRecipeQuery(
     Number(recipe_id)
   );
   const getToken = useGetTokenQuery();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (deleteRecipeResponse.isSuccess) navigate("/recipes/mine");
-  }, [deleteRecipeResponse]);
 
   const handleSubmit = () => {
     confirmAlert({
@@ -31,11 +26,13 @@ function SingleRecipe() {
       buttons: [
         {
           label: "Yes",
-          onClick: () => deleteRecipe(Number(recipe_id)),
+          onClick: () => {
+            deleteRecipe(Number(recipe_id));
+            window.location.href = "/recipes/mine";
+          },
         },
         {
           label: "No",
-          //onClick: () => alert('Click No')
         },
       ],
     });

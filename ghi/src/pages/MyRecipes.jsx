@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 import SearchBar from "../components/SearchBar";
 import Header from "../components/Banner";
 import RecipeCard from "../components/RecipeCard";
-import { useNavigate } from "react-router-dom";
 import TagsFilter from "../components/TagsFilter";
 import NoRecipes from "../components/NoRecipes";
 import { Link } from "react-router-dom";
@@ -14,13 +13,14 @@ import { Link } from "react-router-dom";
 function MyRecipes() {
   const searchCriteria = useSelector((state) => state.search.value);
   const tagsFilterCriteria = useSelector((state) => state.filterTags.value);
-  const { data: account } = useGetTokenQuery();
   const { data: myRecipes, status } = useGetMyRecipesQuery();
-  const navigate = useNavigate();
+  const token = useGetTokenQuery();
 
   useEffect(() => {
-    if (!account) navigate("/login");
-  }, [account]);
+    if (token.data && token.status === "pending") {
+      window.location.href = "/";
+    }
+  }, [token]);
 
   const filteredData = () => {
     if (searchCriteria)

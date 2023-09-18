@@ -17,7 +17,7 @@ function Nutrition() {
       nutritionInput["ingr"] = data.ingredients;
       nutrition(nutritionInput);
     }
-  }, [data]);
+  }, [data, nutrition]);
 
   if (isError) return <h1>An error has occurred</h1>;
   if (isLoading) return <h1>Page still Loading</h1>;

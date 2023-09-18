@@ -11,11 +11,9 @@ export const filterTagsSlice = createSlice({
     reset: (state) => {
       state.value = [];
     },
-    // passing the tag to add to the list in payload
     add: (state, action) => {
       state.value.push(action.payload);
     },
-    // passing a new list minus one tag in payload
     remove: (state, action) => {
       state.value.splice(action.payload, 1);
     },
