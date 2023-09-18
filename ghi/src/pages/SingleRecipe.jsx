@@ -18,11 +18,6 @@ function SingleRecipe() {
     Number(recipe_id)
   );
   const getToken = useGetTokenQuery();
-  // const navigate = useNavigate();
-
-  // useEffect(() => {
-  //   if (deleteRecipeResponse.isSuccess) navigate("/recipes/mine");
-  // }, [deleteRecipeResponse, navigate]);
 
   const handleSubmit = () => {
     confirmAlert({
@@ -38,7 +33,6 @@ function SingleRecipe() {
         },
         {
           label: "No",
-          //onClick: () => alert('Click No')
         },
       ],
     });
