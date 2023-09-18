@@ -55,7 +55,7 @@ build-front-end-job:
     # You need to substitute in your real values for
     # GROUP_NAME, PROJECT_NAME, & WEBSERVICE_NAME below.
     PUBLIC_URL: https://team-171123533.gitlab.io/module3-project-gamma
-    REACT_APP_API_HOST: https://DEPLOYED_API_SERVICE.mod3projects.com
+    REACT_APP_API_HOST: https://api.may-ct-3.mod3projects.com
   script:
     - cd ghi
     - npm install
