@@ -10,9 +10,13 @@ app.include_router(accounts.router, tags=["Accounts"])
 app.include_router(recipes.router, tags=["Recipes"])
 app.include_router(tags.router, tags=["Tags"])
 
+origins = [
+    "http://localhost:3000",
+    os.environ.get("CORS_HOST", None),
+]
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[os.environ.get("CORS_HOST", None)],
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
