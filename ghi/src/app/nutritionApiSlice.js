@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-const API_URL = `https://api.edamam.com/api/nutrition-details?app_id=${process.env.REACT_APP_APP_ID}&app_key=${process.env.REACT_APP_APP_KEY}`;
+const id = process.env.REACT_APP_APP_ID;
+const key = process.env.REACT_APP_APP_KEY;
+const API_URL = `https://api.edamam.com/api/nutrition-details?app_id=${id}&app_key=${key}`;
 
 export const nutritionApi = createApi({
   reducerPath: "nutritionApi",
