@@ -9,7 +9,7 @@ services:
       DATABASE_URL: postgresql://example_user:secret@db/example
       SIGNING_KEY: ${SIGNING_KEY}
       WAIT_HOSTS: db:5432
-      CORS_HOST: https://team-171123533.gitlab.io
+      CORS_HOST: http://localhost:3000
     build:
       context: api
       dockerfile: Dockerfile.dev
