@@ -105,8 +105,7 @@ function SingleRecipe() {
               </div>
             </li>
           </ul>
-        </section>
-        <section className="main">
+
           <ul>
             <div>
               <li className="text-left">
