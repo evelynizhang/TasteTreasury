@@ -28,7 +28,7 @@ function SingleRecipe() {
           label: "Yes",
           onClick: () => {
             deleteRecipe(Number(recipe_id));
-            window.location.href = "/recipes/mine";
+            window.location.href = "/module3-project-gamma/recipes/mine";
           },
         },
         {
