@@ -12,8 +12,10 @@ import UpdateForm from "./pages/UpdateForm";
 import Footer from "./components/Footer";
 
 function App() {
+  const domain = /https:\/\/[^/]+/;
+  const basename = process.env.PUBLIC_URL.replace(domain, "");
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Nav />
       <div id="content-body">
         <Routes>
