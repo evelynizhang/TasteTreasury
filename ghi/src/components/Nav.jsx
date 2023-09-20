@@ -5,12 +5,13 @@ import { useNavigate } from "react-router-dom";
 function Nav() {
   const logo = process.env.PUBLIC_URL + "/favicon.ico";
   const { data: account } = useGetTokenQuery();
-  const [logout, logoutResponse] = useLogoutMutation();
+  const [logout] = useLogoutMutation();
   const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    if (logoutResponse.isSuccess) navigate("/");
+    // if (logoutResponse.isSuccess) navigate("/");
+    window.location.href = "/module3-project-gamma";
   };
 
   return (
