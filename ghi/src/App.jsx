@@ -12,7 +12,7 @@ import UpdateForm from "./pages/UpdateForm";
 import Footer from "./components/Footer";
 
 function App() {
-  const domain = /https:\/\/[^/]+/;
+  const domain = /https:taste-treasury/;
   const basename = process.env.PUBLIC_URL.replace(domain, "");
   return (
     <BrowserRouter basename={basename}>
