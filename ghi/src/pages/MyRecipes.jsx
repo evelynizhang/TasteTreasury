@@ -18,7 +18,7 @@ function MyRecipes() {
 
   useEffect(() => {
     if (token.data && token.status === "pending") {
-      window.location.href = "/module3-project-gamma/recipes/mine";
+      window.location.href = "/module3-project-gamma";
     }
   }, [token]);
 
