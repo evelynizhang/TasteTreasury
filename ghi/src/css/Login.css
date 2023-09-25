@@ -1,9 +1,0 @@
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.col-md-6.offset-md-3 {
-  flex-grow: 1;
-}

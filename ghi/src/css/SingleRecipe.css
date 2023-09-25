@@ -87,16 +87,6 @@ a:hover {
   margin: 0.5rem;
 }
 
-#root {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-}
-
-.container.px-5.my-5 {
-  flex-grow: 1;
-}
-
 .performance-facts__table--small {
   @extend .performance-facts__table;
   border-bottom: 1px solid #999;

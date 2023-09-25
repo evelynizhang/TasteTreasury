@@ -6,7 +6,6 @@ import {
 } from "../app/recipeApiSlice";
 import { useNavigate, Link } from "react-router-dom";
 import FormInput from "../components/FormInput";
-import "../css/Login.css";
 
 function Login() {
   const [username, setUsername] = useState("");
