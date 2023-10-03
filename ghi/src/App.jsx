@@ -22,11 +22,13 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
-          <Route path="recipes" element={<AllRecipes />} />
-          <Route path="recipes/mine" element={<MyRecipes />} />
-          <Route path="recipes/create" element={<RecipeForm />} />
-          <Route path="recipes/:recipe_id" element={<SingleRecipe />} />
-          <Route path="recipes/:recipe_id/update" element={<UpdateForm />} />
+          <Route path="recipes">
+            <Route index element={<AllRecipes />} />
+            <Route path="mine" element={<MyRecipes />} />
+            <Route path="create" element={<RecipeForm />} />
+            <Route path=":recipe_id" element={<SingleRecipe />} />
+            <Route path=":recipe_id/update" element={<UpdateForm />} />
+          </Route>
         </Routes>
       </div>
       <Footer />
