@@ -19,12 +19,12 @@ function Signup() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (account) navigate("/recipes/mine");
-  }, [account, navigate]);
-
-  useEffect(() => {
     if (signupResponse.isSuccess) navigate("/recipes/mine");
   }, [signupResponse, navigate]);
+
+  useEffect(() => {
+    if (account) navigate("/recipes/mine");
+  }, [account, navigate]);
 
   if (getAccounts.status === "fulfilled") {
     const allUsername = getAccounts.data.map((each) => each.username);
